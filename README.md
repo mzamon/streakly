@@ -39,4 +39,15 @@ Streakly uses a clean Bottom Navigation Bar with four primary tabs:
 3. **Rewards:** Uncluttered overview of total points, user level, available badges, and redeemable custom reward items.
 4. **Profile & Settings:** Account management, Dark Mode toggle, language selector, manual cloud backup & sync trigger, and CSV/JSON data export.
 
+---
+
+## 🏗️ Technical Architecture & Tech Stack
+
+* **Language & UI:** Kotlin, Material Design, RecyclerView
+* **Local Persistence:** Room Database, EncryptedSharedPreferences
+* **Networking & API:** Retrofit, OkHttp, Node.js (Express), JSON Payloads
+* **Database & Cloud:** PostgreSQL (relational storage), Render (hosting), Firebase Authentication & FCM
+* **Background Processing:** Android WorkManager, AlarmManager
+* **CI/CD Pipeline:** GitHub Actions
+
 
