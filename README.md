@@ -41,7 +41,7 @@ Streakly uses a clean Bottom Navigation Bar with four primary tabs:
 
 ---
 
-## 🏗️ Technical Architecture & Tech Stack
+## Technical Architecture & Tech Stack
 
 * **Language & UI:** Kotlin, Material Design, RecyclerView
 * **Local Persistence:** Room Database, EncryptedSharedPreferences
