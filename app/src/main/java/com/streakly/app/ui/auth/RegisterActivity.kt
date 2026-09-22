@@ -31,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
             finish()
         }
 
+        // 3-segment password strength bar (sand -> flame -> jade)
         binding.etPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
@@ -44,9 +45,9 @@ class RegisterActivity : AppCompatActivity() {
                 binding.pwStrength.progressTintList = ContextCompat.getColorStateList(
                     this@RegisterActivity,
                     when (score) {
-                        0 -> R.color.primary_light
-                        1 -> R.color.primary
-                        else -> R.color.accent
+                        0 -> R.color.sand_200
+                        1 -> R.color.flame_500
+                        else -> R.color.jade_500
                     }
                 )
             }

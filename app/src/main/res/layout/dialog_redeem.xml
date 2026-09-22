@@ -1,54 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:padding="24dp"
+    android:background="@color/background_primary">
 
-    <TextView
-        android:id="@+id/tv_reward_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reward Name"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_primary" />
+    <TextView android:id="@+id/tvRewardName"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="@color/text_primary" android:textSize="20sp"
+        android:fontFamily="serif" />
 
-    <TextView
-        android:id="@+id/tv_cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0 pts"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
+    <TextView android:id="@+id/tvCost"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="@color/flame_500" android:textSize="16sp"
         android:layout_marginTop="8dp" />
 
-    <TextView
-        android:id="@+id/tv_balance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remaining Balance: 0 pts"
-        android:textSize="14sp"
-        android:textColor="@color/text_secondary"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="24dp" />
+    <TextView android:id="@+id/tvBalance"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="@color/text_secondary" android:textSize="14sp"
+        android:layout_marginTop="4dp" />
 
-    <Button
-        android:id="@+id/btn_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm Redemption"
-        style="@style/Widget.Streakly.Button" />
+    <Button android:id="@+id/btnConfirm"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" android:text="@string/confirm_redeem"
+        android:background="@drawable/bg_button_flame"
+        android:textColor="@color/text_on_flame" android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/btn_cancel_dialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="@color/text_secondary"
-        android:layout_marginTop="8dp" />
-
+    <Button android:id="@+id/btnCancelDialog"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" android:text="@string/cancel"
+        android:background="@drawable/bg_button_outline"
+        android:textColor="@color/streakly_teal" android:textAllCaps="false" />
 </LinearLayout>

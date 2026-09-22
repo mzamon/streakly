@@ -73,7 +73,7 @@ class HabitDetailActivity : AppCompatActivity() {
 
             binding.btnMarkDone.isEnabled = !doneToday
             binding.btnMarkDone.alpha = if (doneToday) 0.5f else 1f
-            binding.btnMarkDone.setText(if (doneToday) "Completed" else "Mark Done")
+            binding.btnMarkDone.setText(if (doneToday) R.string.completed else R.string.mark_done)
 
             binding.tvReminder.setOnClickListener {
                 TimePickerDialog(this@HabitDetailActivity, { _, h, m ->
@@ -119,14 +119,14 @@ class HabitDetailActivity : AppCompatActivity() {
             repo.getHabit(habitId)?.let {
                 repo.saveHabit(it.copy(notes = binding.etNotes.text.toString()))
             }
-            android.widget.Toast.makeText(this@HabitDetailActivity, "Saved",
+            android.widget.Toast.makeText(this@HabitDetailActivity, R.string.save,
                 android.widget.Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun confirmDelete() {
-        UiUtils.confirm(this, "Delete Habit",
-            "Are you sure you want to delete this habit?", R.string.settings) {
+        UiUtils.confirm(this, getString(R.string.delete_habit),
+            getString(R.string.delete_habit_confirm), R.string.delete) {
             lifecycleScope.launch {
                 repo.getHabit(habitId)?.let {
                     repo.deleteHabit(it)

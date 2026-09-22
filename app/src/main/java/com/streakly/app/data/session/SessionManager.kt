@@ -1,44 +1,63 @@
 package com.streakly.app.data.session
 
 import android.content.Context
-import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 
 class SessionManager(context: Context) {
-    private val prefs: SharedPreferences = context.getSharedPreferences("streakly_prefs", Context.MODE_PRIVATE)
 
-    var authToken: String?
-        get() = prefs.getString("auth_token", null)
-        set(value) = prefs.edit().putString("auth_token", value).apply()
-
-    var userName: String?
-        get() = prefs.getString("user_name", "User")
-        set(value) = prefs.edit().putString("user_name", value).apply()
+    private val prefs = EncryptedSharedPreferences.create(
+        context,
+        "streakly_secure_prefs",
+        MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
 
     var userEmail: String?
-        get() = prefs.getString("user_email", "")
-        set(value) = prefs.edit().putString("user_email", value).apply()
+        get() = prefs.getString(KEY_EMAIL, null)
+        set(v) { prefs.edit().putString(KEY_EMAIL, v).apply() }
 
-    var theme: String
-        get() = prefs.getString("theme", "system") ?: "system"
-        set(value) = prefs.edit().putString("theme", value).apply()
+    var userName: String?
+        get() = prefs.getString(KEY_NAME, null)
+        set(v) { prefs.edit().putString(KEY_NAME, v).apply() }
 
-    var language: String
-        get() = prefs.getString("language", "system") ?: "system"
-        set(value) = prefs.edit().putString("language", value).apply()
+    var isLoggedIn: Boolean
+        get() = prefs.getBoolean(KEY_LOGGED, false)
+        set(v) { prefs.edit().putBoolean(KEY_LOGGED, v).apply() }
 
     var notificationsEnabled: Boolean
-        get() = prefs.getBoolean("notifications_enabled", true)
-        set(value) = prefs.edit().putBoolean("notifications_enabled", value).apply()
+        get() = prefs.getBoolean(KEY_NOTIF, true)
+        set(v) { prefs.edit().putBoolean(KEY_NOTIF, v).apply() }
+
+    var theme: String
+        get() = prefs.getString(KEY_THEME, "dark") ?: "dark"
+        set(v) { prefs.edit().putString(KEY_THEME, v).apply() }
+
+    var language: String
+        get() = prefs.getString(KEY_LANG, "system") ?: "system"
+        set(v) { prefs.edit().putString(KEY_LANG, v).apply() }
 
     var lastSyncTime: Long
-        get() = prefs.getLong("last_sync_time", 0L)
-        set(value) = prefs.edit().putLong("last_sync_time", value).apply()
+        get() = prefs.getLong(KEY_LAST_SYNC, 0L)
+        set(v) { prefs.edit().putLong(KEY_LAST_SYNC, v).apply() }
 
     var lastRiskAlertDate: String?
-        get() = prefs.getString("last_risk_alert_date", null)
-        set(value) = prefs.edit().putString("last_risk_alert_date", value).apply()
+        get() = prefs.getString(KEY_RISK_DATE, null)
+        set(v) { prefs.edit().putString(KEY_RISK_DATE, v).apply() }
 
     fun clear() {
         prefs.edit().clear().apply()
+    }
+
+    companion object {
+        private const val KEY_EMAIL = "email"
+        private const val KEY_NAME = "name"
+        private const val KEY_LOGGED = "logged"
+        private const val KEY_NOTIF = "notif"
+        private const val KEY_THEME = "theme"
+        private const val KEY_LANG = "lang"
+        private const val KEY_LAST_SYNC = "last_sync"
+        private const val KEY_RISK_DATE = "risk_date"
     }
 }

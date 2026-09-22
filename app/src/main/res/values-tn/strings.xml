@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Streakly</string>
+    <string name="login">Tsena</string>
+    <string name="register">Kwadisa</string>
+    <string name="home">Gae</string>
+    <string name="calendar">Khalendara</string>
+    <string name="rewards">Dituelo</string>
+    <string name="profile">Porofaele</string>
+    <string name="settings">Dipeakanyo</string>
+    <string name="add_habit">+ Tsenya tlwaelo</string>
+    <string name="save">Boloka</string>
+    <string name="cancel">Khansela</string>
+    <string name="delete">Phimola</string>
+    <string name="mark_done">Tshwaya go fedile</string>
+</resources>

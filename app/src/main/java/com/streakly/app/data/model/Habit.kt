@@ -1,19 +1,19 @@
 package com.streakly.app.data.model
 
 data class Habit(
-    val localId: Long = 0L,
+    val localId: Long = 0,
     val remoteId: String? = null,
     val name: String,
     val description: String = "",
+    val notes: String = "",
     val color: String = "#F2994A",
     val icon: String = "🔥",
-    val frequencyType: String = "DAILY", // DAILY, DAYS, INTERVAL
-    val daysOfWeek: String = "", // Comma-separated integers e.g. "1,3,5" (Mon, Wed, Fri)
+    val frequencyType: String = "DAILY",
+    val daysOfWeek: String = "",
     val interval: Int = 1,
     val reminderHour: Int = -1,
     val reminderMinute: Int = 0,
-    val notes: String = "",
-    val createdAt: String = java.time.LocalDate.now().toString(),
-    val isPendingSync: Boolean = false,
-    val isDeleted: Boolean = false
+    val createdAt: String = "",
+    val updatedAt: Long = System.currentTimeMillis(),
+    val pendingSync: Boolean = true
 )

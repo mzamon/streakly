@@ -1,77 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/sand_050">
 
-    <LinearLayout
-        android:id="@+id/layout_form"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <LinearLayout android:id="@+id/layoutForm"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" android:padding="28dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/forgot_password"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary"
-            android:layout_marginTop="32dp"
-            android:layout_gravity="center" />
+        <ImageView android:id="@+id/btnBack"
+            android:layout_width="48dp" android:layout_height="48dp"
+            android:src="@drawable/ic_back" android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless" />
 
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="32dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/forgot_password" android:textSize="26sp"
+            android:textColor="@color/text_primary" android:fontFamily="serif"
+            android:layout_marginTop="16dp" />
 
-        <Button
-            android:id="@+id/btn_reset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reset Password"
-            android:layout_marginTop="24dp"
-            style="@style/Widget.Streakly.Button" />
+        <EditText android:id="@+id/etEmail"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/email_hint" android:inputType="textEmailAddress"
+            android:layout_marginTop="24dp" />
+
+        <Button android:id="@+id/btnReset"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" android:text="@string/reset_link"
+            android:background="@drawable/bg_button_flame"
+            android:textColor="@color/text_on_flame" android:textAllCaps="false" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_success"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:gravity="center">
+    <LinearLayout android:id="@+id/layoutSuccess"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" android:gravity="center" android:padding="32dp"
+        android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check Your Email"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/accent"
-            android:layout_marginTop="48dp" />
+        <ImageView android:layout_width="80dp" android:layout_height="80dp"
+            android:src="@drawable/ic_flame_logo" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="If an account exists, a reset link has been sent."
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:textColor="@color/text_secondary" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/check_email" android:textSize="26sp"
+            android:textColor="@color/text_primary" android:fontFamily="serif"
+            android:layout_marginTop="16dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/check_email_msg" android:textColor="@color/text_secondary"
+            android:textSize="15sp" android:gravity="center" android:layout_marginTop="8dp" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_marginTop="32dp"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="@color/text_secondary" />
-
-</LinearLayout>
+</FrameLayout>

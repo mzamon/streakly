@@ -1,12 +1,18 @@
 package com.streakly.app.data.model
 
 data class Reward(
-    val localId: Long = 0L,
+    val id: Long = 0,
     val remoteId: String? = null,
     val name: String,
     val description: String = "",
     val cost: Int,
-    val icon: String = "🎁",
-    val isPendingSync: Boolean = false,
-    val isDeleted: Boolean = false
+    val icon: String = "🏅"
+)
+
+data class Redemption(
+    val id: Long = 0,
+    val rewardId: Long,
+    val rewardName: String,
+    val cost: Int,
+    val date: String
 )

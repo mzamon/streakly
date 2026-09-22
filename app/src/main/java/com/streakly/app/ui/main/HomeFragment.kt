@@ -1,91 +1,89 @@
 package com.streakly.app.ui.main
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.streakly.app.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.streakly.app.data.repository.HabitRepository
-import com.streakly.app.data.session.SessionManager
-import com.streakly.app.databinding.ActivityMainBinding
+import com.streakly.app.databinding.FragmentHomeBinding
+import com.streakly.app.ui.adapters.HabitAdapter
+import com.streakly.app.ui.habit.AddEditHabitActivity
+import com.streakly.app.ui.habit.HabitDetailActivity
 import com.streakly.app.utils.DateUtils
-import com.streakly.app.utils.NotificationHelper
-import com.streakly.app.utils.ReminderScheduler
+import com.streakly.app.utils.Gamification
 import com.streakly.app.utils.StreakCalculator
-import com.streakly.app.worker.SyncWorker
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class HomeFragment : Fragment() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var repo: HabitRepository
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> showFragment(HomeFragment())
-                R.id.nav_calendar -> showFragment(CalendarFragment())
-                R.id.nav_rewards -> showFragment(RewardsFragment())
-                R.id.nav_profile -> showFragment(ProfileFragment())
+    private val adapter = HabitAdapter(
+        onCheck = { habit ->
+            lifecycleScope.launch {
+                repo.markDone(habit)
+                refresh()
             }
-            true
+        },
+        onClick = { habit ->
+            startActivity(
+                Intent(requireContext(), HabitDetailActivity::class.java)
+                    .putExtra(HabitDetailActivity.EXTRA_HABIT_ID, habit.localId)
+            )
         }
-        if (savedInstanceState == null) {
-            binding.bottomNav.selectedItemId = R.id.nav_home
+    )
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        repo = HabitRepository(requireContext())
+        binding.rvHabits.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHabits.adapter = adapter
+        binding.btnAddHabit.setOnClickListener {
+            startActivity(Intent(requireContext(), AddEditHabitActivity::class.java))
         }
+    }
 
-        requestNotificationPermission()
-        SyncWorker.schedulePeriodic(this)
+    override fun onResume() {
+        super.onResume()
+        refresh()
+    }
 
+    private fun refresh() {
         lifecycleScope.launch {
-            val repo = HabitRepository(this@MainActivity)
-            val session = SessionManager(this@MainActivity)
             val habits = repo.getHabits()
-            ReminderScheduler.rescheduleAll(this@MainActivity, habits, session.notificationsEnabled)
-            checkStreakRisk(repo, habits, session)
-        }
-    }
-
-    fun navigateTo(tabId: Int) {
-        binding.bottomNav.selectedItemId = tabId
-    }
-
-    private fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
-    }
-
-    private suspend fun checkStreakRisk(
-        repo: HabitRepository,
-        habits: List<com.streakly.app.data.model.Habit>,
-        session: SessionManager
-    ) {
-        val today = DateUtils.today()
-        if (session.lastRiskAlertDate == today) return
-        for (habit in habits) {
-            val dates = repo.getCompletionDates(habit.localId).toSet()
-            if (StreakCalculator.brokeStreakYesterday(habit, dates)) {
-                if (session.notificationsEnabled) {
-                    NotificationHelper.showStreakRisk(this, habit.name)
-                }
-                session.lastRiskAlertDate = today
-                break
+            val entries = habits.map { h ->
+                val dates = repo.getCompletionDates(h.localId).toSet()
+                HabitAdapter.Entry(
+                    habit = h,
+                    streak = StreakCalculator.currentStreak(h, dates),
+                    doneToday = dates.contains(DateUtils.today())
+                )
             }
+            adapter.entries = entries
+            binding.layoutEmpty.visibility = if (entries.isEmpty()) View.VISIBLE else View.GONE
+
+            val totalCompletions = habits.sumOf { repo.getCompletionDates(it.localId).size }
+            val points = Gamification.pointsForCompletionCount(totalCompletions)
+            binding.tvStreak.text = entries.maxOfOrNull { it.streak }?.toString() ?: "0"
+            binding.tvLevel.text = "Lv. " + Gamification.levelForPoints(points)
+            binding.tvPoints.text = "$points pts"
         }
     }
 
-    private fun requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= 33 &&
-            checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 101)
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

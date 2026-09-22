@@ -25,4 +25,29 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+
+    <color name="streakly_teal">#1F4E5F</color>
+    <color name="teal_900">#101f24</color>
+    <color name="teal_800">#1F4E5F</color>
+    <color name="teal_700">#2c6478</color>
+    <color name="streakly_orange">#F2994A</color>
+    <color name="streakly_orange_light">#F2B27A</color>
+    <color name="flame_500">#F2994A</color>
+    <color name="jade_500">#3FA796</color>
+    <color name="sand_050">#F7F3EC</color>
+    <color name="sand_100">#EFE8DD</color>
+    <color name="sand_200">#D9CFC0</color>
+    <color name="background_primary">#101f24</color>
+    <color name="background_secondary">#182c34</color>
+    <color name="text_primary">#0E1A1F</color>
+    <color name="text_secondary">#5C6B72</color>
+    <color name="text_muted">#97A3A9</color>
+    <color name="text_on_teal">#FFFFFF</color>
+    <color name="text_on_flame">#FFFFFF</color>
+    <color name="error">#EB5757</color>
+    <color name="success">#3FA796</color>
+    <color name="warning">#F2994A</color>
+    <color name="surface">#F7F3EC</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="divider">#E5DDD0</color>
 </resources>

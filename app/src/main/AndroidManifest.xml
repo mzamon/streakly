@@ -1,15 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+        android:name=".StreaklyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:localeConfig="@xml/locales_config"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Streakly" />
+        android:theme="@style/Theme.Streakly"
+        android:usesCleartextTraffic="true">
 
+        <!-- Splash (launcher entry) -->
+        <activity android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Streakly.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Auth & onboarding -->
+        <activity android:name=".ui.onboarding.OnboardingActivity" />
+        <activity android:name=".ui.welcome.WelcomeActivity" android:exported="false"/>
+        <activity android:name=".ui.auth.LoginActivity" android:exported="false"/>
+        <activity android:name=".ui.auth.RegisterActivity" android:exported="false"/>
+        <activity android:name=".ui.auth.ForgotPasswordActivity" android:exported="false"/>
+        <activity android:name=".ui.auth.EmailVerificationActivity" />
+
+        <!-- Main + habit + rewards -->
+        <activity android:name=".ui.main.MainActivity" android:exported="false"/>
+        <activity android:name=".ui.habit.AddEditHabitActivity" android:exported="false"/>
+        <activity android:name=".ui.habit.HabitDetailActivity" android:exported="false"/>
+        <activity android:name=".ui.rewards.CreateEditRewardActivity" />
+        <activity android:name=".ui.rewards.RewardHistoryActivity" />
+        <activity android:name=".ui.rewards.BadgesActivity" />
+
+        <!-- Settings -->
+        <activity android:name=".ui.settings.SettingsActivity" android:exported="false"/>
+        <activity android:name=".ui.settings.LanguageActivity" />
+        <activity android:name=".ui.settings.ThemeActivity" />
+        <activity android:name=".ui.settings.NotificationsActivity" />
+        <activity android:name=".ui.settings.OfflineSyncActivity" />
+        <activity android:name=".ui.settings.DataBackupActivity" />
+        <activity android:name=".ui.settings.AboutHelpActivity" />
+
+        <!-- Sync & stats -->
+        <activity android:name=".ui.sync.SyncStatusActivity" />
+        <activity android:name=".ui.stats.HabitStatsActivity" />
+
+        <!-- FCM -->
+        <service
+            android:name=".fcm.StreaklyMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- FileProvider for CSV export -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- Default FCM notification channel -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/channel_reminders" />
+
+    </application>
 </manifest>

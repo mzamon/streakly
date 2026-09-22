@@ -3,50 +3,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background_primary"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
+        android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btn_prev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;"
-            style="?android:attr/borderlessButtonStyle" />
+        <ImageView
+            android:id="@+id/btnPrev"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_back"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless" />
 
         <TextView
-            android:id="@+id/tv_month"
+            android:id="@+id/tvMonth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Month Year"
+            android:textColor="@color/text_primary"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:fontFamily="serif" />
 
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&gt;"
-            style="?android:attr/borderlessButtonStyle" />
+        <ImageView
+            android:id="@+id/btnNext"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_chevron_right"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
 
     <GridView
-        android:id="@+id/grid_days"
+        android:id="@+id/gridDays"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:numColumns="7"
-        android:verticalSpacing="8dp"
-        android:horizontalSpacing="8dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center" />
+        android:layout_marginTop="12dp"
+        android:verticalSpacing="6dp"
+        android:horizontalSpacing="6dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="■ Jade done  ■ Flame at-risk  ■ Teal today  ■ Sand not-due"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
+    </LinearLayout>
 </LinearLayout>
