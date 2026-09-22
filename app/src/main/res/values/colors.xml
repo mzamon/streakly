@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Ember Board Tokens / Streakly Palette -->
-    <color name="primary">#FF5722</color> <!-- Flame / Orange -->
-    <color name="primary_dark">#E64A19</color>
-    <color name="primary_light">#FFCCBC</color>
-    <color name="accent">#009688</color> <!-- Teal -->
-    <color name="accent_dark">#00796B</color>
+    <!-- Streakly Core Color Palette -->
+    <color name="background_primary">#0B1220</color> <!-- Deep Navy -->
+    <color name="background_secondary">#111B2E</color> <!-- Dark Blue -->
+    <color name="surface">#16233A</color> <!-- Navy Blue / Card background -->
+    <color name="surface_card">#16233A</color>
+    <color name="surface_elevated">#1C2B44</color> <!-- Blue Slate -->
 
-    <color name="background_light">#FAFAFA</color>
-    <color name="background_dark">#121212</color>
+    <color name="primary">#FF7A00</color> <!-- Streak Orange -->
+    <color name="primary_dark">#FF7A00</color>
+    <color name="primary_light">#FF9F1C</color> <!-- Flame Orange -->
 
-    <color name="surface_light">#FFFFFF</color>
-    <color name="surface_dark">#1E1E1E</color>
+    <color name="flame_500">#FF7A00</color> <!-- Streak Orange -->
+    <color name="streakly_orange">#FF7A00</color>
+    <color name="streakly_orange_light">#FF9F1C</color>
+    <color name="flame_yellow">#FFD166</color>
+    <color name="gold">#FFD166</color>
 
+    <color name="accent">#20C7B7</color> <!-- Progress Teal -->
+    <color name="accent_dark">#20C7B7</color>
+    <color name="jade_500">#20C7B7</color>
+    <color name="success_teal">#35D6C4</color>
+
+    <color name="text_primary">#FFFFFF</color> <!-- White -->
+    <color name="text_secondary">#A9B7CC</color> <!-- Light Blue-Grey -->
+    <color name="text_muted">#71809A</color> <!-- Grey Blue -->
     <color name="text_white">#FFFFFF</color>
-    <color name="text_hint">#BDBDBD</color>
+    <color name="text_hint">#71809A</color>
 
-    <color name="streak_risk">#FF1744</color>
-    <color name="gold">#FFD700</color>
-    <color name="sand">#FFF8E1</color>
+    <color name="divider">#263650</color> <!-- Dark Border -->
+    <color name="error">#FF5C5C</color> <!-- Soft Red -->
+    <color name="warning">#FFB547</color> <!-- Amber -->
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
 
-    <color name="streakly_teal">#1F4E5F</color>
-    <color name="teal_900">#101f24</color>
-    <color name="teal_800">#1F4E5F</color>
-    <color name="teal_700">#2c6478</color>
-    <color name="streakly_orange">#F2994A</color>
-    <color name="streakly_orange_light">#F2B27A</color>
-    <color name="flame_500">#F2994A</color>
-    <color name="jade_500">#3FA796</color>
-    <color name="sand_050">#F7F3EC</color>
-    <color name="sand_100">#EFE8DD</color>
-    <color name="sand_200">#D9CFC0</color>
-    <color name="background_primary">#101f24</color>
-    <color name="background_secondary">#182c34</color>
-    <color name="text_primary">#0E1A1F</color>
-    <color name="text_secondary">#5C6B72</color>
-    <color name="text_muted">#97A3A9</color>
+    <color name="streak_risk">#FF5C5C</color>
+    <color name="sand">#1C2B44</color>
+    <color name="streakly_teal">#20C7B7</color>
+    <color name="teal_900">#0B1220</color>
+    <color name="teal_800">#111B2E</color>
+    <color name="teal_700">#16233A</color>
     <color name="text_on_teal">#FFFFFF</color>
     <color name="text_on_flame">#FFFFFF</color>
-    <color name="error">#EB5757</color>
-    <color name="success">#3FA796</color>
-    <color name="warning">#F2994A</color>
-    <color name="surface">#F7F3EC</color>
-    <color name="surface_card">#FFFFFF</color>
-    <color name="divider">#E5DDD0</color>
+
+    <!-- Backward compatibility color definitions mapping to new theme -->
+    <color name="sand_050">#A9B7CC</color>
+    <color name="sand_100">#1C2B44</color>
+    <color name="sand_200">#263650</color>
 </resources>

@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_primary">#101f24</color>
-    <color name="background_secondary">#182c34</color>
-    <color name="surface">#101f24</color>
-    <color name="surface_card">#1F4E5F</color>
-    <color name="divider">#2c6478</color>
-    <color name="text_primary">#F7F3EC</color>
-    <color name="text_secondary">#B8C4C9</color>
-    <color name="text_muted">#7A8890</color>
+    <!-- Streakly Core Color Palette - Night/Dark mode matches perfectly -->
+    <color name="background_primary">#0B1220</color> <!-- Deep Navy -->
+    <color name="background_secondary">#111B2E</color> <!-- Dark Blue -->
+    <color name="surface">#16233A</color> <!-- Navy Blue / Card background -->
+    <color name="surface_card">#16233A</color>
+    <color name="surface_elevated">#1C2B44</color> <!-- Blue Slate -->
+
+    <color name="primary">#FF7A00</color> <!-- Streak Orange -->
+    <color name="primary_dark">#FF7A00</color>
+    <color name="primary_light">#FF9F1C</color> <!-- Flame Orange -->
+
+    <color name="flame_500">#FF7A00</color>
+    <color name="streakly_orange">#FF7A00</color>
+    <color name="streakly_orange_light">#FF9F1C</color>
+    <color name="flame_yellow">#FFD166</color>
+    <color name="gold">#FFD166</color>
+
+    <color name="accent">#20C7B7</color> <!-- Progress Teal -->
+    <color name="accent_dark">#20C7B7</color>
+    <color name="jade_500">#20C7B7</color>
+    <color name="success_teal">#35D6C4</color>
+
+    <color name="text_primary">#FFFFFF</color> <!-- White -->
+    <color name="text_secondary">#A9B7CC</color> <!-- Light Blue-Grey -->
+    <color name="text_muted">#71809A</color> <!-- Grey Blue -->
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_hint">#71809A</color>
+
+    <color name="divider">#263650</color> <!-- Dark Border -->
+    <color name="error">#FF5C5C</color> <!-- Soft Red -->
+    <color name="warning">#FFB547</color> <!-- Amber -->
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="streak_risk">#FF5C5C</color>
+    <color name="sand">#1C2B44</color>
+    <color name="streakly_teal">#20C7B7</color>
+    <color name="teal_900">#0B1220</color>
+    <color name="teal_800">#111B2E</color>
+    <color name="teal_700">#16233A</color>
+    <color name="text_on_teal">#FFFFFF</color>
+    <color name="text_on_flame">#FFFFFF</color>
 </resources>

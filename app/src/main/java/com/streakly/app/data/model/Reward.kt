@@ -8,11 +8,3 @@ data class Reward(
     val cost: Int,
     val icon: String = "🏅"
 )
-
-data class Redemption(
-    val id: Long = 0,
-    val rewardId: Long,
-    val rewardName: String,
-    val cost: Int,
-    val date: String
-)

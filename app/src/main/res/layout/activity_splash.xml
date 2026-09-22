@@ -11,17 +11,9 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_flame_logo" />
+            android:layout_width="343dp"
+            android:layout_height="341dp"
+            android:src="@drawable/streakly" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/sand_050"
-            android:textSize="34sp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="serif" />
     </LinearLayout>
 </FrameLayout>

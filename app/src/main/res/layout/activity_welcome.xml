@@ -11,8 +11,9 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="140dp" android:layout_height="140dp"
-            android:src="@drawable/ic_flame_logo" />
+            android:layout_width="248dp"
+            android:layout_height="270dp"
+            android:src="@drawable/streakly" />
 
         <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
