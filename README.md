@@ -4,6 +4,7 @@
 > **Authors:** Tumisho Kokhutja (ST10446195), Mzamo Richmond Ndlovu (ST10455453), Lesego Ayanda Mathe (ST10440650)
 
 ---
+**Streakly** is an offline-first Android habit tracker built with Kotlin and Material Design. It combines instant daily logging, calendar heat-maps, and points-based rewards into a clean, simple interface. Log progress offline anytime; data automatically syncs to the cloud when online. Features include secure sign-in, daily reminders, and streak alerts.
 
 ## Features (Part 2)
 - Register/login with PBKDF2-hashed password (encrypted at rest, 65,536 iterations, HMAC-SHA256)
