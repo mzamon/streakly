@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Habit Name"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                style="?android:attr/borderlessButtonStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Streak"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary" />
+                <TextView
+                    android:id="@+id/tv_current_streak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Best Streak"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary" />
+                <TextView
+                    android:id="@+id/tv_best_streak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/accent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monthly Heatmap"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <GridView
+            android:id="@+id/grid_heatmap"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:numColumns="7"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="4dp"
+            android:stretchMode="columnWidth"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/tv_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No reminder set"
+            android:textColor="@color/accent"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/et_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Notes for today..."
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btn_save_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Notes"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_gravity="end"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btn_mark_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mark Done"
+            style="@style/Widget.Streakly.Button"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete Habit"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/streak_risk" />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/text_secondary"
+            android:onClick="finish" />
+
+    </LinearLayout>
+</ScrollView>
