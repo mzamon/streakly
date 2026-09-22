@@ -1,0 +1,41 @@
+# ============================================================
+# STREAKLY — .gitignore
+# ============================================================
+
+# ---------- Android / Gradle ----------
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/app/build/
+/app/release/
+/app/debug/
+
+# ---------- Kotlin ----------
+*.hprof
+
+# ---------- Secrets (DO NOT COMMIT) ----------
+/app/google-services.json
+/apikey.properties
+/server/.env
+*.jks
+*.keystore
+keystore.properties
+
+# ---------- Node (server) ----------
+/server/node_modules/
+/server/data.json
+/server/.env
+npm-debug.log*
+
+# ---------- Logs ----------
+*.log
+
+# ---------- OS ----------
+Thumbs.db
