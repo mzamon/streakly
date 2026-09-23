@@ -5,7 +5,7 @@
 
 Streakly is a Kotlin Android habit-tracking application. It is designed around three demonstrable user-defined features: habit scheduling and logging, streak analytics with gamification, and reminders/settings with offline data export. The app stores data locally first and synchronises habits and completion logs through a custom REST API when a connection is available.
 
-##YouTube Link: 
+## YouTube Link: 
 https://youtu.be/l8ESNy6DJ-c
 
 ## Rubric coverage
