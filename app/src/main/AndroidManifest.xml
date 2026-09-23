@@ -29,43 +29,19 @@
             </intent-filter>
         </activity>
 
-        <!-- Auth & onboarding -->
-        <activity android:name=".ui.onboarding.OnboardingActivity" />
+        <!-- Auth -->
         <activity android:name=".ui.welcome.WelcomeActivity" android:exported="false"/>
         <activity android:name=".ui.auth.LoginActivity" android:exported="false"/>
         <activity android:name=".ui.auth.RegisterActivity" android:exported="false"/>
         <activity android:name=".ui.auth.ForgotPasswordActivity" android:exported="false"/>
-        <activity android:name=".ui.auth.EmailVerificationActivity" />
 
-        <!-- Main + habit + rewards -->
+        <!-- Main and habit management -->
         <activity android:name=".ui.main.MainActivity" android:exported="false"/>
         <activity android:name=".ui.habit.AddEditHabitActivity" android:exported="false"/>
         <activity android:name=".ui.habit.HabitDetailActivity" android:exported="false"/>
-        <activity android:name=".ui.rewards.CreateEditRewardActivity" />
-        <activity android:name=".ui.rewards.RewardHistoryActivity" />
-        <activity android:name=".ui.rewards.BadgesActivity" />
 
         <!-- Settings -->
         <activity android:name=".ui.settings.SettingsActivity" android:exported="false"/>
-        <activity android:name=".ui.settings.LanguageActivity" />
-        <activity android:name=".ui.settings.ThemeActivity" />
-        <activity android:name=".ui.settings.NotificationsActivity" />
-        <activity android:name=".ui.settings.OfflineSyncActivity" />
-        <activity android:name=".ui.settings.DataBackupActivity" />
-        <activity android:name=".ui.settings.AboutHelpActivity" />
-
-        <!-- Sync & stats -->
-        <activity android:name=".ui.sync.SyncStatusActivity" />
-        <activity android:name=".ui.stats.HabitStatsActivity" />
-
-        <!-- FCM -->
-        <service
-            android:name=".fcm.StreaklyMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <!-- FileProvider for CSV export -->
         <provider
@@ -77,11 +53,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <!-- Default FCM notification channel -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/channel_reminders" />
 
     </application>
 </manifest>

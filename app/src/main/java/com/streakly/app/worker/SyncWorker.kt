@@ -3,7 +3,6 @@ package com.streakly.app.worker
 import android.content.Context
 import androidx.work.*
 import com.streakly.app.data.repository.HabitRepository
-import com.streakly.app.data.repository.RewardRepository
 import com.streakly.app.data.session.SessionManager
 import com.streakly.app.utils.NetworkMonitor
 import java.util.concurrent.TimeUnit
@@ -13,11 +12,10 @@ class SyncWorker(context: Context, params: WorkerParameters) : CoroutineWorker(c
     override suspend fun doWork(): Result {
         if (!NetworkMonitor.isOnline(applicationContext)) return Result.retry()
         val habitRepo = HabitRepository(applicationContext)
-        val rewardRepo = RewardRepository(applicationContext)
         val session = SessionManager(applicationContext)
 
-        val pushed = habitRepo.pushPending() && rewardRepo.pushPending()
-        val pulled = habitRepo.refreshFromServer() && rewardRepo.refreshFromServer()
+        val pushed = habitRepo.pushPending()
+        val pulled = habitRepo.refreshFromServer()
         return if (pushed && pulled) {
             session.lastSyncTime = System.currentTimeMillis()
             Result.success()

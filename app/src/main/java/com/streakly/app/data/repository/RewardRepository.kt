@@ -65,8 +65,6 @@ class RewardRepository(private val context: Context) {
         Result.success(Unit)
     }
 
-    suspend fun pushPending(): Boolean = true
-    suspend fun refreshFromServer(): Boolean = true
     suspend fun clearAllLocalData() = withContext(Dispatchers.IO) {
         db.redemptionDao().deleteAll()
         db.rewardDao().deleteAll()
