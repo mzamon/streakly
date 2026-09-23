@@ -43,6 +43,11 @@
         <!-- Settings -->
         <activity android:name=".ui.settings.SettingsActivity" android:exported="false"/>
 
+        <!-- Scheduled habit reminders -->
+        <receiver
+            android:name=".utils.ReminderReceiver"
+            android:exported="false" />
+
         <!-- FileProvider for CSV export -->
         <provider
             android:name="androidx.core.content.FileProvider"

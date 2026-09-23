@@ -1,11 +1,14 @@
 package com.streakly.app.ui.auth
 
 import android.os.Bundle
+import android.widget.EditText
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.streakly.app.R
 import com.streakly.app.data.repository.AuthRepository
+import com.streakly.app.data.repository.AuthResult
 import com.streakly.app.databinding.ActivityForgotBinding
 import kotlinx.coroutines.launch
 
@@ -26,12 +29,32 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             binding.btnReset.isEnabled = false
-            lifecycleScope.launch {
-                AuthRepository(this@ForgotPasswordActivity).forgotPassword(email)
-                // Always show the success state (prevents account enumeration)
-                binding.layoutForm.visibility = View.GONE
-                binding.layoutSuccess.visibility = View.VISIBLE
+            val newPassword = EditText(this).apply {
+                hint = "New password"
+                inputType = 129
             }
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Choose a new password")
+                .setView(newPassword)
+                .setNegativeButton("Cancel") { _, _ -> binding.btnReset.isEnabled = true }
+                .setPositiveButton("Reset") { _, _ ->
+                    lifecycleScope.launch {
+                        val result = AuthRepository(this@ForgotPasswordActivity)
+                            .resetPassword(email, newPassword.text.toString())
+                        binding.btnReset.isEnabled = true
+                        when (result) {
+                            is AuthResult.Success -> {
+                                binding.layoutForm.visibility = View.GONE
+                                binding.layoutSuccess.visibility = View.VISIBLE
+                            }
+                            is AuthResult.Error -> {
+                                newPassword.error = result.message
+                            }
+                        }
+                    }
+                }
+                .setOnCancelListener { binding.btnReset.isEnabled = true }
+                .show()
         }
     }
 }

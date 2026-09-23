@@ -23,18 +23,19 @@ object StreakCalculator {
     }
 
     fun currentStreak(habit: Habit, dates: Set<String>): Int {
+        val created = parseOrNull(habit.createdAt) ?: return 0
         var count = 0
         var cursor = LocalDate.now()
-        if (!isDueOn(habit, cursor) || !dates.contains(cursor.toString())) {
+        while (!cursor.isBefore(created) &&
+            (!isDueOn(habit, cursor) || !dates.contains(cursor.toString()))) {
             cursor = cursor.minusDays(1)
-            while (isDueOn(habit, cursor) && !dates.contains(cursor.toString())) {
-                cursor = cursor.minusDays(1)
-            }
         }
-        while (dates.contains(cursor.toString())) {
+        while (!cursor.isBefore(created) && dates.contains(cursor.toString())) {
             count++
             cursor = cursor.minusDays(1)
-            while (!isDueOn(habit, cursor)) cursor = cursor.minusDays(1)
+            while (!cursor.isBefore(created) && !isDueOn(habit, cursor)) {
+                cursor = cursor.minusDays(1)
+            }
         }
         return count
     }

@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.streakly.app.R
 import com.streakly.app.data.model.Habit
 import com.streakly.app.data.repository.HabitRepository
+import com.streakly.app.data.session.SessionManager
 import com.streakly.app.databinding.ActivityAddEditHabitBinding
 import com.streakly.app.utils.ReminderScheduler
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ class AddEditHabitActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditHabitBinding
     private lateinit var repo: HabitRepository
+    private lateinit var session: SessionManager
 
     private var habitId: Long = -1L
     private var editing: Habit? = null
@@ -44,6 +46,7 @@ class AddEditHabitActivity : AppCompatActivity() {
         binding = ActivityAddEditHabitBinding.inflate(layoutInflater)
         setContentView(binding.root)
         repo = HabitRepository(this)
+        session = SessionManager(this)
 
         habitId = intent.getLongExtra(EXTRA_HABIT_ID, -1L)
         binding.btnBack.setOnClickListener { finish() }
@@ -217,12 +220,12 @@ class AddEditHabitActivity : AppCompatActivity() {
                 reminderMinute = reminderMinute,
                 notes = binding.etNotes.text.toString().trim()
             )
-            repo.saveHabit(habit)
-            if (reminderHour >= 0) {
+            val savedId = repo.saveHabit(habit)
+            if (reminderHour >= 0 && session.notificationsEnabled) {
                 ReminderScheduler.schedule(this@AddEditHabitActivity,
-                    habit.localId, reminderHour, reminderMinute)
+                    savedId, reminderHour, reminderMinute)
             } else {
-                ReminderScheduler.cancel(this@AddEditHabitActivity, habit.localId)
+                ReminderScheduler.cancel(this@AddEditHabitActivity, savedId)
             }
             Toast.makeText(this@AddEditHabitActivity, "Saved", Toast.LENGTH_SHORT).show()
             finish()

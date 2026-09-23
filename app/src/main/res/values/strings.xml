@@ -18,9 +18,9 @@
     <string name="no_account">Don\'t have an account? Register</string>
     <string name="have_account">Already registered? Login</string>
     <string name="i_agree">I agree to the terms and privacy policy</string>
-    <string name="reset_link">Send reset link</string>
-    <string name="check_email">Check your email</string>
-    <string name="check_email_msg">We sent password reset instructions to your inbox.</string>
+    <string name="reset_link">Reset password</string>
+    <string name="password_reset">Password reset</string>
+    <string name="password_reset_msg">Your local password was updated. You can now sign in with the new password.</string>
     <string name="error_email_required">Enter your email address</string>
     <string name="error_password_required">Password must be at least 6 characters</string>
     <string name="error_name_required">Enter your name</string>

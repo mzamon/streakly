@@ -1,6 +1,7 @@
 package com.streakly.app.data.repository
 
 import android.content.Context
+import androidx.room.withTransaction
 import com.streakly.app.data.local.StreaklyDatabase
 import com.streakly.app.data.local.entity.UserEntity
 import com.streakly.app.data.session.SessionManager
@@ -87,13 +88,30 @@ class AuthRepository(private val context: Context) {
         AuthResult.Success
     }
 
-    suspend fun forgotPassword(email: String) {
-        // Demo: show success state to prevent account enumeration.
-    }
+    suspend fun resetPassword(email: String, password: String): AuthResult =
+        withContext(Dispatchers.IO) {
+            val cleanEmail = email.trim().lowercase()
+            if (password.length < 6) {
+                return@withContext AuthResult.Error("Password must be at least 6 characters")
+            }
+            val user = db.userDao().findByEmail(cleanEmail)
+                ?: return@withContext AuthResult.Error("Account not found")
+            val newSalt = generateSalt()
+            db.userDao().updatePassword(cleanEmail, newSalt, hashPassword(password, newSalt))
+            session.userEmail = user.email
+            session.userName = user.name
+            AuthResult.Success
+        }
 
     suspend fun deleteAccount(): AuthResult = withContext(Dispatchers.IO) {
         val email = session.userEmail ?: return@withContext AuthResult.Error("Not signed in")
-        db.userDao().deleteByEmail(email)
+        db.withTransaction {
+            db.habitLogDao().deleteAll()
+            db.habitDao().deleteAll()
+            db.rewardDao().deleteAll()
+            db.redemptionDao().deleteAll()
+            db.userDao().deleteByEmail(email)
+        }
         session.clear()
         AuthResult.Success
     }

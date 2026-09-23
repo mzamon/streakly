@@ -23,7 +23,7 @@ Streakly is a Kotlin Android habit-tracking application. It is designed around t
 
 ## Features
 
-- Local registration and login with PBKDF2-HMAC-SHA256 (65,536 iterations, 256-bit key) and per-user salt.
+- Local registration, login, and password reset with PBKDF2-HMAC-SHA256 (65,536 iterations, 256-bit key) and per-user salt.
 - Habit create, edit, delete, daily completion, notes, reminders, and three schedule types.
 - Calendar heat-map with completion history, current streak, best streak, and completion rate.
 - Points, levels, badges, rewards, redemption history, and insufficient-balance validation.
@@ -31,6 +31,52 @@ Streakly is a Kotlin Android habit-tracking application. It is designed around t
 - Room offline-first storage with periodic WorkManager synchronisation.
 - Node.js/Express REST API with `/health` and `/sync` endpoints.
 - English, isiZulu, and Setswana string resources.
+
+Password reset is intentionally local because this prototype has no email
+delivery service: the user verifies the account email stored on the device and
+chooses a new password. Google sign-in is still a labelled placeholder and is
+not advertised as an available authentication provider.
+
+## App file tree
+
+This is the maintained application tree. Generated build output, Gradle caches,
+`node_modules`, machine-specific SDK paths, and runtime `server/data.json` are
+intentionally excluded.
+
+```text
+streakly/
+├── app/
+│   └── src/
+│       ├── main/
+│       │   ├── java/com/streakly/app/
+│       │   │   ├── data/
+│       │   │   │   ├── local/          # Room database, DAOs, and entities
+│       │   │   │   ├── model/          # Application models
+│       │   │   │   ├── remote/         # Retrofit client and DTOs
+│       │   │   │   ├── repository/     # Persistence and sync repositories
+│       │   │   │   └── session/        # Encrypted session preferences
+│       │   │   ├── ui/
+│       │   │   │   ├── auth/           # Login, registration, and reset screen
+│       │   │   │   ├── habit/          # Habit creation and detail screens
+│       │   │   │   ├── main/           # Bottom-navigation host and tabs
+│       │   │   │   ├── settings/       # Settings and account actions
+│       │   │   │   ├── splash/         # Launcher splash flow
+│       │   │   │   └── welcome/        # Welcome screen
+│       │   │   ├── utils/              # Streak, gamification, reminders, UI
+│       │   │   └── StreaklyApplication.kt
+│       │   ├── res/                    # Layouts, drawables, values, and XML
+│       │   └── AndroidManifest.xml
+│       └── test/                       # JVM tests for streak and gamification
+├── server/
+│   ├── server.js                       # Express REST API
+│   └── package.json
+├── .github/workflows/android.yml       # CI test and debug-build workflow
+├── build.gradle.kts
+├── settings.gradle.kts
+├── gradle.properties
+├── gradlew / gradlew.bat
+└── README.md
+```
 
 ## Running the app
 
@@ -79,6 +125,11 @@ The server creates `server/data.json` on its first successful synchronisation. T
 ```
 
 The unit tests cover streak calculation, due-date logic, completion rate, points, levels, and badge rules. The GitHub Actions workflow runs the unit tests and debug build for pushes and pull requests to `main`.
+
+If a local Android SDK is missing the Android Gradle Plugin build tools,
+Gradle can fail before compilation. Install the SDK platform and build-tools
+required by the project in Android Studio, then rerun the commands above. CI
+uses Java 17 and runs the same checks on every push and pull request to `main`.
 
 ## Screenshot checklist
 

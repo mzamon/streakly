@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Enter your email and we'll send you a link to reset your password."
+            android:text="Enter your email, then choose a new password for this local account."
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/check_email"
+            android:text="@string/password_reset"
             android:textColor="@color/text_primary"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:text="@string/check_email_msg"
+            android:text="@string/password_reset_msg"
             android:textColor="@color/text_secondary"
             android:textSize="16sp" />
 

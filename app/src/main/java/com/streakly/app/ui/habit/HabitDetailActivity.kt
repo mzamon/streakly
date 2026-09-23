@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.streakly.app.R
 import com.streakly.app.data.repository.HabitRepository
+import com.streakly.app.data.session.SessionManager
 import com.streakly.app.databinding.ActivityHabitDetailBinding
 import com.streakly.app.ui.adapters.DayAdapter
 import com.streakly.app.ui.adapters.DayCell
@@ -25,6 +26,7 @@ class HabitDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHabitDetailBinding
     private lateinit var repo: HabitRepository
+    private lateinit var session: SessionManager
     private var habitId: Long = -1L
     private var doneToday = false
 
@@ -33,6 +35,7 @@ class HabitDetailActivity : AppCompatActivity() {
         binding = ActivityHabitDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         repo = HabitRepository(this)
+        session = SessionManager(this)
         habitId = intent.getLongExtra(EXTRA_HABIT_ID, -1L)
 
         binding.btnBack.setOnClickListener { finish() }
@@ -80,7 +83,9 @@ class HabitDetailActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         val updated = habit.copy(reminderHour = h, reminderMinute = m)
                         repo.saveHabit(updated)
-                        ReminderScheduler.schedule(this@HabitDetailActivity, habitId, h, m)
+                        if (session.notificationsEnabled) {
+                            ReminderScheduler.schedule(this@HabitDetailActivity, habitId, h, m)
+                        }
                         refresh()
                     }
                 }, habit.reminderHour.coerceAtLeast(0), habit.reminderMinute, true).show()
