@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="habit_colours">
-        <item>#F2994A</item><item>#3FA796</item><item>#2C6478</item><item>#56CCF2</item>
-        <item>#9B51E0</item><item>#F2C94C</item><item>#EB5757</item><item>#6FCF97</item>
+        <item>#FF7A00</item> <!-- Streak Orange -->
+        <item>#FF9F1C</item> <!-- Flame Orange -->
+        <item>#20C7B7</item> <!-- Progress Teal -->
+        <item>#35D6C4</item> <!-- Success Teal -->
+        <item>#FFD166</item> <!-- Flame Yellow -->
+        <item>#1C2B44</item> <!-- Blue Slate -->
+        <item>#FF5C5C</item> <!-- Soft Red -->
+        <item>#FFB547</item> <!-- Amber -->
     </string-array>
     <string-array name="habit_icons">
         <item>🔥</item><item>💧</item><item>📚</item><item>🏃</item>

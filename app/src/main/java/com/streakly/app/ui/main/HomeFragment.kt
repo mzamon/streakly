@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.streakly.app.data.repository.HabitRepository
+import com.streakly.app.data.session.SessionManager
 import com.streakly.app.databinding.FragmentHomeBinding
 import com.streakly.app.ui.adapters.HabitAdapter
 import com.streakly.app.ui.habit.AddEditHabitActivity
@@ -48,6 +49,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         repo = HabitRepository(requireContext())
+        binding.tvGreeting.text = getString(
+            com.streakly.app.R.string.greeting,
+            SessionManager(requireContext()).userName?.ifBlank { "there" } ?: "there"
+        )
         binding.rvHabits.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHabits.adapter = adapter
         binding.btnAddHabit.setOnClickListener {

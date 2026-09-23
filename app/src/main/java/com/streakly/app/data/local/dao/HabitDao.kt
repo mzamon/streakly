@@ -18,6 +18,9 @@ interface HabitDao {
     @Query("SELECT * FROM habits WHERE pendingSync = 1")
     suspend fun getPending(): List<HabitEntity>
 
+    @Query("UPDATE habits SET pendingSync = 0 WHERE id = :id")
+    suspend fun markSynced(id: Long)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(habit: HabitEntity): Long
 

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/background_primary">
+    android:background="@color/background_primary"
+    android:fillViewport="true">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="16dp">
+        android:orientation="vertical" android:padding="24dp">
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="horizontal" android:gravity="center_vertical">
@@ -14,38 +16,42 @@
                 android:background="?attr/selectableItemBackgroundBorderless" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/settings" android:textSize="22sp"
-                android:textColor="@color/text_primary" android:fontFamily="serif"
+                android:textColor="@color/text_primary" android:textStyle="bold"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="@string/account_security" android:textColor="@color/text_muted"
-            android:textSize="12sp" android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp" android:letterSpacing="0.1" />
+            android:textSize="12sp" android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp" android:letterSpacing="0.1" android:textStyle="bold" />
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical" android:background="@drawable/bg_card_dark"
             android:layout_marginTop="8dp">
+
             <LinearLayout android:id="@+id/rowPersonal"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/personal_details"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <TextView android:id="@+id/tvPersonalValue"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/text_secondary" android:layout_marginEnd="8dp" />
                 <ImageView android:layout_width="20dp" android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
             <LinearLayout android:id="@+id/rowPassword"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/change_password"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <ImageView android:layout_width="20dp" android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
@@ -53,45 +59,53 @@
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="@string/preferences" android:textColor="@color/text_muted"
-            android:textSize="12sp" android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp" android:letterSpacing="0.1" />
+            android:textSize="12sp" android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp" android:letterSpacing="0.1" android:textStyle="bold" />
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical" android:background="@drawable/bg_card_dark"
             android:layout_marginTop="8dp">
+
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/notifications"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchNotifications"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    app:thumbTint="@color/primary" app:trackTint="@color/divider" />
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
             <LinearLayout android:id="@+id/rowTheme"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/appearance"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <TextView android:id="@+id/tvThemeValue"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/text_secondary" android:layout_marginEnd="8dp" />
                 <ImageView android:layout_width="20dp" android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
             <LinearLayout android:id="@+id/rowLanguage"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/language"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <TextView android:id="@+id/tvLanguageValue"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/text_secondary" android:layout_marginEnd="8dp" />
                 <ImageView android:layout_width="20dp" android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
@@ -99,80 +113,94 @@
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="@string/offline_sync" android:textColor="@color/text_muted"
-            android:textSize="12sp" android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp" android:letterSpacing="0.1" />
+            android:textSize="12sp" android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp" android:letterSpacing="0.1" android:textStyle="bold" />
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical" android:background="@drawable/bg_card_dark"
             android:layout_marginTop="8dp">
+
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/last_synced"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <TextView android:id="@+id/tvSyncValue"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:textColor="@color/text_secondary" />
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
             <LinearLayout android:id="@+id/rowSyncNow"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/sync_now"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <ImageView android:layout_width="20dp" android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
             <LinearLayout android:id="@+id/rowExport"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/export_data"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <ImageView android:layout_width="20dp" android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
             <LinearLayout android:id="@+id/rowDeleteData"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/delete_all_data"
-                    android:textColor="@color/error" />
+                    android:textColor="@color/error" android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="@string/about" android:textColor="@color/text_muted"
-            android:textSize="12sp" android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp" android:letterSpacing="0.1" />
+            android:textSize="12sp" android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp" android:letterSpacing="0.1" android:textStyle="bold" />
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical" android:background="@drawable/bg_card_dark"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp" android:layout_marginBottom="24dp">
+
             <LinearLayout android:id="@+id/rowAbout"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/about"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/text_primary" android:textSize="16sp" />
                 <TextView android:id="@+id/tvVersion"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/text_secondary" android:layout_marginEnd="8dp" />
                 <ImageView android:layout_width="20dp" android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
             <LinearLayout android:id="@+id/rowDeleteAccount"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:padding="16dp" android:background="?attr/selectableItemBackground">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="@string/delete_account"
-                    android:textColor="@color/error" />
+                    android:textColor="@color/error" android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

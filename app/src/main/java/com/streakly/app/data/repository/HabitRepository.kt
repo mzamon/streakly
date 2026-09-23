@@ -93,6 +93,8 @@ class HabitRepository(private val context: Context) {
                 }
             )
             RetrofitClient.api.sync(request)
+            pendingHabits.forEach { db.habitDao().markSynced(it.id) }
+            pendingLogs.forEach { db.habitLogDao().markSynced(it.id) }
             true
         } catch (e: Exception) { false }
     }
@@ -102,7 +104,46 @@ class HabitRepository(private val context: Context) {
             val resp = RetrofitClient.api.sync(
                 SyncRequest(habits = emptyList(), logs = emptyList())
             )
-            resp.serverTime
+            val localByRemote = db.habitDao().getAll().mapNotNull { habit ->
+                habit.remoteId?.let { it to habit }
+            }.toMap()
+            for (remote in resp.habits) {
+                val local = localByRemote[remote.remoteId]
+                if (local == null) {
+                    db.habitDao().upsert(
+                        HabitEntity(
+                            remoteId = remote.remoteId,
+                            name = remote.name,
+                            description = remote.description,
+                            notes = remote.notes,
+                            color = remote.color,
+                            icon = remote.icon,
+                            frequencyType = remote.frequencyType,
+                            daysOfWeek = remote.daysOfWeek,
+                            interval = remote.interval,
+                            reminderHour = remote.reminderHour,
+                            reminderMinute = remote.reminderMinute,
+                            createdAt = remote.createdAt,
+                            pendingSync = false
+                        )
+                    )
+                }
+            }
+            val habitsByRemote = db.habitDao().getAll().mapNotNull { habit ->
+                habit.remoteId?.let { it to habit.id }
+            }.toMap()
+            for (remoteLog in resp.logs) {
+                val habitId = habitsByRemote[remoteLog.habitRemoteId] ?: continue
+                db.habitLogDao().upsert(
+                    HabitLogEntity(
+                        habitId = habitId,
+                        date = remoteLog.date,
+                        completed = remoteLog.completed,
+                        note = remoteLog.note,
+                        pendingSync = false
+                    )
+                )
+            }
             true
         } catch (e: Exception) { false }
     }

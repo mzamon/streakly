@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/teal_900">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -11,9 +12,27 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="343dp"
-            android:layout_height="341dp"
-            android:src="@drawable/streakly" />
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/ic_flame_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STREAKLY"
+            android:textColor="@color/text_primary"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small habits. Big changes."
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:layout_marginTop="6dp" />
 
     </LinearLayout>
 </FrameLayout>

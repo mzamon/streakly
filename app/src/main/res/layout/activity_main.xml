@@ -11,7 +11,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/teal_900"
+        android:background="@color/background_secondary"
         app:menu="@menu/menu_bottom_nav"
         xmlns:app="http://schemas.android.com/apk/res-auto" />
 </RelativeLayout>

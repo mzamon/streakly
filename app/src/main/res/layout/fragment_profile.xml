@@ -12,8 +12,8 @@
 
             <TextView android:id="@+id/tvName"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Name" android:textColor="@color/sand_050"
-                android:textSize="22sp" android:fontFamily="serif" />
+                android:text="Name" android:textColor="@color/text_primary"
+                android:textSize="22sp" android:textStyle="bold" />
 
             <TextView android:id="@+id/tvEmail"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"

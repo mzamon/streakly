@@ -161,8 +161,10 @@ class SettingsActivity : AppCompatActivity() {
     private fun syncNow() {
         toast("Syncing...")
         lifecycleScope.launch {
-            val pushed = habitRepo.pushPending() && rewardRepo.pushPending()
-            val pulled = habitRepo.refreshFromServer() && rewardRepo.refreshFromServer()
+            // Rewards are intentionally local-only; the server contract currently
+            // synchronises habits and completion logs.
+            val pushed = habitRepo.pushPending()
+            val pulled = habitRepo.refreshFromServer()
             if (pushed && pulled) {
                 session.lastSyncTime = System.currentTimeMillis()
                 refreshSyncStatus()

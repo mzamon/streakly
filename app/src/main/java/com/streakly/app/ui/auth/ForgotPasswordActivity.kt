@@ -17,9 +17,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener { finish() }
+        binding.btnBackToLogin.setOnClickListener { finish() }
+        
         binding.btnReset.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
-            if (email.isEmpty()) return@setOnClickListener
+            if (email.isEmpty()) {
+                binding.etEmail.error = "Email required"
+                return@setOnClickListener
+            }
             binding.btnReset.isEnabled = false
             lifecycleScope.launch {
                 AuthRepository(this@ForgotPasswordActivity).forgotPassword(email)

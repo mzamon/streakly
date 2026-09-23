@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.os.LocaleListCompat
@@ -41,45 +42,61 @@ class ProfileFragment : Fragment() {
         session = SessionManager(requireContext())
         habitRepo = HabitRepository(requireContext())
 
-        binding.tvName.text = session.userName ?: ""
+        binding.tvName.text = session.userName ?: "Streakly User"
         binding.tvEmail.text = session.userEmail ?: ""
         lifecycleScope.launch {
             val habits = habitRepo.getHabits()
             val total = habits.sumOf { habitRepo.getCompletionDates(it.localId).size }
             val points = Gamification.pointsForCompletionCount(total)
-            binding.tvLevel.text = "Lv. " + Gamification.levelForPoints(points) + "  ·  $points pts"
+            binding.tvLevel.text = "Level " + Gamification.levelForPoints(points) + "  ·  $points XP"
         }
 
         binding.containerRows.removeAllViews()
-        binding.containerRows.addView(row("Settings") {
+        binding.containerRows.addView(row("⚙  Account Settings") {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
         })
-        binding.containerRows.addView(row("Language") { showLanguageDialog() })
-        binding.containerRows.addView(row("About") {
-            UiUtils.info(requireContext(), "About",
+        binding.containerRows.addView(row("🌐  Language Preferences") { showLanguageDialog() })
+        binding.containerRows.addView(row("ℹ  About & Help") {
+            UiUtils.info(requireContext(), "About & Help",
                 "Streakly - Build better habits.\n\nVersion 1.0")
         })
-        binding.containerRows.addView(row("Logout") { confirmLogout() })
+        binding.containerRows.addView(row("🚪  Logout") { confirmLogout() })
     }
 
     private fun row(label: String, onClick: () -> Unit): View {
         val wrap = LinearLayout(requireContext()).apply {
-            orientation = LinearLayout.VERTICAL
-            val p = LinearLayout.LayoutParams(-1, -2)
-            p.setMargins(0, 6, 0, 6)
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            val p = LinearLayout.LayoutParams(-1, -2).apply {
+                setMargins(0, 8, 0, 8)
+            }
             layoutParams = p
-            setBackgroundResource(R.drawable.ic_launcher_background)
+            setBackgroundResource(R.drawable.bg_card_dark)
+            setPadding(40, 44, 40, 44)
             isClickable = true
+            focusable = View.FOCUSABLE
+            val outValue = android.util.TypedValue()
+            requireContext().theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
+            setBackgroundResource(R.drawable.bg_card_dark)
             setOnClickListener { onClick() }
         }
+        
         val tv = TextView(requireContext()).apply {
             text = label
             textSize = 16f
             setTextColor(requireContext().getColor(R.color.text_primary))
-            gravity = Gravity.CENTER_VERTICAL
-            setPadding(36, 34, 36, 34)
+            val lp = LinearLayout.LayoutParams(0, -2, 1f)
+            layoutParams = lp
         }
+        
+        val chevron = ImageView(requireContext()).apply {
+            setImageResource(R.drawable.ic_chevron_right)
+            val lp = LinearLayout.LayoutParams(48, 48)
+            layoutParams = lp
+        }
+        
         wrap.addView(tv)
+        wrap.addView(chevron)
         return wrap
     }
 
@@ -103,7 +120,7 @@ class ProfileFragment : Fragment() {
 
     private fun confirmLogout() {
         UiUtils.confirm(requireContext(), "Logout",
-            "Are you sure you want to log out?", R.string.login) {
+            "Are you sure you want to log out of Streakly?", R.string.login) {
             AuthRepository(requireContext()).logout()
             val intent = Intent(requireContext(), WelcomeActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

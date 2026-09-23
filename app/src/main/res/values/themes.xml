@@ -20,6 +20,9 @@
         <item name="android:statusBarColor">@color/background_primary</item>
         <item name="android:navigationBarColor">@color/background_secondary</item>
 
+        <!-- Bottom Navigation View Customization -->
+        <item name="bottomNavigationStyle">@style/Widget.Streakly.BottomNavigationView</item>
+
         <!-- Shape & Typography accents -->
         <item name="textAppearanceTitleLarge">@style/TextAppearance.Streakly.Title</item>
     </style>
@@ -33,5 +36,13 @@
     <style name="TextAppearance.Streakly.Title" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Bottom Navigation Tint Selection Style -->
+    <style name="Widget.Streakly.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">@color/background_secondary</item>
+        <item name="itemIconTint">@color/selector_nav_items</item>
+        <item name="itemTextColor">@color/selector_nav_items</item>
+        <item name="itemRippleColor">@color/transparent</item>
     </style>
 </resources>
