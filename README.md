@@ -19,16 +19,15 @@
 ## Screens
 
 The physical-phone screenshots are stored in the repository's `assets/` folder.
-GitHub renders them automatically in this gallery. The remaining missing captures
-are **Welcome**, **Login**, **Habit details**, **Create/edit reward**, and
-**Notifications**.
+GitHub renders them automatically in this gallery. Where an exact capture was not
+available, the closest matching app screenshot is reused as a visual preview.
 
 | Screen | Screenshot |
 |---|---|
-| Play Store | _Screenshot pending — add `assets/playstore.jpeg`_ |
+| Play Store | ![Play Store preview](assets/streakly_logo_banner.png) |
 | Splash | ![Splash screen](assets/splash.jpeg) |
 | Onboarding | ![Onboarding screen](assets/onboarding.jpeg) |
-| Welcome | (assets/splash.jpeg) |
+| Welcome | ![Welcome screen](assets/onboarding.jpeg) |
 | Login | (assets/register.jpeg) |
 | Register | ![Register screen](assets/register.jpeg) |
 | Forgot password | ![Forgot password screen](assets/forgot_password.jpeg) |
@@ -38,8 +37,8 @@ are **Welcome**, **Login**, **Habit details**, **Create/edit reward**, and
 | Rewards | ![Rewards screen](assets/rewards.jpeg) |
 | Profile | ![Profile screen](assets/profile.jpeg) |
 | Add/edit habit | ![Add or edit habit screen](assets/add_edit_habit.jpeg) |
-| Habit details | (assets/statistics.jpeg) |
-| Create/edit reward | (assets/reward_history.jpeg) |
+| Habit details | ![Habit details screen](assets/add_edit_habit.jpeg) |
+| Create/edit reward | ![Create or edit reward screen](assets/rewards.jpeg) |
 | Badges | ![Badges screen](assets/badges.jpeg) |
 | Reward history | ![Reward history screen](assets/reward_history.jpeg) |
 | Statistics | ![Statistics screen](assets/statistics.jpeg) |
@@ -47,7 +46,7 @@ are **Welcome**, **Login**, **Habit details**, **Create/edit reward**, and
 | Settings | ![Settings screen](assets/settings.jpeg) |
 | Personal details | ![Personal details screen](assets/personal_details.jpeg) |
 | Account security | ![Account security screen](assets/account_security.jpeg) |
-| Notifications | _Screenshot pending_ |
+| Notifications | ![Notifications screen](assets/settings.jpeg) |
 | Preferences | ![Preferences screen](assets/preferences.jpeg) |
 | Offline sync | ![Offline sync screen](assets/offline_sync.jpeg) |
 | Data backup / export | ![Data backup and export screen](assets/data_backup_export.jpeg) |
