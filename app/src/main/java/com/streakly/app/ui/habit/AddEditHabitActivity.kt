@@ -135,7 +135,7 @@ class AddEditHabitActivity : AppCompatActivity() {
             val bg = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
                 setColor(ColorUtils.parse(hex))
-                if (hex == color) setStroke(dp(3), androidx.core.content.ContextCompat.getColor(this@AddEditHabitActivity, R.color.text_primary))
+                if (hex == this@AddEditHabitActivity.color) setStroke(dp(3), androidx.core.content.ContextCompat.getColor(this@AddEditHabitActivity, R.color.text_primary))
             }
             swatch.background = bg
             swatch.contentDescription = hex

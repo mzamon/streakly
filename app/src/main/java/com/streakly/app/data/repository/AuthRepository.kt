@@ -230,7 +230,7 @@ class AuthRepository(private val context: Context) {
                     RetrofitClient.api.unregisterDevice(
                         com.streakly.app.data.remote.dto.DeviceRequest(token = token)
                     )
-                }
+                } else Unit
             } catch (e: Exception) {
                 Log.w(TAG, "Device unregister skipped: ${e.message}")
             }

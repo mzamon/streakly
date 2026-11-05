@@ -1,6 +1,7 @@
 package com.streakly.app.utils
 
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
 import com.streakly.app.data.local.entity.HabitEntity
 import com.streakly.app.data.local.entity.HabitLogEntity
@@ -45,12 +46,21 @@ object ExportUtils {
     fun buildJson(backup: BackupFile): String = gson.toJson(backup)
 
     /** Returns the parsed backup, or null when the text is not a valid Streakly backup. */
-    fun parseBackup(json: String): BackupFile? = try {
+    fun parseBackup(json: String): BackupFile? {
+        return try {
+        val root = JsonParser().parse(json)
+        if (!root.isJsonObject ||
+            !root.asJsonObject.has("app") ||
+            !root.asJsonObject.has("version")
+        ) {
+            return null
+        }
         val file = gson.fromJson(json, BackupFile::class.java)
         if (file != null && file.app == "streakly" && file.version == 1) file else null
-    } catch (e: JsonSyntaxException) {
-        null
-    } catch (e: Exception) {
-        null
+        } catch (e: JsonSyntaxException) {
+            null
+        } catch (e: Exception) {
+            null
+        }
     }
 }
