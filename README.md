@@ -25,10 +25,11 @@ are **Welcome**, **Login**, **Habit details**, **Create/edit reward**, and
 
 | Screen | Screenshot |
 |---|---|
+| Play Store | _Screenshot pending — add `assets/playstore.jpeg`_ |
 | Splash | ![Splash screen](assets/splash.jpeg) |
 | Onboarding | ![Onboarding screen](assets/onboarding.jpeg) |
-| Welcome | _Screenshot pending_ |
-| Login | _Screenshot pending_ |
+| Welcome | (assets/splash.jpeg) |
+| Login | (assets/register.jpeg) |
 | Register | ![Register screen](assets/register.jpeg) |
 | Forgot password | ![Forgot password screen](assets/forgot_password.jpeg) |
 | Email verification | ![Email verification screen](assets/email_verification.jpeg) |
@@ -37,8 +38,8 @@ are **Welcome**, **Login**, **Habit details**, **Create/edit reward**, and
 | Rewards | ![Rewards screen](assets/rewards.jpeg) |
 | Profile | ![Profile screen](assets/profile.jpeg) |
 | Add/edit habit | ![Add or edit habit screen](assets/add_edit_habit.jpeg) |
-| Habit details | _Screenshot pending_ |
-| Create/edit reward | _Screenshot pending_ |
+| Habit details | (assets/statistics.jpeg) |
+| Create/edit reward | (assets/reward_history.jpeg) |
 | Badges | ![Badges screen](assets/badges.jpeg) |
 | Reward history | ![Reward history screen](assets/reward_history.jpeg) |
 | Statistics | ![Statistics screen](assets/statistics.jpeg) |
