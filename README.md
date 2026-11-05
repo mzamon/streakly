@@ -18,11 +18,40 @@
 
 ## Screens
 
-_Add screenshots taken on the physical phone to `docs/screenshots/` and reference them here:_
+Add the physical-phone screenshots to the repository's `assets/` folder using the
+filenames below. GitHub will render them automatically in this gallery once they
+are uploaded.
 
-| Splash | Home | Calendar | Rewards | Progress | Settings |
-|---|---|---|---|---|---|
-| ![](docs/screenshots/splash.png) | ![](docs/screenshots/home.png) | ![](docs/screenshots/calendar.png) | ![](docs/screenshots/rewards.png) | ![](docs/screenshots/progress.png) | ![](docs/screenshots/settings.png) |
+| Screen | Screenshot |
+|---|---|
+| Splash | ![Splash screen](assets/splash.png) |
+| Onboarding | ![Onboarding screen](assets/onboarding.png) |
+| Welcome | ![Welcome screen](assets/welcome.png) |
+| Login | ![Login screen](assets/login.png) |
+| Register | ![Register screen](assets/register.png) |
+| Forgot password | ![Forgot password screen](assets/forgot_password.png) |
+| Email verification | ![Email verification screen](assets/email_verification.png) |
+| Main dashboard / home | ![Main dashboard home screen](assets/home.png) |
+| Calendar | ![Calendar screen](assets/calendar.png) |
+| Rewards | ![Rewards screen](assets/rewards.png) |
+| Profile | ![Profile screen](assets/profile.png) |
+| Add/edit habit | ![Add or edit habit screen](assets/add_edit_habit.png) |
+| Habit details | ![Habit details screen](assets/habit_details.png) |
+| Create/edit reward | ![Create or edit reward screen](assets/create_edit_reward.png) |
+| Badges | ![Badges screen](assets/badges.png) |
+| Reward history | ![Reward history screen](assets/reward_history.png) |
+| Statistics | ![Statistics screen](assets/statistics.png) |
+| Sync status | ![Sync status screen](assets/sync_status.png) |
+| Settings | ![Settings screen](assets/settings.png) |
+| Personal details | ![Personal details screen](assets/personal_details.png) |
+| Account security | ![Account security screen](assets/account_security.png) |
+| Notifications | ![Notifications screen](assets/notifications.png) |
+| Preferences | ![Preferences screen](assets/preferences.png) |
+| Offline sync | ![Offline sync screen](assets/offline_sync.png) |
+| Data backup / export | ![Data backup and export screen](assets/data_backup_export.png) |
+| About | ![About screen](assets/about.png) |
+| Theme selection | ![Theme selection screen](assets/theme_selection.png) |
+| Language selection | ![Language selection screen](assets/language_selection.png) |
 
 ## PoE rubric coverage
 
