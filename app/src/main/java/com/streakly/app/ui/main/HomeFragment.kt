@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
 
         val streak = snapshot.currentStreak(today)
         b.tvStreakCount.text = streak.toString()
-        b.tvStreakLabel.text = resources.getQuantityString(R.plurals.day_streak, streak)
+        b.tvStreakLabel.text = resources.getQuantityString(R.plurals.day_streak, streak, streak)
         b.tvLevel.text = getString(R.string.level_format, snapshot.level)
         b.tvXp.text = getString(R.string.points_format, snapshot.balance)
         b.progressLevel.max = Gamification.XP_PER_LEVEL

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.streakly.app.R
 import com.streakly.app.databinding.ItemBadgeBinding
 import com.streakly.app.ui.rewards.BadgeText
+import com.streakly.app.utils.ColorUtils
 import com.streakly.app.utils.Gamification
 
 class BadgeAdapter(private val onClick: (Gamification.Badge) -> Unit) : RecyclerView.Adapter<BadgeAdapter.Holder>() {
@@ -29,7 +30,7 @@ class BadgeAdapter(private val onClick: (Gamification.Badge) -> Unit) : Recycler
         val badge = items[position]
         val b = holder.b
         val ctx = b.root.context
-        b.tvEmoji.text = if (badge.earned) badge.emoji else "🔒"
+        b.tvEmoji.setImageResource(if (badge.earned) ColorUtils.iconResource(ctx, badge.icon) else R.drawable.ic_lock)
         b.tvTitle.setText(BadgeText.title(badge.id))
         b.tvState.setText(if (badge.earned) R.string.unlocked else R.string.locked)
         b.tvState.setTextColor(ContextCompat.getColor(ctx, if (badge.earned) R.color.teal else R.color.text_muted))

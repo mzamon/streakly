@@ -166,7 +166,7 @@ class HabitDetailActivity : AppCompatActivity() {
         val today = LocalDate.now()
         val settings = Graph.settings
 
-        binding.tvIcon.text = h.icon
+        binding.tvIcon.setImageResource(ColorUtils.iconResource(this, h.icon))
         binding.tvIcon.background = GradientDrawable().apply {
             shape = GradientDrawable.OVAL
             setColor(ColorUtils.withAlpha(ColorUtils.parse(h.color), 56))

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.streakly.app.R
 import com.streakly.app.data.local.entity.RewardEntity
 import com.streakly.app.databinding.ItemRewardBinding
+import com.streakly.app.utils.ColorUtils
 
 class RewardAdapter(
     private val onRedeem: (RewardEntity) -> Unit,
@@ -32,7 +33,7 @@ class RewardAdapter(
         val reward = items[position]
         val b = holder.b
         val affordable = balance >= reward.cost
-        b.tvIcon.text = reward.icon
+        b.tvIcon.setImageResource(ColorUtils.iconResource(b.root.context, reward.icon))
         b.tvName.text = reward.name
         b.tvCost.text = b.root.context.getString(R.string.cost_points, reward.cost)
         b.btnRedeem.isEnabled = affordable

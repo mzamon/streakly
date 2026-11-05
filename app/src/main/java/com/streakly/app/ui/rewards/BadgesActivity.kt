@@ -28,7 +28,7 @@ class BadgesActivity : AppCompatActivity() {
 
         val adapter = BadgeAdapter { badge: Gamification.Badge ->
             MaterialAlertDialogBuilder(this)
-                .setTitle((if (badge.earned) badge.emoji else "🔒") + " " + getString(BadgeText.title(badge.id)))
+                .setTitle(getString(BadgeText.title(badge.id)))
                 .setMessage(
                     getString(BadgeText.description(badge.id)) + "\n\n" +
                         getString(if (badge.earned) R.string.unlocked else R.string.locked)

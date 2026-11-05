@@ -27,11 +27,13 @@
             android:paddingTop="4dp">
 
         <ImageView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
             android:layout_gravity="center_horizontal"
             android:importantForAccessibility="no"
-            android:src="@drawable/ic_flame" />
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/streakly_logo_banner" />
 
         <TextView
             style="@style/Text.Title"

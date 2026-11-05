@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Streakly</string>
-    <string name="emoji_check" translatable="false">✅</string>
     <string name="emoji_envelope" translatable="false">✉️</string>
     <string name="emoji_mailbox" translatable="false">📬</string>
-    <string name="emoji_seedling" translatable="false">🌱</string>
-    <string name="emoji_star" translatable="false">⭐</string>
     <string name="tagline">Small habits. Big changes.</string>
     <string name="nav_home">Home</string>
     <string name="nav_calendar">Calendar</string>
@@ -42,7 +39,7 @@
     <string name="create_account_title">Create your account</string>
     <string name="register_subtitle">Start building habits that stick.</string>
     <string name="continue_with_google">Continue with Google</string>
-    <string name="welcome_back">Welcome back 👋</string>
+    <string name="welcome_back">Welcome back</string>
     <string name="login_subtitle">Sign in to continue your journey</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
@@ -98,9 +95,9 @@
     <string name="verify_not_yet">Not verified yet. Open the link in your e-mail first.</string>
     <string name="already_verified">Your e-mail is already verified</string>
     <string name="todays_habits">Today\'s habits</string>
-    <string name="greeting_morning">Good morning, %1$s 👋</string>
-    <string name="greeting_afternoon">Good afternoon, %1$s 👋</string>
-    <string name="greeting_evening">Good evening, %1$s 👋</string>
+    <string name="greeting_morning">Good morning, %1$s</string>
+    <string name="greeting_afternoon">Good afternoon, %1$s</string>
+    <string name="greeting_evening">Good evening, %1$s</string>
     <string name="done_of_total">%1$d/%2$d done</string>
     <string name="not_due_today">Not due today</string>
     <string name="start_streak">Start your streak today</string>
@@ -357,19 +354,19 @@
     <string name="week_short">W%1$d</string>
     <string name="empty_stats">Add a habit to see your progress here.</string>
     <plurals name="day_streak">
-        <item quantity="one">Day streak</item>
-        <item quantity="other">Day streak</item>
+        <item quantity="one">%1$d day streak</item>
+        <item quantity="other">%1$d day streak</item>
     </plurals>
     <plurals name="days_count">
         <item quantity="one">%1$d day</item>
         <item quantity="other">%1$d days</item>
     </plurals>
     <plurals name="streak_days_inline">
-        <item quantity="one">🔥 %1$d day streak</item>
-        <item quantity="other">🔥 %1$d day streak</item>
+        <item quantity="one">%1$d day streak</item>
+        <item quantity="other">%1$d day streak</item>
     </plurals>
     <plurals name="every_n_days">
-        <item quantity="one">Every day</item>
+        <item quantity="one">Every %1$d day</item>
         <item quantity="other">Every %1$d days</item>
     </plurals>
     <plurals name="streak_risk_banner">

@@ -36,7 +36,7 @@
     <string name="create_account_title">Dira akhaonto ya gago</string>
     <string name="register_subtitle">Simolola go aga ditlwaelo tse di nnang.</string>
     <string name="continue_with_google">Tswelela ka Google</string>
-    <string name="welcome_back">Re a go amogela gape 👋</string>
+    <string name="welcome_back">Re a go amogela gape</string>
     <string name="login_subtitle">Tsena gore o tswelele ka loeto lwa gago</string>
     <string name="email_hint">Imeile</string>
     <string name="password_hint">Phasewete</string>
@@ -92,9 +92,9 @@
     <string name="verify_not_yet">Ga e a netefadiwa le jaanong. Bula lengwe mo imeileng pele.</string>
     <string name="already_verified">Imeile ya gago e setse e netefaditswe</string>
     <string name="todays_habits">Ditlwaelo tsa gompieno</string>
-    <string name="greeting_morning">Dumela, %1$s 👋</string>
-    <string name="greeting_afternoon">Dumela, %1$s 👋</string>
-    <string name="greeting_evening">Dumela, %1$s 👋</string>
+    <string name="greeting_morning">Dumela, %1$s</string>
+    <string name="greeting_afternoon">Dumela, %1$s</string>
+    <string name="greeting_evening">Dumela, %1$s</string>
     <string name="done_of_total">%1$d/%2$d di dirilwe</string>
     <string name="not_due_today">Ga go ya gompieno</string>
     <string name="start_streak">Simolola tatelano ya gago gompieno</string>
@@ -351,19 +351,19 @@
     <string name="week_short">W%1$d</string>
     <string name="empty_stats">Tsenya tlwaelo gore o bone tswelelopele ya gago fano.</string>
     <plurals name="day_streak">
-        <item quantity="one">Letsatsi la tatelano</item>
-        <item quantity="other">Malatsi a tatelano</item>
+        <item quantity="one">%1$d letsatsi la tatelano</item>
+        <item quantity="other">%1$d malatsi a tatelano</item>
     </plurals>
     <plurals name="days_count">
         <item quantity="one">%1$d letsatsi</item>
         <item quantity="other">%1$d malatsi</item>
     </plurals>
     <plurals name="streak_days_inline">
-        <item quantity="one">🔥 %1$d letsatsi la tatelano</item>
-        <item quantity="other">🔥 %1$d malatsi a tatelano</item>
+        <item quantity="one">%1$d letsatsi la tatelano</item>
+        <item quantity="other">%1$d malatsi a tatelano</item>
     </plurals>
     <plurals name="every_n_days">
-        <item quantity="one">Letsatsi le letsatsi</item>
+        <item quantity="one">Letsatsi le letsatsi (%1$d)</item>
         <item quantity="other">Malatsi otlhe a le %1$d</item>
     </plurals>
     <plurals name="streak_risk_banner">

@@ -35,7 +35,7 @@ class HabitAdapter(
         val b = holder.b
         val color = ColorUtils.parse(row.habit.color)
 
-        b.tvIcon.text = row.habit.icon
+        b.tvIcon.setImageResource(ColorUtils.iconResource(b.root.context, row.habit.icon))
         b.tvIcon.background = GradientDrawable().apply {
             shape = GradientDrawable.OVAL
             setColor(ColorUtils.withAlpha(color, 48))

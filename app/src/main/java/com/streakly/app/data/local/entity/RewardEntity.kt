@@ -11,7 +11,7 @@ data class RewardEntity(
     val name: String,
     val description: String = "",
     val cost: Int,
-    val icon: String = "🎁",
+    val icon: String = "ic_gift",
     val updatedAt: Long = System.currentTimeMillis(),
     val serverVersion: Long = 0L,
     val syncState: String = SyncState.PENDING,

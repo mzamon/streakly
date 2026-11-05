@@ -22,12 +22,12 @@ class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
 
-    private data class Page(val emoji: String, val title: Int, val body: Int)
+    private data class Page(val icon: Int, val title: Int, val body: Int)
 
     private val pages = listOf(
-        Page("📅", R.string.onboarding_title_1, R.string.onboarding_body_1),
-        Page("☁️", R.string.onboarding_title_2, R.string.onboarding_body_2),
-        Page("🏆", R.string.onboarding_title_3, R.string.onboarding_body_3)
+        Page(R.drawable.ic_calendar, R.string.onboarding_title_1, R.string.onboarding_body_1),
+        Page(R.drawable.ic_cloud, R.string.onboarding_title_2, R.string.onboarding_body_2),
+        Page(R.drawable.ic_trophy, R.string.onboarding_title_3, R.string.onboarding_body_3)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,7 +86,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: Holder, position: Int) {
             val page = pages[position]
-            holder.b.tvEmoji.text = page.emoji
+            holder.b.tvEmoji.setImageResource(page.icon)
             holder.b.tvTitle.setText(page.title)
             holder.b.tvBody.setText(page.body)
         }

@@ -63,5 +63,6 @@ class EmailVerificationActivity : AppCompatActivity() {
     override fun onBackPressed() {
         // The verification step is skippable, so back simply continues into the app.
         goHome()
+        super.onBackPressed()
     }
 }

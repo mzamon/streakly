@@ -10,11 +10,12 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <ImageView
         android:id="@+id/tvEmoji"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="34sp" />
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:contentDescription="@null"
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/tvTitle"

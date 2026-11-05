@@ -67,13 +67,13 @@ class CreateEditRewardActivity : AppCompatActivity() {
 
     private fun buildIcons() {
         binding.chipIcons.removeAllViews()
-        ColorUtils.REWARD_ICONS.forEach { emoji ->
+        ColorUtils.REWARD_ICONS.forEach { iconName ->
             val chip = layoutInflater.inflate(R.layout.item_chip, binding.chipIcons, false) as Chip
             chip.id = View.generateViewId()
-            chip.text = emoji
-            chip.textSize = 20f
-            chip.isChecked = emoji == icon
-            chip.setOnClickListener { icon = emoji }
+            chip.setChipIconResource(ColorUtils.iconResource(this, iconName))
+            chip.text = ""
+            chip.isChecked = iconName == icon
+            chip.setOnClickListener { icon = iconName }
             binding.chipIcons.addView(chip)
         }
     }

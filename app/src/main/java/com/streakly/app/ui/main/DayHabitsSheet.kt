@@ -102,7 +102,7 @@ class DayHabitsSheet : BottomSheetDialogFragment() {
             val b = holder.b
             val done = latest.isDone(habit.id, date)
             val future = date.isAfter(LocalDate.now())
-            b.tvIcon.text = habit.icon
+            b.tvIcon.setImageResource(ColorUtils.iconResource(b.root.context, habit.icon))
             b.tvIcon.background = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
                 setColor(ColorUtils.withAlpha(ColorUtils.parse(habit.color), 48))

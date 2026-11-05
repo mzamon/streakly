@@ -15,7 +15,7 @@ data class HabitEntity(
     val name: String,
     val description: String = "",
     val notes: String = "",
-    val icon: String = "🔥",
+    val icon: String = "ic_flame",
     val color: String = "#FF7A00",
     val frequencyType: String = "DAILY",
     val daysOfWeek: String = "",

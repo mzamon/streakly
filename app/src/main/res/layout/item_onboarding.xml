@@ -22,12 +22,13 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_circle_dark">
 
-            <TextView
+            <ImageView
                 android:id="@+id/tvEmoji"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:layout_gravity="center"
-                android:textSize="72sp" />
+                android:contentDescription="@null"
+                android:src="@drawable/ic_calendar" />
         </FrameLayout>
     </FrameLayout>
 

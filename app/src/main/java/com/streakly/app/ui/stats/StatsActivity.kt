@@ -118,7 +118,7 @@ class StatsActivity : AppCompatActivity() {
         snapshot.habits.forEach { habit ->
             val counts = StatsCalculator.counts(mapOf(habit.id to habit.schedule()), done, rangeStart, rangeEnd, today)
             val row = ItemHabitRateBinding.inflate(LayoutInflater.from(this), binding.habitRates, false)
-            row.tvIcon.text = habit.icon
+            row.tvIcon.setImageResource(ColorUtils.iconResource(this, habit.icon))
             row.tvIcon.background = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
                 setColor(ColorUtils.withAlpha(ColorUtils.parse(habit.color), 48))

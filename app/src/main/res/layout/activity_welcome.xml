@@ -42,7 +42,7 @@
                     android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_flame" />
+                    android:src="@drawable/streakly_logo_flame" />
             </FrameLayout>
 
             <TextView

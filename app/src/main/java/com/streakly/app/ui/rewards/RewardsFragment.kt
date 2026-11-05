@@ -60,7 +60,7 @@ class RewardsFragment : Fragment() {
 
     private fun showBadge(badge: Gamification.Badge) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle((if (badge.earned) badge.emoji else "🔒") + " " + getString(BadgeText.title(badge.id)))
+            .setTitle(getString(BadgeText.title(badge.id)))
             .setMessage(
                 getString(BadgeText.description(badge.id)) + "\n\n" +
                     getString(if (badge.earned) R.string.unlocked else R.string.locked)

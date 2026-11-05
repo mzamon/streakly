@@ -27,8 +27,8 @@ class RewardRepository(
         val uid = auth.uid ?: return
         val defaults = listOf(
             Triple("default-coffee", "Coffee treat", 50) to "☕",
-            Triple("default-movie", "Movie night", 200) to "🎬",
-            Triple("default-rest", "Guilt-free rest day", 120) to "🛋️"
+            Triple("default-movie", "Movie night", 200) to "ic_file",
+            Triple("default-rest", "Guilt-free rest day", 120) to "ic_moon"
         )
         for ((triple, icon) in defaults) {
             if (db.rewardDao().getById("${uid}_${triple.first}") == null) {

@@ -11,6 +11,7 @@ import com.streakly.app.Graph
 import com.streakly.app.R
 import com.streakly.app.data.repository.RedeemResult
 import com.streakly.app.databinding.SheetRedeemBinding
+import com.streakly.app.utils.ColorUtils
 import kotlinx.coroutines.launch
 
 /** Confirmation sheet: shows the cost and the balance that will remain before points are spent. */
@@ -35,7 +36,7 @@ class RedeemSheet : BottomSheetDialogFragment() {
             if (reward == null || reward.deleted) { dismiss(); return@launch }
             val balance = Graph.habits.snapshotOnce().balance
             val b = _binding ?: return@launch
-            b.tvIcon.text = reward.icon
+            b.tvIcon.setImageResource(ColorUtils.iconResource(requireContext(), reward.icon))
             b.tvName.text = reward.name
             b.tvCost.text = getString(R.string.cost_points, reward.cost)
             b.tvAfter.text = getString(R.string.balance_after, balance, (balance - reward.cost).coerceAtLeast(0))

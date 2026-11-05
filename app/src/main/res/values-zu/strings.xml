@@ -36,7 +36,7 @@
     <string name="create_account_title">Dala i-akhawunti yakho</string>
     <string name="register_subtitle">Qala ukwakha imikhuba ehlala.</string>
     <string name="continue_with_google">Qhubeka ne-Google</string>
-    <string name="welcome_back">Siyakwamukela futhi 👋</string>
+    <string name="welcome_back">Siyakwamukela futhi</string>
     <string name="login_subtitle">Ngena ukuze uqhubeke nohambo lwakho</string>
     <string name="email_hint">I-imeyili</string>
     <string name="password_hint">Iphasiwedi</string>
@@ -92,9 +92,9 @@
     <string name="verify_not_yet">Ayiqinisekiswanga okwamanje. Vula isixhumanisi ku-imeyili kuqala.</string>
     <string name="already_verified">I-imeyili yakho isiqinisekisiwe</string>
     <string name="todays_habits">Imikhuba yanamuhla</string>
-    <string name="greeting_morning">Sawubona, %1$s 👋</string>
-    <string name="greeting_afternoon">Sawubona, %1$s 👋</string>
-    <string name="greeting_evening">Sawubona, %1$s 👋</string>
+    <string name="greeting_morning">Sawubona, %1$s</string>
+    <string name="greeting_afternoon">Sawubona, %1$s</string>
+    <string name="greeting_evening">Sawubona, %1$s</string>
     <string name="done_of_total">%1$d/%2$d kwenziwe</string>
     <string name="not_due_today">Akudingeki namuhla</string>
     <string name="start_streak">Qala uchungechunge lwakho namuhla</string>
@@ -351,19 +351,19 @@
     <string name="week_short">W%1$d</string>
     <string name="empty_stats">Engeza umkhuba ukuze ubone inqubekela phambili yakho lapha.</string>
     <plurals name="day_streak">
-        <item quantity="one">Usuku loluchungechunge</item>
-        <item quantity="other">Izinsuku zochungechunge</item>
+        <item quantity="one">%1$d usuku loluchungechunge</item>
+        <item quantity="other">%1$d izinsuku zochungechunge</item>
     </plurals>
     <plurals name="days_count">
         <item quantity="one">%1$d usuku</item>
         <item quantity="other">%1$d izinsuku</item>
     </plurals>
     <plurals name="streak_days_inline">
-        <item quantity="one">🔥 %1$d usuku loluchungechunge</item>
-        <item quantity="other">🔥 %1$d izinsuku zochungechunge</item>
+        <item quantity="one">%1$d usuku loluchungechunge</item>
+        <item quantity="other">%1$d izinsuku zochungechunge</item>
     </plurals>
     <plurals name="every_n_days">
-        <item quantity="one">Nsuku zonke</item>
+        <item quantity="one">Nsuku zonke (%1$d)</item>
         <item quantity="other">Njalo ezinsukwini ezingu-%1$d</item>
     </plurals>
     <plurals name="streak_risk_banner">

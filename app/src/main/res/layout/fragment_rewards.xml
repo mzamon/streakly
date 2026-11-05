@@ -54,13 +54,13 @@
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <TextView
+                <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/bg_circle_orange"
-                    android:gravity="center"
-                    android:text="@string/emoji_star"
-                    android:textSize="30sp" />
+                    android:contentDescription="@null"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_star" />
             </LinearLayout>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator

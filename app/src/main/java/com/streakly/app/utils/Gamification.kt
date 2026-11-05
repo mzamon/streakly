@@ -6,7 +6,7 @@ object Gamification {
     const val XP_PER_COMPLETION = 10
     const val XP_PER_LEVEL = 100
 
-    data class Badge(val id: String, val emoji: String, val earned: Boolean)
+    data class Badge(val id: String, val icon: String, val earned: Boolean)
 
     fun xpForCompletions(count: Int): Int = count.coerceAtLeast(0) * XP_PER_COMPLETION
 
@@ -27,11 +27,11 @@ object Gamification {
         habitCount: Int,
         redemptions: Int
     ): List<Badge> = listOf(
-        Badge("first_flame", "🔥", totalCompletions >= 1),
-        Badge("streak_7", "🌱", bestStreak >= 7),
-        Badge("streak_30", "🏆", bestStreak >= 30),
-        Badge("century", "⭐", totalCompletions >= 100),
-        Badge("collector", "📚", habitCount >= 5),
-        Badge("treat_yourself", "🎁", redemptions >= 1)
+        Badge("first_flame", "ic_flame", totalCompletions >= 1),
+        Badge("streak_7", "ic_cloud", bestStreak >= 7),
+        Badge("streak_30", "ic_trophy", bestStreak >= 30),
+        Badge("century", "ic_star", totalCompletions >= 100),
+        Badge("collector", "ic_file", habitCount >= 5),
+        Badge("treat_yourself", "ic_gift", redemptions >= 1)
     )
 }
