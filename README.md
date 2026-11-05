@@ -10,6 +10,7 @@
 | | Link |
 |---|---|
 | ▶️ **PoE demonstration video** | https://youtu.be/RE5AjAkq_Bc?si=PxEiKGVJVOuXe5Ez |
+| ✅ **Verified GitHub Actions run** | [Android CI run #17](https://github.com/mzamon/streakly/actions/runs/42123800126) |
 | Prototype history | Part 2 features are retained and extended in this final Part 3 release |
 | Release notes | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
 | AI-use statement | [docs/AI_USE.md](docs/AI_USE.md) |
