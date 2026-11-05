@@ -3,13 +3,13 @@
 > **OPSC6312 — Portfolio of Evidence (Part 3, final submission)**
 > **Authors:** Tumisho Kokhutja (ST10446195), Mzamo Richmond Ndlovu (ST10455453), Lesego Ayanda Mathe (ST10440650)
 
-![Android CI](https://github.com/OWNER/REPO/actions/workflows/android-ci.yml/badge.svg)
+![Android CI](https://github.com/mzamon/streakly/actions/workflows/android-ci.yml/badge.svg)
 
 **Small habits. Big changes.** Streakly is an offline-first Android habit tracker written in Kotlin. Build daily habits, protect your streaks, earn XP and badges, and redeem rewards you create yourself. It works without a connection, syncs automatically when you are back online, and nudges you with push notifications before a streak breaks. The whole app is available in **English, isiZulu and Setswana**.
 
 | | Link |
 |---|---|
-| ▶️ **PoE demonstration video** | _add the unlisted YouTube link here before submission_ |
+| ▶️ **PoE demonstration video** | _Add the unlisted YouTube link before submission_ |
 | Part 2 prototype video | https://youtu.be/l8ESNy6DJ-c |
 | Release notes | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
 | AI-use statement | [docs/AI_USE.md](docs/AI_USE.md) |
