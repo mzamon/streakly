@@ -1,6 +1,6 @@
 # 🔥 Streakly
 
-> **OPSC6312 — Portfolio of Evidence (Part 3, final submission)**
+> **OPSC6312 — Portfolio of Evidence Part 3 (Final Submission)**
 > **Authors:** Tumisho Kokhutja (ST10446195), Mzamo Richmond Ndlovu (ST10455453), Lesego Ayanda Mathe (ST10440650)
 
 ![Android CI](https://github.com/mzamon/streakly/actions/workflows/android-ci.yml/badge.svg)
@@ -10,7 +10,7 @@
 | | Link |
 |---|---|
 | ▶️ **PoE demonstration video** | _Add the unlisted YouTube link before submission_ |
-| Part 2 prototype video | https://youtu.be/l8ESNy6DJ-c |
+| Prototype history | Part 2 features are retained and extended in this final Part 3 release |
 | Release notes | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
 | AI-use statement | [docs/AI_USE.md](docs/AI_USE.md) |
 | Privacy policy | [docs/privacy-policy.html](docs/privacy-policy.html) |
@@ -40,7 +40,7 @@ _Add screenshots taken on the physical phone to `docs/screenshots/` and referenc
 | GitHub, README, automated testing | 39 Kotlin unit tests + 23 API tests, GitHub Actions on every push, final tag pending | [Actions tab](../../actions) |
 | Demonstration video | Script in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | — |
 
-Features carried over from Part 2 (UD1–UD3): habit scheduling and logging (Daily / chosen days / every N days, notes), streak analytics with calendar heat-map, and the points / levels / badges / rewards system.
+**Final Part 3 scope:** The prototype features (habit scheduling and logging, streak analytics, points, levels, badges and rewards) are retained as the foundation. This final submission adds SSO, offline sync, push notifications, South African language support, progress analytics, cloud profile/data portability, and Play Store preparation.
 
 ## Architecture
 

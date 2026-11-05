@@ -8,7 +8,7 @@ mark an item complete without retaining the evidence listed.
 
 - [x] Repository is hosted at `https://github.com/mzamon/streakly`.
 - [x] `README.md`, Kotlin source, Firebase rules, server source, and documentation are committed.
-- [x] GitHub Actions workflow runs Kotlin tests, an Android debug build, API tests, and a README smoke test.
+- [x] GitHub Actions workflow runs Kotlin tests, an Android debug build, and API tests.
 - [x] README badge points to `mzamon/streakly`.
 - [ ] Run and retain the successful CI run URL and artifact links.
 - [ ] Use feature branches for any remaining changes and merge them through pull requests.
@@ -70,7 +70,6 @@ mark an item complete without retaining the evidence listed.
 
 ## Current verified repository changes
 
-- README smoke test passes locally: `python -m unittest -v test_readme_exists.py`.
 - Android unit tests and the debug APK build pass locally with a temporary ignored `local.properties`.
 - API tests pass locally after `npm ci`: 23 tests passed.
 - The CI smoke test is committed in `8bd9f74`.

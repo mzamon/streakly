@@ -10,7 +10,7 @@ Open `/health` on the API a minute before recording (free hosting sleeps). Have 
 | 4 | **Continue with Google** → Firebase shows provider `google.com`; Settings ▸ Account & security: link / unlink | SSO |
 | 5 | Settings tour: personal details (change photo → Storage console shows `users/{uid}/profile.jpg`), notifications, preferences | Settings persist |
 | 6 | Preferences ▸ Language: isiZulu then Setswana, theme light/dark | Multi-language, instant switch |
-| 7 | Add a habit (all three schedules), complete it, calendar, habit detail, notes | UD1–UD3 from Part 2 |
+| 7 | Add a habit (all three schedules), complete it, calendar, habit detail, notes | Final Part 3 foundation features carried over from the prototype |
 | 8 | **My Progress** week / month / year | UD4 |
 | 9 | **Data & backup**: export CSV and JSON, import, clear cache | UD5 |
 | 10 | REST API: Postman `/health` + Render dashboard; Firestore console shows `users/{uid}/habits` | API + NoSQL database |
