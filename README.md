@@ -9,7 +9,7 @@
 
 | | Link |
 |---|---|
-| ▶️ **PoE demonstration video** | _Add the unlisted YouTube link before submission_ |
+| ▶️ **PoE demonstration video** | https://youtu.be/RE5AjAkq_Bc?si=PxEiKGVJVOuXe5Ez |
 | Prototype history | Part 2 features are retained and extended in this final Part 3 release |
 | Release notes | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
 | AI-use statement | [docs/AI_USE.md](docs/AI_USE.md) |
@@ -28,7 +28,7 @@ available, the closest matching app screenshot is reused as a visual preview.
 | Splash | ![Splash screen](assets/splash.jpeg) |
 | Onboarding | ![Onboarding screen](assets/onboarding.jpeg) |
 | Welcome | ![Welcome screen](assets/onboarding.jpeg) |
-| Login | (assets/register.jpeg) |
+| Login | ![Login screen](assets/register.jpeg) |
 | Register | ![Register screen](assets/register.jpeg) |
 | Forgot password | ![Forgot password screen](assets/forgot_password.jpeg) |
 | Email verification | ![Email verification screen](assets/email_verification.jpeg) |
@@ -72,7 +72,7 @@ as `assets/offline_sync_alternate.jpeg`.
 | User-defined 5 | **Cloud profile & data portability**: profile photo in Firebase Storage, JSON / CSV export, backup import, clear cache, delete-all | Settings ▸ Personal details and Settings ▸ Data & backup |
 | Play Store preparation | Signed AAB/APK workflow, adaptive icon, store text, privacy policy, Data-safety answers | [docs/PLAY_STORE.md](docs/PLAY_STORE.md) |
 | User interface | One design system for all 30+ screens (navy + flame orange), dark / light theme, empty / loading / error states, inline validation | Screenshots above |
-| GitHub, README, automated testing | 43 Kotlin unit tests + 33 API tests, GitHub Actions on every push, final tag pending | [Actions tab](../../actions) |
+| GitHub, README, automated testing | 43 Kotlin unit tests + 33 API tests, GitHub Actions on every push, `final-poe` tag present | [Actions tab](../../actions) |
 | Demonstration video | Script in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | — |
 
 **Final Part 3 scope:** The prototype features (habit scheduling and logging, streak analytics, points, levels, badges and rewards) are retained as the foundation. This final submission adds SSO, offline sync, push notifications, South African language support, progress analytics, cloud profile/data portability, and Play Store preparation.
