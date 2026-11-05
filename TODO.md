@@ -12,16 +12,87 @@ settings, validation, and UI is present in the repository. The remaining uncheck
 items below are external proof or release tasks; complete them before submission so
 the implementation can earn the top rubric band.
 
+### Part 2 foundation criteria carried into Part 3
+
+- [x] Mobile app source is complete Kotlin/Android source in GitHub; Gradle 8.5 is
+  compatible with the Android Gradle Plugin and the debug APK builds in an unlocked
+  workspace.
+- [x] Sign-in foundation includes Firebase email/password registration, login,
+  verification email, password reset, validation, and safe Firebase-managed password
+  storage.
+- [x] Settings foundation includes account security, preferences, theme, language,
+  notifications, offline/sync, backup, personal details, privacy, and account deletion.
+- [x] REST API exists with health, sync, devices, push, account deletion, and scheduled
+  streak-risk endpoints; API tests pass.
+- [x] Android integrates the API through Retrofit with Firebase ID-token authentication,
+  Room repositories, WorkManager sync, and Firestore-backed server storage.
+- [x] User-defined Part 2 features are represented by habit gamification/rewards,
+  calendar/streak tracking, and progress analytics; confirm the exact Part 2 proposal
+  and marking memo before submission.
+- [x] UI uses a consistent Streakly design system, validation, loading/error states,
+  custom branding, and project-owned drawables.
+- [ ] Demonstrate each Part 2 feature on a physical phone in the final video and retain
+  screenshots/evidence; source presence alone does not earn the rubric marks.
+
+### Part 3 — 100-mark priority criteria
+
 - [x] Automated coverage expanded to 43 Kotlin unit tests and 33 API tests, including
   utility functions and exported server helpers.
 - [x] GitHub Actions runs Android tests, API tests, and a debug APK build.
 - [x] Gradle wrapper aligned with AGP 8.2.2 at Gradle 8.5; rerun CI and retain the
   green run URL after pushing this change.
+- [ ] **SSO login (10):** enable Google provider and create the Firebase Web OAuth
+  client (`client_type: 3`); replace the local configuration and GitHub secret; add
+  SHA-1/SHA-256 fingerprints; test the Welcome, Login, Register, link, unlink, and
+  re-authentication flows on a physical phone.
+- [ ] **Offline mode with sync (10):** demonstrate Room writes in airplane mode,
+  pending state, WorkManager retry after reconnection, API upload, Firestore readback,
+  and conflict resolution with evidence.
+- [ ] **Real-time notifications (10):** configure FCM, register a real device token,
+  test foreground/background/killed-app delivery, streak-risk job delivery, translated
+  message content, deep links, and invalid-token cleanup.
+- [ ] **Multi-language (10):** verify English, isiZulu, and Setswana on a physical
+  phone; have fluent speakers review the translations and retain written evidence.
+- [ ] **User-defined 4 (10):** confirm the selected feature against the approved
+  proposal/marking memo, test every flow, and show it in the video. Current candidate:
+  My Progress analytics.
+- [ ] **User-defined 5 (10):** confirm the selected feature against the approved
+  proposal/marking memo, test every flow, and show it in the video. Current candidate:
+  cloud profile photo and JSON/CSV data portability.
+- [ ] **Play Store preparation (5):** produce signed APK/AAB, feature graphic,
+  physical-phone screenshots, privacy-policy URL, data-safety answers, content rating,
+  target-audience details, account-deletion URL, and Play Console internal-test evidence.
+- [ ] **AI-use write-up (5):** replace every placeholder in `docs/AI_USE.md`, keep it
+  truthful and under 500 words, identify tools/dates/uses, explain human review, and
+  cite sources consistently.
+- [ ] **UI (10):** record screenshots/video showing consistent layouts, fonts, colors,
+  accessibility labels, invalid-input handling, loading states, empty states, and no
+  crashes on the physical phone.
+- [ ] **GitHub/README/testing (10):** push all source and documentation, keep multiple
+  meaningful commits from the team, retain a green Actions run, include test reports,
+  update README screenshots/video links, create the final tag, and attach release assets.
+- [ ] **Demonstration video (5):** record a professional voice-over video on a physical
+  phone showing registration/login, SSO, settings, REST API, database/blob storage,
+  offline sync, notifications, languages, Part 1/2 features, Play Store evidence, and
+  GitHub Actions.
+
+### Completion rule
+
+The repository can prove implementation and automated build/test behavior, but it cannot
+honestly be marked 100% PoE-complete until the unchecked Firebase, physical-device,
+Play Console, translation, video, release, and evidence tasks below are completed.
+
 - [ ] Prove the app works on a physical Android phone, not only an emulator; retain
   installation and feature-test evidence.
 - [ ] Demonstrate Firebase Authentication password handling, email verification,
   Google SSO, Firestore reads/writes, Firebase Storage photo upload, and account
   deletion in the video.
+- [ ] **Google SSO blocker found:** the local `app/google-services.json` matches
+  `com.streakly.app` but has no OAuth clients/web client ID. In Firebase Console,
+  enable Google sign-in, create/download the Android configuration containing the
+  Web client (`client_type: 3`), replace the ignored local file, and add its
+  base64 value to the `GOOGLE_SERVICES_JSON` GitHub secret. Verify the button on
+  a physical phone.
 - [ ] Demonstrate offline writes, WorkManager retry/sync, conflict resolution, and
   push notifications in foreground, background, and killed-app states.
 - [ ] Have isiZulu and Setswana translations reviewed by speakers and retain the
@@ -50,10 +121,13 @@ the implementation can earn the top rubric band.
 ## Firebase and backend
 
 - [ ] Create the Firebase project and Android app with package `com.streakly.app`.
-- [ ] Enable Email/Password and Google sign-in.
+- [ ] Enable Email/Password and Google sign-in; confirm the downloaded configuration
+  includes a Web OAuth client (`client_type: 3`) for Credential Manager.
 - [ ] Enable Firestore and Storage; confirm Storage billing requirements.
 - [ ] Add debug, release/upload, and Play App Signing SHA-1/SHA-256 fingerprints.
-- [ ] Add the real `app/google-services.json` locally. Never commit it.
+- [x] Add a local `app/google-services.json` matching package `com.streakly.app`;
+  never commit it.
+- [ ] Replace it after adding the missing Web OAuth client; never commit it.
 - [ ] Publish and verify `firebase/firestore.rules` and `firebase/storage.rules`.
 - [ ] Deploy the Render blueprint from `render.yaml`.
 - [ ] Configure `FIREBASE_SERVICE_ACCOUNT` and retain the service health response showing
@@ -103,5 +177,9 @@ the implementation can earn the top rubric band.
 - API tests pass locally after `npm ci`: 33 tests passed.
 - Android unit-test verification passes with the Gradle 8.5 wrapper in an unlocked
   working copy; retain the green CI run as the authoritative evidence.
+- Builds launched inside the OneDrive workspace can fail while Gradle is compiling
+  because OneDrive locks generated `app/build` and Kotlin output files. Do not treat
+  that file-lock error as an application source failure; use GitHub Actions or an
+  unlocked local checkout for final build evidence.
 - No Firebase credentials, signing keys, personal device evidence, Play Console
   evidence, translation review, or final video link is present in this repository yet.

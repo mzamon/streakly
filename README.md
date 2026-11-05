@@ -29,7 +29,7 @@ _Add screenshots taken on the physical phone to `docs/screenshots/` and referenc
 | PoE criterion | Where it lives | How to see it |
 |---|---|---|
 | App runs on a mobile device | Signed release build, animated splash, bottom navigation | Install the signed APK on a physical phone and run the whole demo |
-| **SSO login** | `AuthRepository` (Credential Manager + Firebase), Welcome / Login / Register screens, Settings ▸ Account & security (link / unlink Google) | Tap **Continue with Google**; the user appears in Firebase ▸ Authentication with provider `google.com` |
+| **SSO login** | `AuthRepository` (Credential Manager + Firebase), Welcome / Login / Register screens, Settings ▸ Account & security (link / unlink Google) | Requires a Firebase Web OAuth client in the local/CI `google-services.json`; then tap **Continue with Google** and verify provider `google.com` in Firebase Authentication |
 | **Offline mode with sync** | Room (single source of truth), `SyncRepository`, `SyncWorker` (WorkManager), `/api/sync`, conflict screen | Airplane mode ▸ complete habits ▸ reconnect ▸ pending count drops to 0 and rows appear in Firestore |
 | **Real-time notifications** | `StreaklyMessagingService` (FCM data messages), `/api/jobs/streak-risk`, `/api/push/test`, deep links | Settings ▸ Notifications ▸ **Send a test notification**; works foreground, background and killed |
 | **Multi-language** | `values/`, `values-zu/`, `values-tn/` (≈ 360 strings + plurals), per-app locale API | Settings ▸ Preferences ▸ Language: the entire UI changes instantly and persists |
