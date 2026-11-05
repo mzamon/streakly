@@ -37,7 +37,7 @@ _Add screenshots taken on the physical phone to `docs/screenshots/` and referenc
 | User-defined 5 | **Cloud profile & data portability**: profile photo in Firebase Storage, JSON / CSV export, backup import, clear cache, delete-all | Settings ▸ Personal details and Settings ▸ Data & backup |
 | Play Store preparation | Signed AAB/APK workflow, adaptive icon, store text, privacy policy, Data-safety answers | [docs/PLAY_STORE.md](docs/PLAY_STORE.md) |
 | User interface | One design system for all 30+ screens (navy + flame orange), dark / light theme, empty / loading / error states, inline validation | Screenshots above |
-| GitHub, README, automated testing | Feature branches, 35 Kotlin unit tests + 23 API tests, GitHub Actions on every push, tagged final release | [Actions tab](../../actions) |
+| GitHub, README, automated testing | Feature branches, 39 Kotlin unit tests + 23 API tests, GitHub Actions on every push, tagged final release | [Actions tab](../../actions) |
 | Demonstration video | Script in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | — |
 
 Features carried over from Part 2 (UD1–UD3): habit scheduling and logging (Daily / chosen days / every N days, notes), streak analytics with calendar heat-map, and the points / levels / badges / rewards system.
@@ -121,7 +121,7 @@ Or push a tag (`git tag -a v1.0.0-final-poe -m "Final PoE" && git push origin v1
 
 | Suite | Count | Run |
 |---|---|---|
-| Kotlin unit tests (streaks, gamification, validation, sync merge rules, calendar maths, export) | 35 | `./gradlew testDebugUnitTest` |
+| Kotlin unit tests (streaks, gamification, validation, sync merge rules, calendar maths, export) | 39 | `./gradlew testDebugUnitTest` |
 | API tests (auth, sync, conflicts, devices, push, account deletion, streak job) | 23 | `cd server && npm test` |
 
 `android-ci.yml` runs both suites and builds the debug APK on every push and pull request; `release.yml` builds the signed release when a version tag is pushed. When the `GOOGLE_SERVICES_JSON` secret is absent the workflow creates a placeholder file so the build still succeeds.

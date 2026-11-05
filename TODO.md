@@ -33,10 +33,9 @@ mark an item complete without retaining the evidence listed.
 
 ## Build and testing
 
-- [ ] Run `./gradlew testDebugUnitTest` with the real Kotlin compiler and retain the
-  report showing all 35 tests pass.
-- [ ] Run `cd server && npm ci && npm test` and retain the report showing all 23 API tests pass.
-- [ ] Run `./gradlew assembleDebug` successfully.
+- [x] Run `./gradlew testDebugUnitTest` with the real Kotlin compiler; all 39 tests pass.
+- [x] Run `cd server && npm ci && npm test`; all 23 API tests pass.
+- [x] Run `./gradlew assembleDebug` successfully.
 - [ ] Run `./gradlew assembleRelease` and `./gradlew bundleRelease` successfully with
   the real signing configuration.
 - [ ] Install the signed release build on a physical Android phone.
@@ -72,6 +71,8 @@ mark an item complete without retaining the evidence listed.
 ## Current verified repository changes
 
 - README smoke test passes locally: `python -m unittest -v test_readme_exists.py`.
+- Android unit tests and the debug APK build pass locally with a temporary ignored `local.properties`.
+- API tests pass locally after `npm ci`: 23 tests passed.
 - The CI smoke test is committed in `8bd9f74`.
 - No Firebase credentials, signing keys, personal device evidence, Play Console
   evidence, translation review, or final video link is present in this repository yet.
