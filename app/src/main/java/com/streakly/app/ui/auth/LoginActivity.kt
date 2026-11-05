@@ -5,61 +5,79 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.streakly.app.Graph
 import com.streakly.app.R
-import com.streakly.app.data.repository.AuthRepository
 import com.streakly.app.data.repository.AuthResult
 import com.streakly.app.databinding.ActivityLoginBinding
-import com.streakly.app.ui.main.MainActivity
+import com.streakly.app.ui.common.clearErrorOnType
+import com.streakly.app.ui.common.text
+import com.streakly.app.utils.Validators
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var auth: AuthRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = AuthRepository(this)
 
-        binding.tvForgot.setOnClickListener {
-            startActivity(Intent(this, ForgotPasswordActivity::class.java))
-        }
-        binding.tvGoRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
+        binding.tilEmail.clearErrorOnType()
+        binding.tilPassword.clearErrorOnType()
+        binding.btnBack.setOnClickListener { finish() }
         binding.btnLogin.setOnClickListener { attemptLogin() }
+        binding.tvForgot.setOnClickListener { startActivity(Intent(this, ForgotPasswordActivity::class.java)) }
+        binding.tvRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
+        }
+        binding.btnGoogle.setOnClickListener {
+            binding.tvFormError.visibility = View.GONE
+            AuthFlow.googleSignIn(this, onBusy = { setBusy(it) }, onError = { showError(it) })
+        }
     }
 
     private fun attemptLogin() {
-        val email = binding.etEmail.text.toString().trim()
-        val pass = binding.etPassword.text.toString()
+        binding.tvFormError.visibility = View.GONE
+        val email = binding.tilEmail.text
+        val password = binding.etPassword.text?.toString() ?: ""
+        var valid = true
+        if (!Validators.isValidEmail(email)) {
+            binding.tilEmail.error = getString(R.string.error_email_invalid)
+            valid = false
+        }
+        if (password.isEmpty()) {
+            binding.tilPassword.error = getString(R.string.error_password_required)
+            valid = false
+        }
+        if (!valid) return
 
-        if (email.isEmpty()) { showError(getString(R.string.error_email_required)); return }
-        if (pass.isEmpty()) { showError(getString(R.string.error_password_required)); return }
-        showError(null)
-
-        binding.btnLogin.isEnabled = false
         lifecycleScope.launch {
-            val result = auth.login(email, pass)
-            binding.btnLogin.isEnabled = true
-            when (result) {
+            setBusy(true)
+            when (val result = Graph.auth.login(email, password)) {
                 is AuthResult.Success -> {
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    AuthFlow.onSignedIn(applicationContext)
+                    startActivity(AuthFlow.homeIntent(this@LoginActivity))
                     finish()
                 }
-                is AuthResult.Error -> showError(result.message)
+                is AuthResult.Cancelled -> setBusy(false)
+                is AuthResult.Error -> {
+                    setBusy(false)
+                    showError(result.messageRes)
+                }
             }
         }
     }
 
-    private fun showError(msg: String?) {
-        if (msg == null) {
-            binding.tvError.visibility = View.GONE
-        } else {
-            binding.tvError.text = msg
-            binding.tvError.visibility = View.VISIBLE
-        }
+    private fun showError(res: Int) {
+        binding.tvFormError.setText(res)
+        binding.tvFormError.visibility = View.VISIBLE
+    }
+
+    private fun setBusy(busy: Boolean) {
+        binding.progress.visibility = if (busy) View.VISIBLE else View.INVISIBLE
+        binding.btnLogin.isEnabled = !busy
+        binding.btnGoogle.isEnabled = !busy
     }
 }

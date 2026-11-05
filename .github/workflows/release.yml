@@ -1,0 +1,51 @@
+name: Release
+
+# Push a tag such as v1.0.0-final-poe to build a signed APK + AAB and publish a GitHub Release.
+on:
+  push:
+    tags: [ 'v*' ]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v3
+
+      - name: Restore secrets
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+        run: |
+          test -n "$GOOGLE_SERVICES_JSON" || { echo "Secret GOOGLE_SERVICES_JSON is required for a release build"; exit 1; }
+          test -n "$KEYSTORE_B64" || { echo "Secret KEYSTORE_B64 is required for a signed release"; exit 1; }
+          echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+
+      - name: Test, then build signed release APK and AAB
+        env:
+          KEYSTORE_PATH: ${{ runner.temp }}/upload.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          API_BASE_URL: ${{ vars.API_BASE_URL }}
+        run: |
+          chmod +x gradlew
+          ./gradlew testDebugUnitTest assembleRelease bundleRelease --stacktrace
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: RELEASE_NOTES.md
+          files: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab

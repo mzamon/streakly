@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.Streakly.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationContentDescription="@string/back"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/data_backup" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingTop="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowBackupNow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_upload"
+                app:srTitle="@string/backup_now" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowExportCsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_file"
+                app:srTitle="@string/export_csv" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowExportJson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_download"
+                app:srTitle="@string/export_json" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowImport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_upload"
+                app:srTitle="@string/import_backup" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowClearCache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_refresh"
+                app:srTitle="@string/clear_local_cache" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowDeleteAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_trash"
+                app:srTitle="@string/delete_all_data"
+                app:srDanger="true"
+                app:srChevron="false" />
+        </LinearLayout>
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:indicatorColor="@color/orange"
+            app:trackColor="@color/card_elevated" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

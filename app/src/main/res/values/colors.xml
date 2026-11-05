@@ -1,52 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Streakly Core Color Palette -->
-    <color name="background_primary">#0B1220</color> <!-- Deep Navy -->
-    <color name="background_secondary">#111B2E</color> <!-- Dark Blue -->
-    <color name="surface">#16233A</color> <!-- Navy Blue / Card background -->
-    <color name="surface_card">#16233A</color>
-    <color name="surface_elevated">#1C2B44</color> <!-- Blue Slate -->
+    <!-- Semantic colours (light values; see values-night for the dark palette that matches the UI mock-ups) -->
+    <color name="bg">#F4F6FB</color>
+    <color name="bg_alt">#EAEEF7</color>
+    <color name="card">#FFFFFF</color>
+    <color name="card_elevated">#EEF1F8</color>
+    <color name="stroke">#D9DFEC</color>
+    <color name="text_primary">#0B1220</color>
+    <color name="text_secondary">#44546F</color>
+    <color name="text_muted">#6E7C94</color>
+    <color name="danger">#D93036</color>
 
-    <color name="primary">#FF7A00</color> <!-- Streak Orange -->
-    <color name="primary_dark">#FF7A00</color>
-    <color name="primary_light">#FF9F1C</color> <!-- Flame Orange -->
-
-    <color name="flame_500">#FF7A00</color> <!-- Streak Orange -->
-    <color name="streakly_orange">#FF7A00</color>
-    <color name="streakly_orange_light">#FF9F1C</color>
-    <color name="flame_yellow">#FFD166</color>
+    <!-- Brand colours (same in both themes) -->
+    <color name="orange">#FF7A00</color>
+    <color name="orange_light">#FF9F1C</color>
+    <color name="orange_dark">#E65C00</color>
     <color name="gold">#FFD166</color>
-
-    <color name="accent">#20C7B7</color> <!-- Progress Teal -->
-    <color name="accent_dark">#20C7B7</color>
-    <color name="jade_500">#20C7B7</color>
-    <color name="success_teal">#35D6C4</color>
-
-    <color name="text_primary">#FFFFFF</color> <!-- White -->
-    <color name="text_secondary">#A9B7CC</color> <!-- Light Blue-Grey -->
-    <color name="text_muted">#71809A</color> <!-- Grey Blue -->
-    <color name="text_white">#FFFFFF</color>
-    <color name="text_hint">#71809A</color>
-
-    <color name="divider">#263650</color> <!-- Dark Border -->
-    <color name="error">#FF5C5C</color> <!-- Soft Red -->
-    <color name="warning">#FFB547</color> <!-- Amber -->
-
-    <color name="black">#000000</color>
+    <color name="teal">#20C7B7</color>
+    <color name="warning">#FFB547</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
+    <color name="scrim">#99000000</color>
 
-    <color name="streak_risk">#FF5C5C</color>
-    <color name="sand">#1C2B44</color>
-    <color name="streakly_teal">#20C7B7</color>
-    <color name="teal_900">#0B1220</color>
-    <color name="teal_800">#111B2E</color>
-    <color name="teal_700">#16233A</color>
-    <color name="text_on_teal">#FFFFFF</color>
-    <color name="text_on_flame">#FFFFFF</color>
-
-    <!-- Backward compatibility color definitions mapping to new theme -->
-    <color name="sand_050">#A9B7CC</color>
-    <color name="sand_100">#1C2B44</color>
-    <color name="sand_200">#263650</color>
+    <!-- Fixed dark palette used by splash / onboarding / welcome artwork -->
+    <color name="navy_900">#070C18</color>
+    <color name="navy_800">#0B1220</color>
+    <color name="navy_700">#111B2E</color>
+    <color name="navy_600">#16233A</color>
+    <color name="navy_500">#1C2B44</color>
+    <color name="navy_400">#263650</color>
+    <color name="on_dark">#FFFFFF</color>
+    <color name="on_dark_secondary">#A9B7CC</color>
+    <color name="streak_card_start">#3B2410</color>
+    <color name="streak_card_end">#B8560F</color>
+    <color name="ember_glow">#33FF7A00</color>
 </resources>

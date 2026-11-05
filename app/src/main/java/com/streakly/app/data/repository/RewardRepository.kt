@@ -4,69 +4,76 @@ import android.content.Context
 import com.streakly.app.data.local.StreaklyDatabase
 import com.streakly.app.data.local.entity.RedemptionEntity
 import com.streakly.app.data.local.entity.RewardEntity
-import com.streakly.app.data.model.Redemption
-import com.streakly.app.data.model.Reward
-import com.streakly.app.utils.DateUtils
-import com.streakly.app.utils.Gamification
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.streakly.app.data.local.entity.SyncState
+import com.streakly.app.worker.SyncScheduler
+import java.time.LocalDate
+import java.util.UUID
 
-class RewardRepository(private val context: Context) {
+enum class RedeemResult { SUCCESS, INSUFFICIENT, NOT_FOUND }
 
-    private val db = StreaklyDatabase.get(context)
-    private val habitRepo = HabitRepository(context)
+class RewardRepository(
+    private val context: Context,
+    private val db: StreaklyDatabase,
+    private val auth: AuthRepository,
+    private val habits: HabitRepository
+) {
+    fun newId(): String = UUID.randomUUID().toString()
 
-    suspend fun getRewards(): List<Reward> = withContext(Dispatchers.IO) {
-        val list = db.rewardDao().getAll().map {
-            Reward(it.id, it.remoteId, it.name, it.description, it.cost, it.icon)
-        }
-        if (list.isEmpty()) seedDefaults()
-        db.rewardDao().getAll().map {
-            Reward(it.id, it.remoteId, it.name, it.description, it.cost, it.icon)
-        }
-    }
-
-    private suspend fun seedDefaults() {
-        listOf(
-            Reward(name = "Coffee treat", cost = 50, icon = "☕", description = "Small reward"),
-            Reward(name = "Movie night", cost = 200, icon = "🎬", description = "Bigger reward"),
-            Reward(name = "Rest day pass", cost = 30, icon = "🛋", description = "Skip a day")
-        ).forEach { r ->
-            db.rewardDao().upsert(RewardEntity(
-                name = r.name, description = r.description, cost = r.cost, icon = r.icon
-            ))
-        }
-    }
-
-    suspend fun pointsBalance(): Int = withContext(Dispatchers.IO) {
-        val habits = habitRepo.getHabits()
-        var total = 0
-        for (h in habits) total += habitRepo.getCompletionDates(h.localId).size
-        val earned = Gamification.pointsForCompletionCount(total)
-        val spent = db.redemptionDao().totalSpent()
-        earned - spent
-    }
-
-    suspend fun getRedemptions(): List<Redemption> = withContext(Dispatchers.IO) {
-        db.redemptionDao().getAll().map {
-            Redemption(it.id, it.rewardId, it.rewardName, it.cost, it.date)
+    /**
+     * Every account starts with three example rewards. The ids are fixed, so signing in on a second device
+     * (or running this twice) never duplicates them.
+     */
+    suspend fun ensureDefaults() {
+        val uid = auth.uid ?: return
+        val defaults = listOf(
+            Triple("default-coffee", "Coffee treat", 50) to "☕",
+            Triple("default-movie", "Movie night", 200) to "🎬",
+            Triple("default-rest", "Guilt-free rest day", 120) to "🛋️"
+        )
+        for ((triple, icon) in defaults) {
+            if (db.rewardDao().getById("${uid}_${triple.first}") == null) {
+                db.rewardDao().upsert(
+                    RewardEntity(
+                        id = "${uid}_${triple.first}", uid = uid, name = triple.second,
+                        description = "", cost = triple.third, icon = icon,
+                        updatedAt = 1L, syncState = SyncState.SYNCED
+                    )
+                )
+            }
         }
     }
 
-    suspend fun redeem(reward: Reward): Result<Unit> = withContext(Dispatchers.IO) {
-        val balance = pointsBalance()
-        if (balance < reward.cost) return@withContext Result.failure(Exception("Not enough points"))
+    suspend fun getReward(id: String): RewardEntity? = db.rewardDao().getById(id)
+
+    suspend fun save(reward: RewardEntity) {
+        val uid = auth.uid ?: return
+        db.rewardDao().upsert(
+            reward.copy(uid = uid, deleted = false, updatedAt = System.currentTimeMillis(), syncState = SyncState.PENDING)
+        )
+        SyncScheduler.requestNow(context)
+    }
+
+    suspend fun delete(id: String) {
+        val reward = db.rewardDao().getById(id) ?: return
+        db.rewardDao().upsert(
+            reward.copy(deleted = true, updatedAt = System.currentTimeMillis(), syncState = SyncState.PENDING)
+        )
+        SyncScheduler.requestNow(context)
+    }
+
+    suspend fun redeem(rewardId: String): RedeemResult {
+        val uid = auth.uid ?: return RedeemResult.NOT_FOUND
+        val reward = db.rewardDao().getById(rewardId) ?: return RedeemResult.NOT_FOUND
+        val snapshot = habits.snapshotOnce()
+        if (!com.streakly.app.utils.Gamification.canAfford(snapshot.balance, reward.cost)) return RedeemResult.INSUFFICIENT
         db.redemptionDao().upsert(
             RedemptionEntity(
-                rewardId = reward.id, rewardName = reward.name,
-                cost = reward.cost, date = DateUtils.today()
+                id = UUID.randomUUID().toString(), uid = uid, rewardId = reward.id,
+                rewardName = reward.name, cost = reward.cost, date = LocalDate.now().toString(),
+                updatedAt = System.currentTimeMillis(), syncState = SyncState.PENDING
             )
         )
-        Result.success(Unit)
-    }
-
-    suspend fun clearAllLocalData() = withContext(Dispatchers.IO) {
-        db.redemptionDao().deleteAll()
-        db.rewardDao().deleteAll()
+        SyncScheduler.requestNow(context)
+        return RedeemResult.SUCCESS
     }
 }

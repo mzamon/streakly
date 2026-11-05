@@ -1,25 +1,38 @@
 package com.streakly.app.data.local.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.streakly.app.data.local.entity.HabitLogEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HabitLogDao {
-    @Query("SELECT * FROM habit_logs WHERE habitId = :habitId ORDER BY date DESC")
-    suspend fun getByHabit(habitId: Long): List<HabitLogEntity>
+    @Query("SELECT * FROM habit_logs WHERE uid = :uid AND deleted = 0")
+    fun observeAll(uid: String): Flow<List<HabitLogEntity>>
 
-    @Query("SELECT * FROM habit_logs WHERE pendingSync = 1")
-    suspend fun getPending(): List<HabitLogEntity>
+    @Query("SELECT * FROM habit_logs WHERE uid = :uid AND deleted = 0")
+    suspend fun getAll(uid: String): List<HabitLogEntity>
+
+    @Query("SELECT * FROM habit_logs WHERE habitId = :habitId AND deleted = 0 ORDER BY date DESC")
+    suspend fun getByHabit(habitId: String): List<HabitLogEntity>
+
+    @Query("SELECT * FROM habit_logs WHERE id = :id LIMIT 1")
+    suspend fun getById(id: String): HabitLogEntity?
+
+    @Query("SELECT * FROM habit_logs WHERE uid = :uid AND syncState = 'PENDING'")
+    suspend fun getPending(uid: String): List<HabitLogEntity>
+
+    @Query("SELECT COUNT(*) FROM habit_logs WHERE uid = :uid AND syncState = 'PENDING'")
+    suspend fun countPending(uid: String): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(log: HabitLogEntity): Long
+    suspend fun upsert(log: HabitLogEntity)
 
-    @Query("DELETE FROM habit_logs WHERE habitId = :habitId")
-    suspend fun deleteByHabit(habitId: Long)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(logs: List<HabitLogEntity>)
 
-    @Query("DELETE FROM habit_logs")
-    suspend fun deleteAll()
-
-    @Query("UPDATE habit_logs SET pendingSync = 0 WHERE id = :id")
-    suspend fun markSynced(id: Long)
+    @Query("DELETE FROM habit_logs WHERE uid = :uid")
+    suspend fun deleteAllForUser(uid: String)
 }

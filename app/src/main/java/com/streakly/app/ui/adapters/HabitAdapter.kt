@@ -4,63 +4,63 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.streakly.app.R
-import com.streakly.app.data.model.Habit
+import com.streakly.app.data.local.entity.HabitEntity
+import com.streakly.app.databinding.ItemHabitBinding
+import com.streakly.app.utils.ColorUtils
+
+/** One line on the Home list. [subtitle] is already localised by the screen. */
+data class HabitRow(
+    val habit: HabitEntity,
+    val done: Boolean,
+    val due: Boolean,
+    val subtitle: String
+)
 
 class HabitAdapter(
-    private val onCheck: (Habit) -> Unit,
-    private val onClick: (Habit) -> Unit
-) : RecyclerView.Adapter<HabitAdapter.VH>() {
+    private val onToggle: (HabitEntity, Boolean) -> Unit,
+    private val onOpen: (HabitEntity) -> Unit
+) : ListAdapter<HabitRow, HabitAdapter.Holder>(Diff) {
 
-    data class Entry(val habit: Habit, val streak: Int, val doneToday: Boolean)
+    class Holder(val b: ItemHabitBinding) : RecyclerView.ViewHolder(b.root)
 
-    var entries: List<Entry> = emptyList()
-        set(value) { field = value; notifyDataSetChanged() }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
+        Holder(ItemHabitBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    class VH(v: View) : RecyclerView.ViewHolder(v) {
-        val tvIcon: TextView = v.findViewById(R.id.tvIcon)
-        val tvName: TextView = v.findViewById(R.id.tvName)
-        val tvSub: TextView = v.findViewById(R.id.tvSub)
-        val btnCheck: TextView = v.findViewById(R.id.btnCheck)
-        val root: View = v
-    }
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val row = getItem(position)
+        val b = holder.b
+        val color = ColorUtils.parse(row.habit.color)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_habit, parent, false)
-        return VH(v)
-    }
-
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        val e = entries[position]
-        val ctx = holder.itemView.context
-        holder.tvIcon.text = e.habit.icon
-        holder.tvName.text = e.habit.name
-        holder.tvSub.text = if (e.doneToday) "${e.streak}-day streak · done today"
-            else "${e.streak}-day streak"
-
-        holder.root.setOnClickListener { onClick(e.habit) }
-
-        if (e.doneToday) {
-            val d = GradientDrawable().apply {
-                shape = GradientDrawable.OVAL
-                setColor(ContextCompat.getColor(ctx, R.color.jade_500))
-            }
-            holder.btnCheck.background = d
-            holder.btnCheck.text = "✓"
-            holder.btnCheck.setOnClickListener { }
-        } else {
-            val d = GradientDrawable().apply {
-                shape = GradientDrawable.OVAL
-                setColor(ContextCompat.getColor(ctx, R.color.flame_500))
-            }
-            holder.btnCheck.background = d
-            holder.btnCheck.text = "✓"
-            holder.btnCheck.setOnClickListener { onCheck(e.habit) }
+        b.tvIcon.text = row.habit.icon
+        b.tvIcon.background = GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            setColor(ColorUtils.withAlpha(color, 48))
         }
+        b.tvName.text = row.habit.name
+        b.tvSub.text = row.subtitle
+        b.root.alpha = if (row.due) 1f else 0.55f
+
+        b.ivCheck.setBackgroundResource(if (row.done) R.drawable.bg_check_done else R.drawable.bg_check_empty)
+        b.ivCheck.visibility = View.VISIBLE
+        b.ivCheck.imageAlpha = if (row.done) 255 else 0
+        b.checkHolder.isEnabled = row.due
+        b.checkHolder.setOnClickListener {
+            if (!row.due) return@setOnClickListener
+            // Small "pop" so completing a habit feels rewarding
+            b.ivCheck.animate().scaleX(1.3f).scaleY(1.3f).setDuration(110).withEndAction {
+                b.ivCheck.animate().scaleX(1f).scaleY(1f).setDuration(110).start()
+            }.start()
+            onToggle(row.habit, !row.done)
+        }
+        b.root.setOnClickListener { onOpen(row.habit) }
     }
 
-    override fun getItemCount(): Int = entries.size
+    private object Diff : DiffUtil.ItemCallback<HabitRow>() {
+        override fun areItemsTheSame(a: HabitRow, b: HabitRow) = a.habit.id == b.habit.id
+        override fun areContentsTheSame(a: HabitRow, b: HabitRow) = a == b
+    }
 }

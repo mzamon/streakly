@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Streakly" parent="Base.Theme.Streakly">
+        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
+    </style>
+    <style name="Theme.Streakly.Splash" parent="Theme.Streakly">
+        <item name="android:windowBackground">@color/navy_800</item>
+        <item name="android:statusBarColor">@color/navy_800</item>
+        <item name="android:navigationBarColor">@color/navy_800</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowSplashScreenBackground">@color/navy_800</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_blank</item>
+    </style>
+</resources>

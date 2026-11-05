@@ -1,0 +1,6 @@
+# Copy to local.properties (git-ignored) and adjust.
+sdk.dir=C\:\\Users\\YOU\\AppData\\Local\\Android\\Sdk
+# Hosted API (must end with /). Use http://10.0.2.2:3000/ for a local server on the emulator.
+API_BASE_URL=https://YOUR-SERVICE.onrender.com/
+PRIVACY_URL=https://YOUR-GITHUB-USER.github.io/streakly/privacy-policy.html
+SUPPORT_EMAIL=you@example.com

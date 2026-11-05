@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.Streakly.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationContentDescription="@string/back"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/about_help" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingTop="4dp">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_flame" />
+
+        <TextView
+            style="@style/Text.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/tvVersion"
+            style="@style/Text.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowApiStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_cloud"
+                app:srTitle="@string/api_status" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowPrivacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_shield"
+                app:srTitle="@string/privacy_policy" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_file"
+                app:srTitle="@string/terms_of_service" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowLicenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_link"
+                app:srTitle="@string/open_source_licenses" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowSupport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_mail"
+                app:srTitle="@string/contact_support" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_star"
+                app:srTitle="@string/rate_app" />
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

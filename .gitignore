@@ -33,3 +33,8 @@ npm-debug.log*
 
 # ---------- OS ----------
 Thumbs.db
+# ---------- Release signing & local config ----------
+/keystore/
+/app/release/
+/server/serviceAccountKey.json
+/server/data/

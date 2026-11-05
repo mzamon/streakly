@@ -1,63 +1,85 @@
 package com.streakly.app.ui.adapters
 
-import android.content.Context
-import android.graphics.drawable.GradientDrawable
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.streakly.app.R
+import com.streakly.app.databinding.ItemDayBinding
+import java.time.LocalDate
 
-class DayAdapter(
-    private val context: Context,
-    private val cells: List<DayCell>
-) : BaseAdapter() {
-
-    override fun getCount(): Int = cells.size
-    override fun getItem(position: Int): Any = cells[position]
-    override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val tv = (convertView as? TextView) ?: TextView(context).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            gravity = android.view.Gravity.CENTER
-            textSize = 12f
-        }
-
-        val cell = cells[position]
-        val sizePx = (parent?.width ?: 300) / 7 - 12
-        tv.layoutParams = ViewGroup.LayoutParams(sizePx, sizePx)
-
-        if (cell.date == null) {
-            tv.text = ""
-            tv.background = null
-            return tv
-        }
-
-        tv.text = cell.date.dayOfMonth.toString()
-        val color = when (cell.state) {
-            DayState.DONE -> R.color.jade_500
-            DayState.MISSED -> R.color.text_muted
-            DayState.NOT_DUE -> R.color.sand_200
-            DayState.TODAY -> R.color.streakly_teal
-            DayState.AT_RISK -> R.color.flame_500
-            DayState.BLANK -> R.color.sand_100
-        }
-        val d = GradientDrawable().apply {
-            shape = GradientDrawable.OVAL
-            setColor(ContextCompat.getColor(context, color))
-        }
-        tv.background = d
-        tv.setTextColor(ContextCompat.getColor(context,
-            if (cell.state == DayState.NOT_DUE || cell.state == DayState.BLANK) R.color.text_primary
-            else R.color.text_on_teal))
-        return tv
-    }
+object DayState {
+    const val NONE = 0
+    const val DONE = 1
+    const val PARTIAL = 2
+    const val MISSED = 3
+    const val UPCOMING = 4
 }
 
+/** [date] is null for the blank cells before the first of the month. */
+data class DayCell(val date: LocalDate?, val state: Int, val isToday: Boolean, val isSelected: Boolean)
 
+class DayAdapter(private val onClick: (LocalDate) -> Unit) : RecyclerView.Adapter<DayAdapter.Holder>() {
 
+    private var cells: List<DayCell> = emptyList()
+
+    class Holder(val b: ItemDayBinding) : RecyclerView.ViewHolder(b.root)
+
+    fun submit(list: List<DayCell>) {
+        cells = list
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount(): Int = cells.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
+        Holder(ItemDayBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val cell = cells[position]
+        val b = holder.b
+        val ctx = b.root.context
+        val date = cell.date
+        if (date == null) {
+            b.tvDay.text = ""
+            b.tvDay.background = null
+            b.dot.visibility = View.INVISIBLE
+            b.root.setOnClickListener(null)
+            b.root.isClickable = false
+            return
+        }
+        b.tvDay.text = date.dayOfMonth.toString()
+        b.root.isClickable = true
+        b.root.setOnClickListener { onClick(date) }
+
+        when {
+            cell.isToday -> {
+                b.tvDay.setBackgroundResource(R.drawable.bg_circle_orange)
+                b.tvDay.setTextColor(ContextCompat.getColor(ctx, R.color.white))
+            }
+            cell.isSelected -> {
+                b.tvDay.setBackgroundResource(R.drawable.bg_circle_flat)
+                b.tvDay.setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
+            }
+            else -> {
+                b.tvDay.background = null
+                b.tvDay.setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
+            }
+        }
+
+        val dotColor = when (cell.state) {
+            DayState.DONE -> R.color.teal
+            DayState.PARTIAL -> R.color.orange
+            DayState.MISSED -> R.color.danger
+            else -> 0
+        }
+        if (dotColor == 0) {
+            b.dot.visibility = View.INVISIBLE
+        } else {
+            b.dot.visibility = View.VISIBLE
+            ViewCompat.setBackgroundTintList(b.dot, android.content.res.ColorStateList.valueOf(ContextCompat.getColor(ctx, dotColor)))
+        }
+    }
+}

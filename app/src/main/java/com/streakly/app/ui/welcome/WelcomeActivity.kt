@@ -2,27 +2,45 @@ package com.streakly.app.ui.welcome
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.streakly.app.R
+import com.streakly.app.Graph
 import com.streakly.app.databinding.ActivityWelcomeBinding
+import com.streakly.app.ui.auth.AuthFlow
 import com.streakly.app.ui.auth.LoginActivity
 import com.streakly.app.ui.auth.RegisterActivity
+import com.streakly.app.ui.common.SystemBars
 
+/** Entry point for signed-out users: log in, register or continue with Google. */
 class WelcomeActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityWelcomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val b = ActivityWelcomeBinding.inflate(layoutInflater)
-        setContentView(b.root)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        SystemBars.lightIcons(this, false)
 
-        b.btnLogin.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
-        b.btnRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
-        b.btnGoogle.setOnClickListener {
-            Toast.makeText(this, R.string.google_sso_stub, Toast.LENGTH_LONG).show()
+        if (!Graph.auth.isConfigured) binding.tvConfigWarning.visibility = View.VISIBLE
+
+        binding.btnLogin.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
+        binding.btnRegister.setOnClickListener { startActivity(Intent(this, RegisterActivity::class.java)) }
+        binding.btnGoogle.setOnClickListener {
+            binding.tvError.visibility = View.GONE
+            AuthFlow.googleSignIn(
+                this,
+                onBusy = { busy ->
+                    binding.progress.visibility = if (busy) View.VISIBLE else View.INVISIBLE
+                    binding.btnGoogle.isEnabled = !busy
+                    binding.btnLogin.isEnabled = !busy
+                    binding.btnRegister.isEnabled = !busy
+                },
+                onError = { res ->
+                    binding.tvError.setText(res)
+                    binding.tvError.visibility = View.VISIBLE
+                }
+            )
         }
     }
 }

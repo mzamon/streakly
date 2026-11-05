@@ -1,6 +1,5 @@
 package com.streakly.app.utils
 
-import com.streakly.app.data.model.Habit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -9,61 +8,82 @@ import java.time.LocalDate
 
 class StreakCalculatorTest {
 
-    private fun habit(type: String = "DAILY", days: String = "", interval: Int = 3,
-                      created: String = "2026-01-01") =
-        Habit(name = "Test", frequencyType = type, daysOfWeek = days,
-              interval = interval, createdAt = created)
+    private val today = LocalDate.of(2026, 10, 27) // a Tuesday
+    private fun days(vararg offsets: Int): Set<String> = offsets.map { today.minusDays(it.toLong()).toString() }.toSet()
+    private val daily = Schedule(createdAt = "2026-09-01")
 
-    private fun dates(vararg ds: String) = ds.toSet()
-
-    @Test
-    fun `daily habit is due every day`() {
-        assertTrue(StreakCalculator.isDueOn(habit(), LocalDate.of(2026, 3, 15)))
+    @Test fun `streak counts consecutive days including today`() {
+        assertEquals(3, StreakCalculator.currentStreak(daily, days(0, 1, 2), today))
     }
 
-    @Test
-    fun `specific days respects weekday`() {
-        val h = habit(type = "DAYS", days = "1,3,5") // Mon, Wed, Fri
-        assertTrue(StreakCalculator.isDueOn(h, LocalDate.of(2026, 3, 16))) // Monday
-        assertFalse(StreakCalculator.isDueOn(h, LocalDate.of(2026, 3, 17))) // Tuesday
+    @Test fun `unfinished today does not break the streak`() {
+        assertEquals(2, StreakCalculator.currentStreak(daily, days(1, 2), today))
     }
 
-    @Test
-    fun `interval habit is due every N days from creation`() {
-        val h = habit(type = "INTERVAL", interval = 3, created = "2026-03-01")
-        assertTrue(StreakCalculator.isDueOn(h, LocalDate.of(2026, 3, 1)))
-        assertTrue(StreakCalculator.isDueOn(h, LocalDate.of(2026, 3, 4)))
-        assertFalse(StreakCalculator.isDueOn(h, LocalDate.of(2026, 3, 2)))
+    @Test fun `a missed day resets the streak`() {
+        assertEquals(1, StreakCalculator.currentStreak(daily, days(0, 2, 3), today))
+        assertEquals(0, StreakCalculator.currentStreak(daily, days(2, 3), today))
     }
 
-    @Test
-    fun `current streak counts consecutive due days ending today`() {
-        val today = LocalDate.now().toString()
-        val yesterday = LocalDate.now().minusDays(1).toString()
-        val twoDaysAgo = LocalDate.now().minusDays(2).toString()
-        val streak = StreakCalculator.currentStreak(habit(), dates(today, yesterday, twoDaysAgo))
-        assertTrue(streak >= 3)
+    @Test fun `no completions means no streak`() {
+        assertEquals(0, StreakCalculator.currentStreak(daily, emptySet(), today))
+        assertEquals(0, StreakCalculator.bestStreak(daily, emptySet(), today))
     }
 
-    @Test
-    fun `missed due day breaks the chain`() {
-        val today = LocalDate.now().toString()
-        val twoDaysAgo = LocalDate.now().minusDays(2).toString()
-        val streak = StreakCalculator.currentStreak(habit(), dates(today, twoDaysAgo))
-        assertEquals(1, streak)
+    @Test fun `best streak finds the longest run`() {
+        // 5 in a row, a gap, then 2 in a row ending today
+        assertEquals(5, StreakCalculator.bestStreak(daily, days(0, 1, 5, 6, 7, 8, 9), today))
     }
 
-    @Test
-    fun `best streak finds the longest run`() {
-        val run = (0L..6L).map { LocalDate.now().minusDays(it).toString() }.toSet()
-        val best = StreakCalculator.bestStreak(habit(), run)
-        assertTrue(best >= 7)
+    @Test fun `specific days schedule only counts due days`() {
+        // Mon, Wed, Fri habit. 2026-10-27 is Tuesday so today is not due.
+        val mwf = Schedule(createdAt = "2026-09-01", frequencyType = "DAYS", daysOfWeek = "1,3,5")
+        assertFalse(StreakCalculator.isDueOn(mwf, today, today))
+        assertTrue(StreakCalculator.isDueOn(mwf, LocalDate.of(2026, 10, 26), today)) // Monday
+        // Done Fri 23, Wed 21, Mon 19: streak is 3 (Tuesday/Thursday are not due so they do not break it)
+        val done = setOf("2026-10-26", "2026-10-23", "2026-10-21")
+        assertEquals(3, StreakCalculator.currentStreak(mwf, done, today))
     }
 
-    @Test
-    fun `stats completion rate caps at 100`() {
-        val today = LocalDate.now().toString()
-        val stats = StreakCalculator.stats(habit(created = today), dates(today))
-        assertEquals(100, stats.completionRate)
+    @Test fun `interval schedule is due every N days from creation`() {
+        val every3 = Schedule(createdAt = "2026-10-01", frequencyType = "INTERVAL", interval = 3)
+        assertTrue(StreakCalculator.isDueOn(every3, LocalDate.of(2026, 10, 1), today))
+        assertFalse(StreakCalculator.isDueOn(every3, LocalDate.of(2026, 10, 2), today))
+        assertTrue(StreakCalculator.isDueOn(every3, LocalDate.of(2026, 10, 4), today))
+    }
+
+    @Test fun `habit is not due before it was created`() {
+        assertFalse(StreakCalculator.isDueOn(Schedule(createdAt = "2026-10-20"), LocalDate.of(2026, 10, 19), today))
+    }
+
+    @Test fun `at risk when a streak is running and today is open`() {
+        assertTrue(StreakCalculator.atRisk(daily, days(1, 2, 3), today))
+        assertFalse(StreakCalculator.atRisk(daily, days(0, 1, 2), today))   // already done today
+        assertFalse(StreakCalculator.atRisk(daily, days(2, 3), today))      // streak already broken
+        assertFalse(StreakCalculator.atRisk(daily, emptySet(), today))
+    }
+
+    @Test fun `completion rate is done over due days`() {
+        val from = today.minusDays(3)
+        assertEquals(50, StreakCalculator.completionRate(daily, days(0, 2), from, today, today)) // 2 of 4
+        assertEquals(0, StreakCalculator.completionRate(daily, emptySet(), from, today, today))
+        assertEquals(100, StreakCalculator.completionRate(daily, days(0, 1, 2, 3), from, today, today))
+    }
+
+    @Test fun `completion rate never looks past today`() {
+        assertEquals(100, StreakCalculator.completionRate(daily, days(0), today, today.plusDays(10), today))
+    }
+
+    @Test fun `stats bundle everything`() {
+        val stats = StreakCalculator.stats(daily, days(0, 1, 2), today)
+        assertEquals(3, stats.currentStreak)
+        assertEquals(3, stats.bestStreak)
+        assertEquals(3, stats.totalCompletions)
+    }
+
+    @Test fun `malformed created date falls back to today`() {
+        val broken = Schedule(createdAt = "not-a-date")
+        assertTrue(StreakCalculator.isDueOn(broken, today, today))
+        assertEquals(1, StreakCalculator.currentStreak(broken, days(0), today))
     }
 }

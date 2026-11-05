@@ -1,42 +1,35 @@
 package com.streakly.app
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import com.streakly.app.data.session.SessionManager
+import com.streakly.app.push.NotificationHelper
+import com.streakly.app.worker.SyncScheduler
 
 class StreaklyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        createChannels()
-        val session = SessionManager(this)
-        
-        // Apply theme settings
-        when (session.theme) {
-            "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        }
-
-        // Apply locale settings
-        if (session.language != "system") {
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(session.language))
-        }
-    }
-
-    private fun createChannels() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val nm = getSystemService(NotificationManager::class.java)
-            nm.createNotificationChannel(NotificationChannel(CHANNEL_REMINDERS, "Habit reminders", NotificationManager.IMPORTANCE_DEFAULT))
-            nm.createNotificationChannel(NotificationChannel(CHANNEL_RISK, "Streak risk alerts", NotificationManager.IMPORTANCE_HIGH))
-        }
+        Graph.init(this)
+        applyTheme(Graph.settings.theme)
+        NotificationHelper.createChannels(this)
+        if (Graph.auth.isSignedIn) SyncScheduler.applyPeriodic(this)
     }
 
     companion object {
-        const val CHANNEL_REMINDERS = "reminders"
-        const val CHANNEL_RISK = "risk"
+        fun applyTheme(theme: String) {
+            AppCompatDelegate.setDefaultNightMode(
+                when (theme) {
+                    "light" -> AppCompatDelegate.MODE_NIGHT_NO
+                    "system" -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                    else -> AppCompatDelegate.MODE_NIGHT_YES
+                }
+            )
+        }
+
+        /** "en" / "zu" / "tn", or "system" to follow the phone. AppCompat stores the choice and recreates screens. */
+        fun applyLanguage(tag: String) {
+            val locales = if (tag == "system") LocaleListCompat.getEmptyLocaleList() else LocaleListCompat.forLanguageTags(tag)
+            AppCompatDelegate.setApplicationLocales(locales)
+        }
     }
 }

@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // All Firestore access goes through the Streakly REST API (Firebase Admin SDK, which bypasses these rules).
+    // Clients may never read or write directly.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

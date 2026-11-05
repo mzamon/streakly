@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".StreaklyApplication"
@@ -17,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streakly"
-        android:usesCleartextTraffic="true">
+        tools:targetApi="34">
 
-        <!-- Splash (launcher entry) -->
-        <activity android:name=".ui.splash.SplashActivity"
+        <!-- Launch -->
+        <activity
+            android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Streakly.Splash">
             <intent-filter>
@@ -28,36 +30,74 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.onboarding.OnboardingActivity" android:exported="false" android:theme="@style/Theme.Streakly.Splash" />
+        <activity android:name=".ui.welcome.WelcomeActivity" android:exported="false" android:theme="@style/Theme.Streakly.Splash" />
 
-        <!-- Auth -->
-        <activity android:name=".ui.welcome.WelcomeActivity" android:exported="false"/>
-        <activity android:name=".ui.auth.LoginActivity" android:exported="false"/>
-        <activity android:name=".ui.auth.RegisterActivity" android:exported="false"/>
-        <activity android:name=".ui.auth.ForgotPasswordActivity" android:exported="false"/>
+        <!-- Authentication -->
+        <activity android:name=".ui.auth.LoginActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.auth.RegisterActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.auth.ForgotPasswordActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.auth.EmailVerificationActivity" android:exported="false" />
 
-        <!-- Main and habit management -->
-        <activity android:name=".ui.main.MainActivity" android:exported="false"/>
-        <activity android:name=".ui.habit.AddEditHabitActivity" android:exported="false"/>
-        <activity android:name=".ui.habit.HabitDetailActivity" android:exported="false"/>
+        <!-- Main app -->
+        <activity android:name=".ui.main.MainActivity" android:exported="false" android:launchMode="singleTop" />
+        <activity android:name=".ui.habit.HabitDetailActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.habit.AddEditHabitActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.rewards.CreateEditRewardActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.rewards.BadgesActivity" android:exported="false" />
+        <activity android:name=".ui.rewards.RewardHistoryActivity" android:exported="false" />
+        <activity android:name=".ui.stats.StatsActivity" android:exported="false" />
+        <activity android:name=".ui.sync.SyncStatusActivity" android:exported="false" />
 
         <!-- Settings -->
-        <activity android:name=".ui.settings.SettingsActivity" android:exported="false"/>
+        <activity android:name=".ui.settings.SettingsActivity" android:exported="false" />
+        <activity android:name=".ui.settings.PersonalDetailsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.settings.AccountSecurityActivity" android:exported="false" />
+        <activity android:name=".ui.settings.NotificationsActivity" android:exported="false" />
+        <activity android:name=".ui.settings.PreferencesActivity" android:exported="false" />
+        <activity android:name=".ui.settings.OfflineSyncActivity" android:exported="false" />
+        <activity android:name=".ui.settings.DataBackupActivity" android:exported="false" />
+        <activity android:name=".ui.settings.AboutActivity" android:exported="false" />
+        <activity android:name=".ui.settings.ThemeActivity" android:exported="false" />
+        <activity android:name=".ui.settings.LanguageActivity" android:exported="false" />
 
-        <!-- Scheduled habit reminders -->
-        <receiver
-            android:name=".utils.ReminderReceiver"
-            android:exported="false" />
+        <!-- Push notifications (Firebase Cloud Messaging) -->
+        <service
+            android:name=".push.StreaklyMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_flame_mono" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/orange" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="streak_alerts" />
 
-        <!-- FileProvider for CSV export -->
+        <!-- Lets AppCompat remember the in-app language (en / zu / tn) between launches -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+        <!-- Share exported CSV / JSON files -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 </manifest>

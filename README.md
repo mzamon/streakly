@@ -1,176 +1,153 @@
-# Streakly
+# 🔥 Streakly
 
-> **OPSC6312 Part 2 — App Prototype Development**
+> **OPSC6312 — Portfolio of Evidence (Part 3, final submission)**
 > **Authors:** Tumisho Kokhutja (ST10446195), Mzamo Richmond Ndlovu (ST10455453), Lesego Ayanda Mathe (ST10440650)
 
-Streakly is a Kotlin Android habit-tracking application. It is designed around three demonstrable user-defined features: habit scheduling and logging, streak analytics with gamification, and reminders/settings with offline data export. The app stores data locally first and synchronises habits and completion logs through a custom REST API when a connection is available.
+![Android CI](https://github.com/OWNER/REPO/actions/workflows/android-ci.yml/badge.svg)
 
-## YouTube Link: 
-https://youtu.be/l8ESNy6DJ-c
+**Small habits. Big changes.** Streakly is an offline-first Android habit tracker written in Kotlin. Build daily habits, protect your streaks, earn XP and badges, and redeem rewards you create yourself. It works without a connection, syncs automatically when you are back online, and nudges you with push notifications before a streak breaks. The whole app is available in **English, isiZulu and Setswana**.
 
-## Rubric coverage
+| | Link |
+|---|---|
+| ▶️ **PoE demonstration video** | _add the unlisted YouTube link here before submission_ |
+| Part 2 prototype video | https://youtu.be/l8ESNy6DJ-c |
+| Release notes | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
+| AI-use statement | [docs/AI_USE.md](docs/AI_USE.md) |
+| Privacy policy | [docs/privacy-policy.html](docs/privacy-policy.html) |
+| Play Store material | [docs/PLAY_STORE.md](docs/PLAY_STORE.md) |
 
-| Part 2 criterion | Streakly implementation | Evidence to capture |
+## Screens
+
+_Add screenshots taken on the physical phone to `docs/screenshots/` and reference them here:_
+
+| Splash | Home | Calendar | Rewards | Progress | Settings |
+|---|---|---|---|---|---|
+| ![](docs/screenshots/splash.png) | ![](docs/screenshots/home.png) | ![](docs/screenshots/calendar.png) | ![](docs/screenshots/rewards.png) | ![](docs/screenshots/progress.png) | ![](docs/screenshots/settings.png) |
+
+## PoE rubric coverage
+
+| PoE criterion | Where it lives | How to see it |
 |---|---|---|
-| App runs on a mobile device | Debug APK, launcher splash screen, bottom navigation, and local Room database | Launch the APK on an Android emulator and navigate through all four tabs |
-| Sign in | Registration and login with validation, duplicate-email protection, PBKDF2-HMAC-SHA256 password hashing, and encrypted session preferences | Register, log out, log in again, and show an invalid-password error |
-| Settings menu | Personal details, password change, notification toggle, theme, language, manual sync, CSV export, local-data deletion, account deletion, and About | Open every settings row and demonstrate one successful change |
-| Creation/use of REST API | `server/server.js` exposes `/health` and `/sync` using JSON persistence | Run the server, open `/health`, and show the terminal request/result |
-| REST API integration | Retrofit calls `/sync`; pending Room habits/logs are pushed and server data is pulled; WorkManager retries when offline | Create a habit offline, start the API, use **Sync now**, then show the server JSON and updated sync time |
-| User-defined feature 1 | Habit CRUD with Daily, Specific Days, and Interval schedules plus completion notes | Create, edit, complete, inspect, and delete a habit |
-| User-defined feature 2 | Calendar history, current/best streaks, completion rate, streak-risk notification, and monthly heat-map | Complete habits on multiple dates and show Calendar and statistics |
-| User-defined feature 3 | Points, levels, badges, custom rewards, redemption history, and insufficient-points handling | Earn points, open Rewards, redeem a reward, and show the balance/history |
-| User interface | Consistent Material layouts, bottom navigation, empty states, confirmation dialogs, dark/light themes, and translated strings | Capture clean screenshots of Welcome, Home, Calendar, Rewards, Profile, Settings, and the main dialogs |
-| GitHub, README, automated testing | This repository contains the source, setup instructions, multiple commits, and 12 unit tests for streak and gamification logic | Show the GitHub history, this README, and a successful `testDebugUnitTest` run |
-| Demonstration video | A narrated walkthrough of every criterion above | Record the sequence in the checklist below; add the final link before submission |
+| App runs on a mobile device | Signed release build, animated splash, bottom navigation | Install the signed APK on a physical phone and run the whole demo |
+| **SSO login** | `AuthRepository` (Credential Manager + Firebase), Welcome / Login / Register screens, Settings ▸ Account & security (link / unlink Google) | Tap **Continue with Google**; the user appears in Firebase ▸ Authentication with provider `google.com` |
+| **Offline mode with sync** | Room (single source of truth), `SyncRepository`, `SyncWorker` (WorkManager), `/api/sync`, conflict screen | Airplane mode ▸ complete habits ▸ reconnect ▸ pending count drops to 0 and rows appear in Firestore |
+| **Real-time notifications** | `StreaklyMessagingService` (FCM data messages), `/api/jobs/streak-risk`, `/api/push/test`, deep links | Settings ▸ Notifications ▸ **Send a test notification**; works foreground, background and killed |
+| **Multi-language** | `values/`, `values-zu/`, `values-tn/` (≈ 360 strings + plurals), per-app locale API | Settings ▸ Preferences ▸ Language: the entire UI changes instantly and persists |
+| User-defined 4 | **My Progress** analytics: week / month / year completion ring, bar chart, key stats, per-habit breakdown | Profile ▸ My progress |
+| User-defined 5 | **Cloud profile & data portability**: profile photo in Firebase Storage, JSON / CSV export, backup import, clear cache, delete-all | Settings ▸ Personal details and Settings ▸ Data & backup |
+| Play Store preparation | Signed AAB/APK workflow, adaptive icon, store text, privacy policy, Data-safety answers | [docs/PLAY_STORE.md](docs/PLAY_STORE.md) |
+| User interface | One design system for all 30+ screens (navy + flame orange), dark / light theme, empty / loading / error states, inline validation | Screenshots above |
+| GitHub, README, automated testing | Feature branches, 35 Kotlin unit tests + 23 API tests, GitHub Actions on every push, tagged final release | [Actions tab](../../actions) |
+| Demonstration video | Script in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | — |
 
-## Features
-
-- Local registration, login, and password reset with PBKDF2-HMAC-SHA256 (65,536 iterations, 256-bit key) and per-user salt.
-- Habit create, edit, delete, daily completion, notes, reminders, and three schedule types.
-- Calendar heat-map with completion history, current streak, best streak, and completion rate.
-- Points, levels, badges, rewards, redemption history, and insufficient-balance validation.
-- Profile and Settings screens with notification scheduling, theme/language selection, password changes, CSV export, data deletion, and logout.
-- Room offline-first storage with periodic WorkManager synchronisation.
-- Node.js/Express REST API with `/health` and `/sync` endpoints.
-- English, isiZulu, and Setswana string resources.
-
-Password reset is intentionally local because this prototype has no email
-delivery service: the user verifies the account email stored on the device and
-chooses a new password. Google sign-in is still a labelled placeholder and is
-not advertised as an available authentication provider.
-
-## App file tree
-
-This is the maintained application tree. Generated build output, Gradle caches,
-`node_modules`, machine-specific SDK paths, and runtime `server/data.json` are
-intentionally excluded.
-
-```text
-streakly/
-├── app/
-│   └── src/
-│       ├── main/
-│       │   ├── java/com/streakly/app/
-│       │   │   ├── data/
-│       │   │   │   ├── local/          # Room database, DAOs, and entities
-│       │   │   │   ├── model/          # Application models
-│       │   │   │   ├── remote/         # Retrofit client and DTOs
-│       │   │   │   ├── repository/     # Persistence and sync repositories
-│       │   │   │   └── session/        # Encrypted session preferences
-│       │   │   ├── ui/
-│       │   │   │   ├── auth/           # Login, registration, and reset screen
-│       │   │   │   ├── habit/          # Habit creation and detail screens
-│       │   │   │   ├── main/           # Bottom-navigation host and tabs
-│       │   │   │   ├── settings/       # Settings and account actions
-│       │   │   │   ├── splash/         # Launcher splash flow
-│       │   │   │   └── welcome/        # Welcome screen
-│       │   │   ├── utils/              # Streak, gamification, reminders, UI
-│       │   │   └── StreaklyApplication.kt
-│       │   ├── res/                    # Layouts, drawables, values, and XML
-│       │   └── AndroidManifest.xml
-│       └── test/                       # JVM tests for streak and gamification
-├── server/
-│   ├── server.js                       # Express REST API
-│   └── package.json
-├── .github/workflows/android.yml       # CI test and debug-build workflow
-├── build.gradle.kts
-├── settings.gradle.kts
-├── gradle.properties
-├── gradlew / gradlew.bat
-└── README.md
-```
-
-## Running the app
-
-### Android app
-
-1. Open the repository in Android Studio.
-2. Use an Android emulator with API 24 or newer.
-3. Start the API first if demonstrating synchronisation:
-
-   ```powershell
-   cd server
-   npm install
-   npm start
-   ```
-
-4. Run the `app` configuration. The emulator uses `http://10.0.2.2:3000/`; a physical device requires changing `RetrofitClient.BASE_URL` to the computer's LAN address.
-5. For a clean demonstration, register a new account, create at least three habits, complete several entries, and then demonstrate Rewards, Calendar, Settings, and Sync.
-
-### REST API
-
-The server listens on port `3000`.
-
-```powershell
-cd server
-npm install
-npm start
-curl http://localhost:3000/health
-```
-
-The `/sync` endpoint accepts:
-
-```json
-{
-  "habits": [],
-  "logs": []
-}
-```
-
-The server creates `server/data.json` on its first successful synchronisation. The JSON file is runtime data and should not contain credentials or secrets.
-
-## Testing and build checks
-
-```powershell
-.\gradlew.bat testDebugUnitTest
-.\gradlew.bat assembleDebug
-```
-
-The unit tests cover streak calculation, due-date logic, completion rate, points, levels, and badge rules. The GitHub Actions workflow runs the unit tests and debug build for pushes and pull requests to `main`.
-
-If a local Android SDK is missing the Android Gradle Plugin build tools,
-Gradle can fail before compilation. Install the SDK platform and build-tools
-required by the project in Android Studio, then rerun the commands above. CI
-uses Java 17 and runs the same checks on every push and pull request to `main`.
-
-## Screenshot checklist
-
-Capture screenshots at emulator resolution with no unrelated windows visible:
-
-1. Welcome/auth screen.
-2. Successful registration and Home screen.
-3. Login validation and successful login.
-4. Habit creation showing a schedule type.
-5. Home with completed habits and streak/level summary.
-6. Calendar heat-map and habit detail statistics.
-7. Rewards showing points, badges, rewards, and redemption history.
-8. Settings showing notification, theme, language, sync, export, and deletion controls.
-9. API `/health` response and server data after a sync.
-10. Successful automated test output and the GitHub commit history.
-
-## Demonstration video script
-
-Use a short narrated, professional walkthrough:
-
-1. State the application purpose and the three user-defined features.
-2. Register, demonstrate validation, log out, and log back in.
-3. Create/edit/delete a habit and demonstrate each scheduling option.
-4. Complete a habit, open Calendar, and explain current/best streak and completion rate.
-5. Open Rewards, explain points/levels/badges, redeem a reward, and show history.
-6. Open Settings and demonstrate notifications, theme, language, password change, CSV export, deletion confirmation, and logout.
-7. Start the REST server, perform Sync now, show `/health`, and show the synced JSON data.
-8. Finish with the GitHub README, automated tests, and build result.
+Features carried over from Part 2 (UD1–UD3): habit scheduling and logging (Daily / chosen days / every N days, notes), streak analytics with calendar heat-map, and the points / levels / badges / rewards system.
 
 ## Architecture
 
-- **UI:** Kotlin, AndroidX, Material components, View Binding, RecyclerView, fragments.
-- **Local persistence:** Room (`streakly.db`) and EncryptedSharedPreferences for session settings.
-- **Networking:** Retrofit, OkHttp, Gson, and the Node.js/Express server.
-- **Background work:** WorkManager for periodic synchronisation; AlarmManager for reminders.
-- **Testing:** JUnit unit tests for pure streak and gamification logic.
-- **CI:** `.github/workflows/android.yml` runs unit tests and `assembleDebug`.
+```mermaid
+flowchart LR
+  subgraph Phone["Android app (Kotlin, Material 3)"]
+    UI[Activities / Fragments] --> Repo[Repositories]
+    Repo --> Room[(Room database<br/>source of truth)]
+    Repo --> Sync[SyncRepository + WorkManager]
+    FCM[FirebaseMessagingService]
+  end
+  Sync -- "Retrofit + ID token" --> API
+  subgraph Cloud
+    Auth[Firebase Authentication<br/>email + Google SSO]
+    API[Node.js / Express REST API<br/>hosted on Render]
+    FS[(Cloud Firestore<br/>NoSQL database)]
+    ST[(Firebase Storage<br/>profile photos)]
+    PUSH[Firebase Cloud Messaging]
+  end
+  UI -- sign in --> Auth
+  API -- verify ID token --> Auth
+  API --> FS
+  API -- data messages --> PUSH --> FCM
+  UI -- upload photo --> ST
+```
 
-## AI use
+* **Room is the source of truth.** Every screen observes Room, so the app is fully usable offline. All writes are flagged `PENDING` and a WorkManager job (network-constrained, exponential back-off) uploads them as soon as a connection exists.
+* **Conflict handling.** Each row remembers the server version it was based on. If the cloud copy changed on another device, the API refuses to overwrite and returns it; the *Sync status* screen shows both versions and lets the user keep either one.
+* **Security.** Passwords are hashed and stored by Firebase Authentication (we never see them). The API verifies the Firebase ID token on every request; Firestore rules deny direct client access; Storage rules limit each user to their own photo.
+* **Why these stores?** Relational-style habit data and sync metadata live in Firestore through our API (NoSQL, per-user documents). Media is blob data, so it goes to Firebase Storage. The phone keeps a Room copy for offline use.
 
-AI-assisted scaffolding was reviewed, integrated, tested, and adapted by the team. The final repository, app behavior, tests, documentation, screenshots, and demonstration video are the team's submission evidence.
+## REST API
+
+Base URL = `API_BASE_URL`. All `/api/*` routes except the job need `Authorization: Bearer <Firebase ID token>`.
+
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/health` | Liveness + which store is active |
+| POST | `/api/sync` | Upload pending rows (`since`, `changes`) and receive changes + conflicts |
+| POST / DELETE | `/api/devices` | Register / remove an FCM token (with language and time zone) |
+| POST | `/api/push/test` | Send a real push to the caller's devices |
+| DELETE | `/api/account` | Delete all of the caller's cloud data |
+| POST | `/api/jobs/streak-risk` | Nightly job (header `x-job-secret`): push "streak at risk" alerts |
+
+## Setup
+
+### 1. Firebase (once)
+1. Create a Firebase project. Add an **Android app** with package `com.streakly.app`.
+2. **Authentication ▸ Sign-in method:** enable *Email/Password* and *Google*.
+3. Add your **SHA-1 and SHA-256** fingerprints (debug: `./gradlew signingReport`; also your release/upload key and, later, the Play App Signing key) to the Android app, then download **`google-services.json`** into `app/` (it is git-ignored).
+4. Enable **Cloud Firestore** (production mode) and **Storage**. Publish `firebase/firestore.rules` and `firebase/storage.rules`.
+5. **Project settings ▸ Service accounts ▸ Generate new private key** for the API (never commit it).
+
+### 2. Host the API (Render, free)
+1. Push the repo to GitHub, then on Render choose **New ▸ Blueprint** and pick the repo (`render.yaml`).
+2. Set `FIREBASE_SERVICE_ACCOUNT` to the service-account JSON on **one line**. Note the generated `JOB_SECRET`.
+3. Open `https://YOUR-SERVICE.onrender.com/health`. It should return `"store":"firestore"`.
+4. Nightly alerts: create a Render *Cron Job* (or a scheduled GitHub Action) that runs  
+   `curl -X POST -H "x-job-secret: $JOB_SECRET" "https://YOUR-SERVICE.onrender.com/api/jobs/streak-risk"`
+
+Local API for development: `cd server && npm ci && ALLOW_INSECURE_DEV_AUTH=1 npm start` (file store, header auth, emulator URL `http://10.0.2.2:3000/`).
+
+### 3. Build the app
+```bash
+cp local.properties.example local.properties   # set sdk.dir and API_BASE_URL
+./gradlew testDebugUnitTest assembleDebug
+```
+Install `app/build/outputs/apk/debug/app-debug.apk` on a phone (USB debugging). **Free Render instances sleep:** open `/health` a minute before demonstrating.
+
+### 4. Signed release (Play Store)
+```bash
+keytool -genkey -v -keystore upload.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+KEYSTORE_PATH=upload.jks KEYSTORE_PASSWORD=… KEY_ALIAS=upload KEY_PASSWORD=… ./gradlew assembleRelease bundleRelease
+```
+Or push a tag (`git tag -a v1.0.0-final-poe -m "Final PoE" && git push origin v1.0.0-final-poe`) and the **Release** workflow builds, signs and publishes both files from repository secrets (`GOOGLE_SERVICES_JSON` as base64, `KEYSTORE_B64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`; optional variable `API_BASE_URL`).
+
+## Testing & GitHub Actions
+
+| Suite | Count | Run |
+|---|---|---|
+| Kotlin unit tests (streaks, gamification, validation, sync merge rules, calendar maths, export) | 35 | `./gradlew testDebugUnitTest` |
+| API tests (auth, sync, conflicts, devices, push, account deletion, streak job) | 23 | `cd server && npm test` |
+
+`android-ci.yml` runs both suites and builds the debug APK on every push and pull request; `release.yml` builds the signed release when a version tag is pushed. When the `GOOGLE_SERVICES_JSON` secret is absent the workflow creates a placeholder file so the build still succeeds.
+
+## Design considerations
+
+* Dark navy surfaces with a single flame-orange accent, matching the Streakly logo; light and system themes are supported.
+* Teal means "done", orange means "act", red means "at risk": colour is never the only signal (icons and text accompany it).
+* One shared set of components (settings rows, stat cards, rings, bar charts) keeps spacing, type and shape identical across screens.
+* Forms validate inline in plain language; destructive actions always ask first; every list has an empty state.
+* Animated launch: the flame ignites, a glow breathes, ripples radiate and embers rise while the wordmark tracks in.
+
+## Project structure
+
+```
+app/src/main/java/com/streakly/app/
+  data/        Room entities + DAOs, Retrofit API, repositories (auth, habits, rewards, sync)
+  push/        FCM service, notification channels, deep-link intents
+  worker/      SyncWorker, ReminderWorker (WorkManager)
+  utils/       StreakCalculator, Gamification, SyncMerge, Validators, export helpers (unit tested)
+  ui/          splash, onboarding, auth, main tabs, habit, rewards, stats, settings, sync
+server/        Express API, Firestore + file stores, Jest tests
+firebase/      Firestore + Storage security rules
+docs/          privacy policy, Play Store listing, demo script, AI-use statement
+```
+
+## Referencing
+
+Code comments name the source where an approach was adapted. Full Harvard reference list: see [docs/REFERENCES.md](docs/REFERENCES.md).

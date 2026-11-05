@@ -1,35 +1,37 @@
 package com.streakly.app.utils
 
-import com.streakly.app.data.model.Habit
-import com.streakly.app.data.model.StreakStats
-
+/** Points, levels and badges. Pure functions so the rules are covered by unit tests. */
 object Gamification {
 
-    const val POINTS_PER_COMPLETION = 10
-    const val LEVEL_STEP = 100
+    const val XP_PER_COMPLETION = 10
+    const val XP_PER_LEVEL = 100
 
-    data class Badge(
-        val id: String,
-        val name: String,
-        val emoji: String,
-        val earned: Boolean,
-        val description: String
+    data class Badge(val id: String, val emoji: String, val earned: Boolean)
+
+    fun xpForCompletions(count: Int): Int = count.coerceAtLeast(0) * XP_PER_COMPLETION
+
+    fun levelForXp(xp: Int): Int = 1 + xp.coerceAtLeast(0) / XP_PER_LEVEL
+
+    fun xpIntoLevel(xp: Int): Int = xp.coerceAtLeast(0) % XP_PER_LEVEL
+
+    fun xpToNextLevel(xp: Int): Int = XP_PER_LEVEL - xpIntoLevel(xp)
+
+    /** Spendable points = lifetime XP minus points spent on rewards (never negative). */
+    fun balance(xp: Int, spent: Int): Int = (xp - spent).coerceAtLeast(0)
+
+    fun canAfford(balance: Int, cost: Int): Boolean = cost > 0 && balance >= cost
+
+    fun badges(
+        totalCompletions: Int,
+        bestStreak: Int,
+        habitCount: Int,
+        redemptions: Int
+    ): List<Badge> = listOf(
+        Badge("first_flame", "🔥", totalCompletions >= 1),
+        Badge("streak_7", "🌱", bestStreak >= 7),
+        Badge("streak_30", "🏆", bestStreak >= 30),
+        Badge("century", "⭐", totalCompletions >= 100),
+        Badge("collector", "📚", habitCount >= 5),
+        Badge("treat_yourself", "🎁", redemptions >= 1)
     )
-
-    fun pointsForCompletionCount(count: Int): Int = count * POINTS_PER_COMPLETION
-
-    fun levelForPoints(points: Int): Int = 1 + (points / LEVEL_STEP)
-
-    fun pointsToNextLevel(points: Int): Int = LEVEL_STEP - (points % LEVEL_STEP)
-
-    fun badgesFor(stats: List<Triple<Habit, Set<String>, StreakStats>>): List<Badge> {
-        val bestEver = stats.maxOfOrNull { it.third.bestStreak } ?: 0
-        val totalDone = stats.sumOf { it.third.totalCompletions }
-        return listOf(
-            Badge("first", "First flame", "🔥", totalDone >= 1, "Complete one habit"),
-            Badge("week", "7-day streak", "🌱", bestEver >= 7, "Complete 7 days in a row"),
-            Badge("month", "30-day streak", "🏆", bestEver >= 30, "Complete 30 days in a row"),
-            Badge("century", "100 completions", "⭐", totalDone >= 100, "Log 100 completions")
-        )
-    }
 }

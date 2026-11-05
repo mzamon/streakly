@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.Streakly.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationContentDescription="@string/back"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/notifications" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingTop="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowPush"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_bell"
+                app:srTitle="@string/push_notifications"
+                app:srSwitch="true" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowRisk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_flame_mono"
+                app:srTitle="@string/streak_risk_alerts"
+                app:srSwitch="true" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowHabitReminders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_clock"
+                app:srTitle="@string/habit_reminders"
+                app:srSwitch="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowDaily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_calendar"
+                app:srTitle="@string/daily_reminder"
+                app:srSwitch="true" />
+
+            <View style="@style/Streakly.Divider" />
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowDailyTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_clock"
+                app:srTitle="@string/reminder_time" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <com.streakly.app.ui.widget.SettingRow
+                android:id="@+id/rowSystem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srIcon="@drawable/ic_settings"
+                app:srTitle="@string/system_notification_settings" />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTestPush"
+            style="@style/Widget.Streakly.Button.Outline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/send_test_push" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:indicatorColor="@color/orange"
+            app:trackColor="@color/card_elevated" />
+
+        <TextView
+            android:id="@+id/tvTestResult"
+            style="@style/Text.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

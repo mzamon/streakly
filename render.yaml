@@ -1,0 +1,15 @@
+# Render Blueprint: hosts the Streakly REST API (Node.js) for free.
+services:
+  - type: web
+    name: streakly-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: FIREBASE_SERVICE_ACCOUNT
+        sync: false
+      - key: JOB_SECRET
+        generateValue: true

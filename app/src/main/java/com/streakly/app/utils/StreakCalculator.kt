@@ -1,55 +1,76 @@
 package com.streakly.app.utils
 
-import com.streakly.app.data.model.Habit
-import com.streakly.app.data.model.StreakStats
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
+
+/** The scheduling part of a habit, kept free of Android / Room types so it is trivial to unit test. */
+data class Schedule(
+    val createdAt: String,
+    val frequencyType: String = "DAILY",
+    val daysOfWeek: String = "",
+    val interval: Int = 1
+)
+
+data class StreakStats(
+    val currentStreak: Int,
+    val bestStreak: Int,
+    val totalCompletions: Int,
+    val completionRate: Int
+)
 
 object StreakCalculator {
+    private const val MAX_DAYS = 4000
 
-    fun isDueOn(habit: Habit, date: LocalDate): Boolean {
-        if (date.isBefore(parseOrNull(habit.createdAt) ?: LocalDate.MIN)) return false
-        return when (habit.frequencyType) {
+    private fun parse(s: String): LocalDate? =
+        try { if (s.isBlank()) null else LocalDate.parse(s.take(10)) } catch (e: Exception) { null }
+
+    private fun start(schedule: Schedule, today: LocalDate): LocalDate = parse(schedule.createdAt) ?: today
+
+    fun isDueOn(schedule: Schedule, date: LocalDate, today: LocalDate = LocalDate.now()): Boolean {
+        val created = start(schedule, today)
+        if (date.isBefore(created)) return false
+        return when (schedule.frequencyType) {
             "DAYS" -> {
-                val set = habit.daysOfWeek.split(",").mapNotNull { it.trim().toIntOrNull() }.toSet()
-                set.contains(date.dayOfWeek.value)
+                val days = schedule.daysOfWeek.split(",").mapNotNull { it.trim().toIntOrNull() }.toSet()
+                days.contains(date.dayOfWeek.value)
             }
             "INTERVAL" -> {
-                val created = parseOrNull(habit.createdAt) ?: return false
-                val days = java.time.temporal.ChronoUnit.DAYS.between(created, date).toInt()
-                days >= 0 && days % habit.interval.coerceAtLeast(1) == 0
+                val gap = ChronoUnit.DAYS.between(created, date)
+                gap >= 0 && gap % schedule.interval.coerceAtLeast(1) == 0L
             }
             else -> true
         }
     }
 
-    fun currentStreak(habit: Habit, dates: Set<String>): Int {
-        val created = parseOrNull(habit.createdAt) ?: return 0
+    /**
+     * Consecutive due days completed, counting back from today. Today being unfinished does not break the
+     * streak (the user still has until midnight), but any earlier missed due day does.
+     */
+    fun currentStreak(schedule: Schedule, done: Set<String>, today: LocalDate = LocalDate.now()): Int {
+        val created = start(schedule, today)
+        var cursor = today
+        if (isDueOn(schedule, today, today) && !done.contains(today.toString())) cursor = today.minusDays(1)
         var count = 0
-        var cursor = LocalDate.now()
-        while (!cursor.isBefore(created) &&
-            (!isDueOn(habit, cursor) || !dates.contains(cursor.toString()))) {
-            cursor = cursor.minusDays(1)
-        }
-        while (!cursor.isBefore(created) && dates.contains(cursor.toString())) {
-            count++
-            cursor = cursor.minusDays(1)
-            while (!cursor.isBefore(created) && !isDueOn(habit, cursor)) {
-                cursor = cursor.minusDays(1)
+        var guard = 0
+        while (!cursor.isBefore(created) && guard < MAX_DAYS) {
+            if (isDueOn(schedule, cursor, today)) {
+                if (done.contains(cursor.toString())) count++ else break
             }
+            cursor = cursor.minusDays(1)
+            guard++
         }
         return count
     }
 
-    fun bestStreak(habit: Habit, dates: Set<String>): Int {
-        if (dates.isEmpty()) return 0
-        val created = parseOrNull(habit.createdAt) ?: return 0
+    fun bestStreak(schedule: Schedule, done: Set<String>, today: LocalDate = LocalDate.now()): Int {
+        if (done.isEmpty()) return 0
+        var cursor = start(schedule, today)
         var best = 0
         var run = 0
-        var cursor = created
-        val today = LocalDate.now()
-        while (!cursor.isAfter(today)) {
-            if (isDueOn(habit, cursor)) {
-                if (dates.contains(cursor.toString())) {
+        var guard = 0
+        while (!cursor.isAfter(today) && guard < MAX_DAYS) {
+            if (isDueOn(schedule, cursor, today)) {
+                if (done.contains(cursor.toString())) {
                     run++
                     if (run > best) best = run
                 } else if (cursor.isBefore(today)) {
@@ -57,37 +78,46 @@ object StreakCalculator {
                 }
             }
             cursor = cursor.plusDays(1)
+            guard++
         }
         return best
     }
 
-    fun brokeStreakYesterday(habit: Habit, dates: Set<String>): Boolean {
-        val y = LocalDate.now().minusDays(1)
-        return isDueOn(habit, y) && !dates.contains(y.toString())
-    }
+    /** True when the user has a running streak and today's occurrence is still not logged. */
+    fun atRisk(schedule: Schedule, done: Set<String>, today: LocalDate = LocalDate.now()): Boolean =
+        isDueOn(schedule, today, today) &&
+            !done.contains(today.toString()) &&
+            currentStreak(schedule, done, today) > 0
 
-    fun stats(habit: Habit, dates: Set<String>): StreakStats {
-        val created = parseOrNull(habit.createdAt) ?: LocalDate.now()
-        val today = LocalDate.now()
-        var dueCount = 0
-        var doneCount = 0
-        var cursor = created
-        while (!cursor.isAfter(today)) {
-            if (isDueOn(habit, cursor)) {
-                dueCount++
-                if (dates.contains(cursor.toString())) doneCount++
+    /** Percentage (0-100) of due days completed between [from] and [to] inclusive (never beyond today). */
+    fun completionRate(
+        schedule: Schedule,
+        done: Set<String>,
+        from: LocalDate,
+        to: LocalDate,
+        today: LocalDate = LocalDate.now()
+    ): Int {
+        val end = if (to.isAfter(today)) today else to
+        var cursor = maxOf(from, start(schedule, today))
+        var due = 0
+        var completed = 0
+        var guard = 0
+        while (!cursor.isAfter(end) && guard < MAX_DAYS) {
+            if (isDueOn(schedule, cursor, today)) {
+                due++
+                if (done.contains(cursor.toString())) completed++
             }
             cursor = cursor.plusDays(1)
+            guard++
         }
-        val rate = if (dueCount == 0) 0 else ((doneCount.toFloat() / dueCount) * 100).toInt().coerceAtMost(100)
-        return StreakStats(
-            currentStreak = currentStreak(habit, dates),
-            bestStreak = bestStreak(habit, dates),
-            totalCompletions = dates.size,
-            completionRate = rate
-        )
+        return if (due == 0) 0 else ((completed * 100f) / due).toInt().coerceIn(0, 100)
     }
 
-    private fun parseOrNull(s: String): LocalDate? =
-        try { if (s.isEmpty()) null else LocalDate.parse(s) } catch (e: Exception) { null }
+    fun stats(schedule: Schedule, done: Set<String>, today: LocalDate = LocalDate.now()): StreakStats =
+        StreakStats(
+            currentStreak = currentStreak(schedule, done, today),
+            bestStreak = bestStreak(schedule, done, today),
+            totalCompletions = done.size,
+            completionRate = completionRate(schedule, done, start(schedule, today), today, today)
+        )
 }
