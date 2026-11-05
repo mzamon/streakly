@@ -24,7 +24,7 @@ available, the closest matching app screenshot is reused as a visual preview.
 
 | Screen | Screenshot |
 |---|---|
-| Play Store | ![Play Store preview](assets/streakly_logo_banner.png) |
+| Play Store | ![Play Store preview](assets/playstore.jpeg) |
 | Splash | ![Splash screen](assets/splash.jpeg) |
 | Onboarding | ![Onboarding screen](assets/onboarding.jpeg) |
 | Welcome | ![Welcome screen](assets/onboarding.jpeg) |
