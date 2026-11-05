@@ -38,3 +38,5 @@ Thumbs.db
 /app/release/
 /server/serviceAccountKey.json
 /server/data/
+
+.fake

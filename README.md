@@ -37,7 +37,7 @@ _Add screenshots taken on the physical phone to `docs/screenshots/` and referenc
 | User-defined 5 | **Cloud profile & data portability**: profile photo in Firebase Storage, JSON / CSV export, backup import, clear cache, delete-all | Settings ▸ Personal details and Settings ▸ Data & backup |
 | Play Store preparation | Signed AAB/APK workflow, adaptive icon, store text, privacy policy, Data-safety answers | [docs/PLAY_STORE.md](docs/PLAY_STORE.md) |
 | User interface | One design system for all 30+ screens (navy + flame orange), dark / light theme, empty / loading / error states, inline validation | Screenshots above |
-| GitHub, README, automated testing | 39 Kotlin unit tests + 23 API tests, GitHub Actions on every push, final tag pending | [Actions tab](../../actions) |
+| GitHub, README, automated testing | 43 Kotlin unit tests + 33 API tests, GitHub Actions on every push, final tag pending | [Actions tab](../../actions) |
 | Demonstration video | Script in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | — |
 
 **Final Part 3 scope:** The prototype features (habit scheduling and logging, streak analytics, points, levels, badges and rewards) are retained as the foundation. This final submission adds SSO, offline sync, push notifications, South African language support, progress analytics, cloud profile/data portability, and Play Store preparation.
@@ -121,8 +121,8 @@ Or push a tag (`git tag -a v1.0.0-final-poe -m "Final PoE" && git push origin v1
 
 | Suite | Count | Run |
 |---|---|---|
-| Kotlin unit tests (streaks, gamification, validation, sync merge rules, calendar maths, export) | 39 | `./gradlew testDebugUnitTest` |
-| API tests (auth, sync, conflicts, devices, push, account deletion, streak job) | 23 | `cd server && npm test` |
+| Kotlin unit tests (streaks, gamification, validation, sync merge rules, calendar/date maths, export) | 43 | `./gradlew testDebugUnitTest` |
+| API tests (auth, models, sync, conflicts, devices, push, account deletion, streak job, file store) | 33 | `cd server && npm test` |
 
 `android-ci.yml` runs both suites and builds the debug APK on every push and pull request; `release.yml` builds the signed release when a version tag is pushed. When the `GOOGLE_SERVICES_JSON` secret is absent the workflow creates a placeholder file so the build still succeeds.
 

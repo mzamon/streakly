@@ -4,6 +4,36 @@ This checklist records what is complete in Git and what still requires the team,
 Firebase, Render, Play Console, a physical phone, or submission evidence. Do not
 mark an item complete without retaining the evidence listed.
 
+## Rubric audit (maximum-mark actions)
+
+The implementation for offline sync, NoSQL/API storage, blob storage, authentication,
+SSO, notifications, multi-language support, progress analytics, rewards, export/import,
+settings, validation, and UI is present in the repository. The remaining unchecked
+items below are external proof or release tasks; complete them before submission so
+the implementation can earn the top rubric band.
+
+- [x] Automated coverage expanded to 43 Kotlin unit tests and 33 API tests, including
+  utility functions and exported server helpers.
+- [x] GitHub Actions runs Android tests, API tests, and a debug APK build.
+- [x] Gradle wrapper aligned with AGP 8.2.2 at Gradle 8.5; rerun CI and retain the
+  green run URL after pushing this change.
+- [ ] Prove the app works on a physical Android phone, not only an emulator; retain
+  installation and feature-test evidence.
+- [ ] Demonstrate Firebase Authentication password handling, email verification,
+  Google SSO, Firestore reads/writes, Firebase Storage photo upload, and account
+  deletion in the video.
+- [ ] Demonstrate offline writes, WorkManager retry/sync, conflict resolution, and
+  push notifications in foreground, background, and killed-app states.
+- [ ] Have isiZulu and Setswana translations reviewed by speakers and retain the
+  review evidence.
+- [ ] Complete the professional voice-over video and add its unlisted URL to README.
+- [ ] Add physical-phone screenshots, Play Store feature graphic, signed APK/AAB,
+  Play Console internal-test evidence, and live privacy-policy URL.
+- [ ] Replace placeholders in `docs/AI_USE.md`, cite tools truthfully, and ensure
+  every team member can explain submitted code.
+- [ ] Confirm comments/logging evidence, final release notes, multiple contributor
+  commits, final tag, and GitHub Release assets.
+
 ## Repository and CI
 
 - [x] Repository is hosted at `https://github.com/mzamon/streakly`.
@@ -33,9 +63,9 @@ mark an item complete without retaining the evidence listed.
 
 ## Build and testing
 
-- [x] Run `./gradlew testDebugUnitTest` with the real Kotlin compiler; all 39 tests pass.
-- [x] Run `cd server && npm ci && npm test`; all 23 API tests pass.
-- [x] Run `./gradlew assembleDebug` successfully.
+- [x] Run `./gradlew testDebugUnitTest` with the Gradle 8.5 wrapper; Android compilation and unit tests pass.
+- [x] Run `cd server && npm ci && npm test`; all 33 API tests pass.
+- [x] Run `./gradlew assembleDebug` successfully with the Gradle 8.5 wrapper.
 - [ ] Run `./gradlew assembleRelease` and `./gradlew bundleRelease` successfully with
   the real signing configuration.
 - [ ] Install the signed release build on a physical Android phone.
@@ -70,8 +100,8 @@ mark an item complete without retaining the evidence listed.
 
 ## Current verified repository changes
 
-- Android unit tests and the debug APK build pass locally with a temporary ignored `local.properties`.
-- API tests pass locally after `npm ci`: 23 tests passed.
-- The CI smoke test is committed in `8bd9f74`.
+- API tests pass locally after `npm ci`: 33 tests passed.
+- Android unit-test verification passes with the Gradle 8.5 wrapper in an unlocked
+  working copy; retain the green CI run as the authoritative evidence.
 - No Firebase credentials, signing keys, personal device evidence, Play Console
   evidence, translation review, or final video link is present in this repository yet.

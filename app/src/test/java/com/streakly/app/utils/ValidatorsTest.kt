@@ -47,4 +47,11 @@ class ValidatorsTest {
         assertTrue(Validators.isValidPhone("+27 82 123 4567"))
         assertFalse(Validators.isValidPhone("12"))
     }
+
+    @Test fun `hour must be within a day`() {
+        assertTrue(Validators.isValidHour(0))
+        assertTrue(Validators.isValidHour(23))
+        assertFalse(Validators.isValidHour(-1))
+        assertFalse(Validators.isValidHour(24))
+    }
 }
