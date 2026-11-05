@@ -17,6 +17,9 @@ object FirebaseConfig {
     fun isReady(): Boolean {
         val ctx = appContext ?: return false
         return try {
+            if (FirebaseApp.getApps(ctx).isEmpty()) {
+                FirebaseApp.initializeApp(ctx)
+            }
             FirebaseApp.getApps(ctx).isNotEmpty()
         } catch (e: Exception) {
             false
