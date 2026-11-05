@@ -5,6 +5,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "redemptions", indices = [Index("uid")])
+/** Immutable-looking history entry for spending points on a reward. */
 data class RedemptionEntity(
     @PrimaryKey val id: String,
     val uid: String,

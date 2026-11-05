@@ -14,6 +14,7 @@ import com.streakly.app.ui.common.text
 import com.streakly.app.utils.Validators
 import kotlinx.coroutines.launch
 
+/** Validates credentials locally before delegating sign-in and session setup to the auth layer. */
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding

@@ -8,6 +8,7 @@ import com.streakly.app.data.local.entity.RedemptionEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+/** Room access for reward redemptions shown in history and sent to the server. */
 interface RedemptionDao {
     @Query("SELECT * FROM redemptions WHERE uid = :uid AND deleted = 0 ORDER BY date DESC, updatedAt DESC")
     fun observeActive(uid: String): Flow<List<RedemptionEntity>>

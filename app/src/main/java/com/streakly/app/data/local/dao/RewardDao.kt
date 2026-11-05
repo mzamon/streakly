@@ -8,6 +8,7 @@ import com.streakly.app.data.local.entity.RewardEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+/** Room access for the user's active rewards and their sync state. */
 interface RewardDao {
     @Query("SELECT * FROM rewards WHERE uid = :uid AND deleted = 0 ORDER BY cost ASC, name ASC")
     fun observeActive(uid: String): Flow<List<RewardEntity>>

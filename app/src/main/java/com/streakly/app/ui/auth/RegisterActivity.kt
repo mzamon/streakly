@@ -22,6 +22,7 @@ import com.streakly.app.ui.common.text
 import com.streakly.app.utils.Validators
 import kotlinx.coroutines.launch
 
+/** Handles account creation, password-strength feedback, terms acknowledgement, and Google sign-in. */
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding

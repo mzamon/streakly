@@ -8,6 +8,7 @@ import com.streakly.app.data.local.entity.HabitLogEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+/** Room access for completion logs, including records waiting for remote sync. */
 interface HabitLogDao {
     @Query("SELECT * FROM habit_logs WHERE uid = :uid AND deleted = 0")
     fun observeAll(uid: String): Flow<List<HabitLogEntity>>

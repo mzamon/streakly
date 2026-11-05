@@ -8,6 +8,7 @@ import com.streakly.app.data.local.entity.HabitEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+/** Room access for active, pending, and user-owned habit records. */
 interface HabitDao {
     @Query("SELECT * FROM habits WHERE uid = :uid AND deleted = 0 ORDER BY createdAt ASC, name ASC")
     fun observeActive(uid: String): Flow<List<HabitEntity>>

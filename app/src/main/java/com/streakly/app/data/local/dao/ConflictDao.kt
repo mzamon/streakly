@@ -8,6 +8,7 @@ import com.streakly.app.data.local.entity.ConflictEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+/** Stores unresolved local/cloud edits until the user chooses a version. */
 interface ConflictDao {
     @Query("SELECT * FROM conflicts WHERE uid = :uid ORDER BY detectedAt DESC")
     fun observeAll(uid: String): Flow<List<ConflictEntity>>

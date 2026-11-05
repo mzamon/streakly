@@ -5,6 +5,7 @@ const { createAuth } = require('./auth');
 const { createPusher } = require('./push');
 const { FileStore } = require('./store/fileStore');
 
+// Firebase is optional for local development; production startup requires Firebase credentials.
 function loadFirebase() {
   const json = process.env.FIREBASE_SERVICE_ACCOUNT;
   const hasAdc = !!process.env.GOOGLE_APPLICATION_CREDENTIALS;
@@ -20,12 +21,14 @@ const admin = loadFirebase();
 let store; let firebaseAuth = null; let messaging = null;
 
 if (admin) {
+  // Use managed services in deployed environments.
   const { FirestoreStore } = require('./store/firestoreStore');
   store = new FirestoreStore(admin.firestore());
   firebaseAuth = admin.auth();
   messaging = admin.messaging();
   console.log('Streakly API: Firebase Auth + Firestore + FCM enabled');
 } else if (process.env.ALLOW_INSECURE_DEV_AUTH === '1') {
+  // The file store and header auth are intentionally opt-in and development-only.
   store = new FileStore(path.join(process.env.DATA_DIR || path.join(__dirname, '..', 'data'), 'data.json'));
   messaging = { sendEachForMulticast: async (m) => ({ responses: m.tokens.map(() => ({ success: false, error: { code: 'dev' } })) }) };
   console.warn('Streakly API: DEV MODE (file store, header auth). Never use in production.');

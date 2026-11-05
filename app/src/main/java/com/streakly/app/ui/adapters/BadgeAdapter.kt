@@ -10,6 +10,7 @@ import com.streakly.app.ui.rewards.BadgeText
 import com.streakly.app.utils.ColorUtils
 import com.streakly.app.utils.Gamification
 
+/** Binds earned and locked badges while keeping badge selection in the hosting screen. */
 class BadgeAdapter(private val onClick: (Gamification.Badge) -> Unit) : RecyclerView.Adapter<BadgeAdapter.Holder>() {
 
     private var items: List<Gamification.Badge> = emptyList()

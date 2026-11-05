@@ -23,6 +23,7 @@ import com.streakly.app.ui.stats.StatsActivity
 import com.streakly.app.ui.welcome.WelcomeActivity
 import kotlinx.coroutines.launch
 
+/** Presents account details and routes the user to profile, preference, and progress screens. */
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null

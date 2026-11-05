@@ -18,6 +18,7 @@ import com.streakly.app.utils.ColorUtils
 import com.streakly.app.utils.Validators
 import kotlinx.coroutines.launch
 
+/** Creates or edits a reward and keeps icon selection separate from the persisted entity. */
 class CreateEditRewardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreateEditRewardBinding

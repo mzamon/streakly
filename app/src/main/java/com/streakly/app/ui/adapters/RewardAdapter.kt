@@ -8,6 +8,7 @@ import com.streakly.app.data.local.entity.RewardEntity
 import com.streakly.app.databinding.ItemRewardBinding
 import com.streakly.app.utils.ColorUtils
 
+/** Displays redeemable rewards and disables redemption when the current balance is insufficient. */
 class RewardAdapter(
     private val onRedeem: (RewardEntity) -> Unit,
     private val onEdit: (RewardEntity) -> Unit
