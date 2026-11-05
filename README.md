@@ -37,7 +37,7 @@ _Add screenshots taken on the physical phone to `docs/screenshots/` and referenc
 | User-defined 5 | **Cloud profile & data portability**: profile photo in Firebase Storage, JSON / CSV export, backup import, clear cache, delete-all | Settings ▸ Personal details and Settings ▸ Data & backup |
 | Play Store preparation | Signed AAB/APK workflow, adaptive icon, store text, privacy policy, Data-safety answers | [docs/PLAY_STORE.md](docs/PLAY_STORE.md) |
 | User interface | One design system for all 30+ screens (navy + flame orange), dark / light theme, empty / loading / error states, inline validation | Screenshots above |
-| GitHub, README, automated testing | Feature branches, 39 Kotlin unit tests + 23 API tests, GitHub Actions on every push, tagged final release | [Actions tab](../../actions) |
+| GitHub, README, automated testing | 39 Kotlin unit tests + 23 API tests, GitHub Actions on every push, final tag pending | [Actions tab](../../actions) |
 | Demonstration video | Script in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | — |
 
 Features carried over from Part 2 (UD1–UD3): habit scheduling and logging (Daily / chosen days / every N days, notes), streak analytics with calendar heat-map, and the points / levels / badges / rewards system.

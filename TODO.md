@@ -10,7 +10,7 @@ mark an item complete without retaining the evidence listed.
 - [x] `README.md`, Kotlin source, Firebase rules, server source, and documentation are committed.
 - [x] GitHub Actions workflow runs Kotlin tests, an Android debug build, API tests, and a README smoke test.
 - [x] README badge points to `mzamon/streakly`.
-- [x] Run and retain the successful CI run URL and artifact links.
+- [ ] Run and retain the successful CI run URL and artifact links.
 - [ ] Use feature branches for any remaining changes and merge them through pull requests.
 - [ ] Confirm visible commits from all three team members.
 - [ ] After every required external item is complete, create and push:
