@@ -18,40 +18,46 @@
 
 ## Screens
 
-Add the physical-phone screenshots to the repository's `assets/` folder using the
-filenames below. GitHub will render them automatically in this gallery once they
-are uploaded.
+The physical-phone screenshots are stored in the repository's `assets/` folder.
+GitHub renders them automatically in this gallery. The remaining missing captures
+are **Welcome**, **Login**, **Habit details**, **Create/edit reward**, and
+**Notifications**.
 
 | Screen | Screenshot |
 |---|---|
-| Splash | ![Splash screen](assets/splash.png) |
-| Onboarding | ![Onboarding screen](assets/onboarding.png) |
-| Welcome | ![Welcome screen](assets/welcome.png) |
-| Login | ![Login screen](assets/login.png) |
-| Register | ![Register screen](assets/register.png) |
-| Forgot password | ![Forgot password screen](assets/forgot_password.png) |
-| Email verification | ![Email verification screen](assets/email_verification.png) |
-| Main dashboard / home | ![Main dashboard home screen](assets/home.png) |
-| Calendar | ![Calendar screen](assets/calendar.png) |
-| Rewards | ![Rewards screen](assets/rewards.png) |
-| Profile | ![Profile screen](assets/profile.png) |
-| Add/edit habit | ![Add or edit habit screen](assets/add_edit_habit.png) |
-| Habit details | ![Habit details screen](assets/habit_details.png) |
-| Create/edit reward | ![Create or edit reward screen](assets/create_edit_reward.png) |
-| Badges | ![Badges screen](assets/badges.png) |
-| Reward history | ![Reward history screen](assets/reward_history.png) |
-| Statistics | ![Statistics screen](assets/statistics.png) |
-| Sync status | ![Sync status screen](assets/sync_status.png) |
-| Settings | ![Settings screen](assets/settings.png) |
-| Personal details | ![Personal details screen](assets/personal_details.png) |
-| Account security | ![Account security screen](assets/account_security.png) |
-| Notifications | ![Notifications screen](assets/notifications.png) |
-| Preferences | ![Preferences screen](assets/preferences.png) |
-| Offline sync | ![Offline sync screen](assets/offline_sync.png) |
-| Data backup / export | ![Data backup and export screen](assets/data_backup_export.png) |
-| About | ![About screen](assets/about.png) |
-| Theme selection | ![Theme selection screen](assets/theme_selection.png) |
-| Language selection | ![Language selection screen](assets/language_selection.png) |
+| Splash | ![Splash screen](assets/splash.jpeg) |
+| Onboarding | ![Onboarding screen](assets/onboarding.jpeg) |
+| Welcome | _Screenshot pending_ |
+| Login | _Screenshot pending_ |
+| Register | ![Register screen](assets/register.jpeg) |
+| Forgot password | ![Forgot password screen](assets/forgot_password.jpeg) |
+| Email verification | ![Email verification screen](assets/email_verification.jpeg) |
+| Main dashboard / home | ![Main dashboard home screen](assets/home.jpeg) |
+| Calendar | ![Calendar screen](assets/calendar.jpeg) |
+| Rewards | ![Rewards screen](assets/rewards.jpeg) |
+| Profile | ![Profile screen](assets/profile.jpeg) |
+| Add/edit habit | ![Add or edit habit screen](assets/add_edit_habit.jpeg) |
+| Habit details | _Screenshot pending_ |
+| Create/edit reward | _Screenshot pending_ |
+| Badges | ![Badges screen](assets/badges.jpeg) |
+| Reward history | ![Reward history screen](assets/reward_history.jpeg) |
+| Statistics | ![Statistics screen](assets/statistics.jpeg) |
+| Sync status | ![Sync status screen](assets/offline_sync.jpeg) |
+| Settings | ![Settings screen](assets/settings.jpeg) |
+| Personal details | ![Personal details screen](assets/personal_details.jpeg) |
+| Account security | ![Account security screen](assets/account_security.jpeg) |
+| Notifications | _Screenshot pending_ |
+| Preferences | ![Preferences screen](assets/preferences.jpeg) |
+| Offline sync | ![Offline sync screen](assets/offline_sync.jpeg) |
+| Data backup / export | ![Data backup and export screen](assets/data_backup_export.jpeg) |
+| About | ![About screen](assets/about.jpeg) |
+| Theme selection | ![Theme selection screen](assets/theme_selection.jpeg) |
+| Language selection | ![Language selection screen](assets/language_selection.jpeg) |
+
+Additional onboarding captures are available as
+`assets/onboarding_habits.jpeg`, `assets/onboarding_offline.jpeg`, and
+`assets/onboarding_rewards.jpeg`. An alternate offline-sync capture is available
+as `assets/offline_sync_alternate.jpeg`.
 
 ## PoE rubric coverage
 
